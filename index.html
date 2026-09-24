@@ -505,13 +505,271 @@ body{background:#078fbe}
 @media(prefers-reduced-motion:reduce){
   .fish,.net{animation:none!important}
 }
+</style><style id="visual-overhaul-25d">
+/* ===== 2.5D EDU GAME VISUAL OVERHAUL ===== */
+html,body{overflow:hidden}
+body{background:#0875a4}
+#app{
+  height:100svh;min-height:620px;
+  background:
+    radial-gradient(circle at 12% 70%,rgba(255,255,255,.10) 0 3px,transparent 4px) 0 0/180px 135px,
+    radial-gradient(circle at 76% 76%,rgba(255,255,255,.08) 0 4px,transparent 5px) 0 0/230px 160px,
+    linear-gradient(180deg,#8edcff 0 44%,#56caef 44% 57%,#14aada 57% 78%,#0875a4 78% 100%);
+}
+#app::after{
+  content:"";position:absolute;left:0;right:0;top:44%;height:28px;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,.33),transparent);filter:blur(6px)
+}
+.scene-label{
+  width:min(720px,58vw);height:11px;top:1.5%;
+  background:linear-gradient(90deg,#c9342d,#fff1e1,#c9342d,#fff1e1,#c9342d);
+  box-shadow:0 4px 12px rgba(0,44,61,.18)
+}
+
+/* More organic boats */
+.boat{
+  width:235px;height:132px;filter:drop-shadow(0 11px 6px rgba(0,40,58,.21));
+  transform-origin:center bottom
+}
+.boat.a{left:2.5%;bottom:27%}.boat.b{right:2.5%;bottom:25%;transform:scale(.76);animation-delay:-1.4s}
+.boat svg{display:block;width:100%;height:100%;overflow:visible}
+
+/* Home: compact, premium, less rectangular */
+.home-card{
+  width:min(1110px,91vw);height:min(690px,84vh);
+  padding:30px 38px 34px;border-radius:34px;
+  grid-template-columns:1.12fr .88fr;column-gap:32px;
+  background:
+    radial-gradient(circle at 15% 12%,rgba(255,255,255,.85),transparent 30%),
+    linear-gradient(180deg,rgba(255,255,255,.985),rgba(238,251,255,.97));
+  box-shadow:0 34px 75px rgba(0,40,64,.30),inset 0 0 0 2px rgba(68,187,226,.10)
+}
+.home-title{font-family:"Arial Rounded MT Bold","Trebuchet MS",sans-serif;font-size:clamp(40px,4.7vw,65px);text-shadow:0 5px 0 rgba(5,91,123,.08)}
+.home-sub{font-size:clamp(17px,1.8vw,24px)}
+.culture-badge{
+  background:linear-gradient(180deg,#f3fdff,#e5f8ff);border-color:#b5e8fa;
+  box-shadow:0 6px 14px rgba(0,62,85,.08)
+}
+.instructions{
+  background:linear-gradient(145deg,#f4fdff,#e9faff);
+  box-shadow:inset 0 -7px 0 rgba(38,170,211,.045),0 8px 16px rgba(0,60,84,.07)
+}
+.start-zone{
+  padding:25px 24px;border:3px solid #d5f2fb;border-radius:24px;
+  background:linear-gradient(145deg,#fff,#effbff);
+  box-shadow:0 11px 24px rgba(0,57,80,.08)
+}
+#groupName{box-shadow:inset 0 3px 7px rgba(0,60,82,.06)}
+#startBtn{box-shadow:0 13px 24px rgba(31,166,89,.23);font-size:clamp(18px,1.9vw,26px)}
+#homeScoreBtn{box-shadow:0 13px 24px rgba(224,166,37,.22)}
+
+/* Game HUD: dedicated vertical bands */
+.play-screen .top{
+  width:min(1220px,94vw);height:72px;margin-top:12px;
+  grid-template-columns:135px 1fr auto
+}
+.play-screen .game-title{font-family:"Arial Rounded MT Bold","Trebuchet MS",sans-serif;letter-spacing:.2px}
+.play-screen .group-pill{
+  top:78px;font-size:clamp(13px,1.45vw,18px);
+  background:rgba(255,255,255,.82);border-color:rgba(255,255,255,.98)
+}
+.play-screen .progress{top:108px;width:min(360px,33vw)}
+.play-screen .mission-board{
+  position:relative;width:min(925px,82vw);height:142px;margin:51px auto 0;
+  padding:13px 30px 16px;border-width:7px;border-radius:24px;
+  box-shadow:0 19px 35px rgba(0,43,61,.28),inset 0 4px 0 rgba(255,255,255,.16),inset 0 -7px 0 rgba(80,37,12,.22)
+}
+.mission-board::before,.mission-board::after{
+  box-shadow:inset 0 2px 2px rgba(255,255,255,.18),0 2px 3px rgba(50,22,7,.18)
+}
+.mission-kicker{font-size:clamp(14px,1.5vw,20px)}
+.problem{font-family:"Trebuchet MS","Arial Rounded MT Bold",sans-serif;font-size:clamp(35px,4vw,54px);text-shadow:0 3px rgba(71,34,14,.18)}
+.hint-line{opacity:.94}
+
+/* New 2.5D fish */
+.fishZone{top:40%;bottom:24%;left:2.8vw;right:2.8vw}
+.fish{
+  width:clamp(195px,19vw,245px);height:150px;
+  filter:drop-shadow(0 14px 14px rgba(0,45,67,.10))
+}
+.fish .fish-body{
+  position:absolute;inset:13px 14px 9px 2px;
+  border:5px solid rgba(255,255,255,.96);
+  border-radius:58% 48% 54% 45%/56% 60% 42% 46%;
+  background:
+    radial-gradient(circle at 26% 25%,rgba(255,255,255,.55) 0 7%,transparent 8%),
+    linear-gradient(150deg,#c7f7ff 0%,#66d4f0 42%,#25a7d8 78%,#1188bd 100%);
+  box-shadow:inset 0 -14px 0 rgba(0,72,107,.10),inset 13px 0 17px rgba(255,255,255,.11),0 18px 27px rgba(0,58,86,.22);
+}
+.fish .fish-tail{
+  position:absolute;right:-5px;top:39px;width:67px;height:67px;
+  background:linear-gradient(145deg,#28acd9,#087eb4);
+  clip-path:polygon(0 50%,100% 0,86% 50%,100% 100%);
+  filter:drop-shadow(0 5px 3px rgba(0,60,82,.18))
+}
+.fish .fish-top-fin{
+  position:absolute;left:84px;top:1px;width:51px;height:29px;
+  background:linear-gradient(#2bb3dc,#087aa9);
+  clip-path:polygon(0 100%,42% 0,100% 100%);transform:rotate(-8deg);
+  filter:drop-shadow(0 3px 2px rgba(0,55,76,.16))
+}
+.fish .fish-eye{
+  position:absolute;left:31px;top:31px;width:17px;height:17px;border-radius:50%;
+  background:#fff;box-shadow:inset -4px -4px 0 #0b3b53
+}
+.fish .fish-eye::after{content:"";position:absolute;right:3px;top:3px;width:4px;height:4px;border-radius:50%;background:#fff}
+.fish .fish-gill{
+  position:absolute;left:61px;top:58px;width:25px;height:27px;border-left:4px solid rgba(7,92,125,.38);border-radius:50%;
+  transform:rotate(-18deg)
+}
+.fish .fish-highlight{
+  position:absolute;left:87px;top:42px;width:34px;height:9px;border-radius:99px;background:rgba(255,255,255,.25);transform:rotate(-9deg)
+}
+.fish .ans{
+  position:relative;z-index:4;min-width:78px;padding:8px 11px;
+  border:3px solid rgba(11,73,96,.12);border-radius:15px;background:rgba(255,255,255,.97);
+  color:#123d54;box-shadow:0 6px 10px rgba(0,55,78,.15);
+  font-size:clamp(25px,2.9vw,40px);font-weight:1000
+}
+.fish .fish-choice{
+  position:absolute;z-index:6;left:50%;top:-3px;transform:translate(-50%,-50%);
+  padding:5px 10px;border:2px solid #bfeaf8;border-radius:999px;background:#fff;color:#3a6e7e;
+  font-size:12px;font-weight:1000;box-shadow:0 5px 10px rgba(0,50,70,.10)
+}
+.fish.f1{left:3%;top:42%}.fish.f2{left:50%;top:1%;transform:translateX(-50%)}.fish.f3{right:3%;top:43%}
+.fish.float1{animation:fishSwim1 3.5s ease-in-out infinite}.fish.float2{animation:fishSwim2 3.8s ease-in-out infinite -.9s}.fish.float3{animation:fishSwim3 3.6s ease-in-out infinite -1.3s}
+@keyframes fishSwim1{0%,100%{transform:rotate(-2deg) translateY(0)}50%{transform:rotate(1deg) translateY(-10px)}}
+@keyframes fishSwim2{0%,100%{transform:translateX(-50%) rotate(2deg) translateY(0)}50%{transform:translateX(-50%) rotate(-1deg) translateY(-9px)}}
+@keyframes fishSwim3{0%,100%{transform:rotate(2deg) translateY(0)}50%{transform:rotate(-1deg) translateY(-10px)}}
+.fish.dragging{animation:none!important;filter:drop-shadow(0 23px 22px rgba(0,40,61,.28))}
+.fish.near-net .fish-body{box-shadow:inset 0 -14px 0 rgba(0,72,107,.08),0 0 0 6px rgba(255,225,77,.25),0 20px 29px rgba(0,58,86,.24)}
+.fish.near-net .ans{transform:scale(1.06)}
+.fish.return{animation:fishReturn2 .62s cubic-bezier(.2,.85,.2,1)!important}
+@keyframes fishReturn2{0%{transform:translate(0,0) scale(1)}25%{transform:translate(-20px,0) rotate(-8deg) scale(1.04)}55%{transform:translate(15px,0) rotate(7deg) scale(.98)}100%{transform:translate(0,0) rotate(0) scale(1)}}
+.fish.success{animation:fishCatch2 .72s cubic-bezier(.15,.8,.2,1) forwards!important}
+@keyframes fishCatch2{0%{opacity:1;transform:scale(1)}38%{opacity:1;transform:scale(.86) translateY(9px) rotate(5deg)}100%{opacity:0;transform:scale(.18) translateY(30px) rotate(18deg)}}
+
+/* Jaring */
+.net{
+  width:min(480px,47vw);height:215px;bottom:1.4%;
+}
+.net .netIcon{display:none}
+.net::before{
+  content:"";position:absolute;left:7%;right:7%;top:0;bottom:23%;
+  border:6px solid rgba(255,255,255,.84);border-radius:50%;
+  background:
+    linear-gradient(45deg,transparent 46%,rgba(255,255,255,.40) 47% 49%,transparent 50%) 0 0/24px 24px,
+    linear-gradient(-45deg,transparent 46%,rgba(255,255,255,.34) 47% 49%,transparent 50%) 0 0/24px 24px,
+    linear-gradient(180deg,rgba(44,135,157,.15),rgba(12,73,96,.38));
+  box-shadow:0 24px 30px rgba(0,39,60,.19),inset 0 0 32px rgba(255,255,255,.13);
+  transition:.18s ease
+}
+.net .netLabel{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:3;white-space:nowrap}
+.net.ready::before{transform:scale(1.07);filter:drop-shadow(0 0 17px rgba(255,223,79,.92));border-color:#fff5b3}
+.net.hot{animation:netHot2 .68s ease}
+@keyframes netHot2{20%{transform:translateX(-50%) rotate(-4deg) scale(1.04)}38%{transform:translateX(-50%) rotate(4deg) scale(1.08)}58%{transform:translateX(-50%) rotate(-2deg) scale(1.05)}}
+
+.first-touch-note{
+  bottom:19.5%;padding:6px 11px;background:rgba(255,255,255,.72);color:#176079;border-radius:999px;
+  font-size:13px;font-weight:900;box-shadow:0 5px 12px rgba(0,50,67,.08)
+}
+
+/* Round intro */
+#roundOverlay .round-card{
+  width:min(560px,88vw);padding:30px;border:6px solid #fff;border-radius:29px;
+  background:linear-gradient(180deg,#f5fdff,#e4f8ff);box-shadow:0 30px 68px rgba(0,31,49,.35);
+  text-align:center;animation:roundCardIn .55s cubic-bezier(.17,.8,.2,1)
+}
+#roundOverlay .round-icon{font-size:64px;line-height:1}
+#roundOverlay h2{margin:8px 0 4px;color:#08658a;font-size:clamp(31px,4vw,48px)}
+#roundOverlay p{margin:0;color:#567988;font-size:19px;font-weight:900}
+@keyframes roundCardIn{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:none}}
+
+/* Result */
+#finishModal .result-card{
+  width:min(760px,92vw);padding:29px 30px;border:7px solid #fff;border-radius:31px;
+  background:linear-gradient(180deg,#fffdf3,#eefbff);box-shadow:0 32px 75px rgba(0,31,49,.37)
+}
+#finishModal .result-art{font-size:72px;line-height:1}
+#finishModal h2{margin:5px 0 0;color:#08658a;font-size:clamp(34px,4.7vw,56px)}
+#finishModal .result-group{margin-top:3px;color:#537888;font-size:clamp(18px,2vw,25px);font-weight:1000}
+#finishModal .result-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 13px}
+#finishModal .result-stat{padding:14px;border:3px solid #c0eafa;border-radius:18px;background:#f2fbfe}
+#finishModal .result-stat span{display:block;color:#678794;font-size:13px;font-weight:900}
+#finishModal .result-stat strong{display:block;color:#0a6588;font-size:clamp(29px,3.8vw,45px)}
+#finishModal .result-note{margin:0 0 17px;color:#4b7282;font-size:17px;font-weight:900}
+
+/* Scoreboard */
+.scorePanel{background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(239,251,255,.97))}
+.table{min-width:780px}
+.table th{font-size:16px}.table td{font-size:16px}
+.delete-row{
+  min-height:40px;padding:6px 10px;border:3px solid #fff;border-radius:12px;
+  background:linear-gradient(#ef7466,#d34a3d);color:#fff;font-size:13px;font-weight:1000;box-shadow:0 6px 12px rgba(0,52,75,.13)
+}
+.delete-row:hover{filter:brightness(1.05)}.delete-row:active{transform:scale(.96)}
+.score-table tbody tr:first-child{box-shadow:inset 5px 0 #ffd64e}
+
+/* Teacher and modals */
+.modalBg{background:rgba(0,30,48,.46);backdrop-filter:blur(5px)}
+.modal{border-radius:29px}
+.teacher-grid{grid-template-columns:1fr 1fr}
+.teacher-stat{border-color:#c3ebfa;background:#f3fbfe}
+
+/* Responsive */
+@media(max-width:900px){
+  .home-card{width:92vw;height:auto;max-height:89vh;padding:24px;display:block}
+  .instructions{max-height:270px;margin-bottom:14px}.start-zone{padding:21px}
+  .play-screen .top{width:95vw;grid-template-columns:105px 1fr auto}.play-screen .game-title{font-size:clamp(18px,3.5vw,31px)}
+  .play-screen .group-pill{top:77px}.play-screen .progress{top:106px;width:42vw}
+  .play-screen .mission-board{width:89vw;margin-top:54px}
+}
+@media(max-width:700px){
+  .boat{transform:scale(.72)!important}.boat.a{left:-4%;bottom:28%}.boat.b{right:-4%;bottom:26%}
+  .play-screen .top{grid-template-columns:82px 1fr auto;gap:5px}.play-screen .game-title{font-size:clamp(17px,4vw,27px)}
+  .play-screen .metric{min-width:82px}.play-screen .metric strong{font-size:29px}
+  .play-screen .progress{top:103px;width:52vw}.play-screen .group-pill{top:75px}
+  .play-screen .mission-board{margin-top:53px;height:125px;padding:12px 18px}
+  .fishZone{top:43%;bottom:27%}.fish{width:132px;height:112px}
+  .fish .fish-body{inset:6px 5px 5px 0;border-width:4px}.fish .fish-tail{right:-4px;top:27px;width:43px;height:43px}
+  .fish .fish-top-fin{left:57px;top:2px;width:32px;height:19px}.fish .fish-eye{left:20px;top:22px;width:11px;height:11px}.fish .fish-gill{left:40px;top:42px;width:18px;height:19px}
+  .fish .fish-value{min-width:58px;padding:6px 7px;font-size:23px}
+  .fish .fish-choice{font-size:10px;padding:4px 7px;top:-1px}
+  .fish.f1{left:-1%!important;top:43%!important}.fish.f2{left:50%!important;top:0!important}.fish.f3{right:-1%!important;top:44%!important}
+  .net{width:74vw;height:168px}.net .netLabel{font-size:16px}.first-touch-note{bottom:21.5%;font-size:12px}
+  .game-bottom{bottom:1.2vh}.summary{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+  .home-card{padding:19px 17px 32px}.home-title{font-size:32px}.instructions p{font-size:14px}.start-zone{padding:17px}
+  .summary{grid-template-columns:1fr}.teacher-grid{grid-template-columns:1fr}
+  #finishModal .result-stats{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){.boat,.fish{animation:none!important}}
 </style></head>
 <body>
 <div id="app">
 <div class="culture-strip" aria-hidden="true"></div><div class="sun"></div><div class="cloud ca"></div><div class="cloud cb"></div><div class="cloud cc"></div>
 <div class="wave w1"></div><div class="wave w2"></div><div class="wave w3"></div>
-<div class="boat a"><div class="hull"></div><div class="rim"></div><div class="mast"></div><div class="sail"></div><div class="flag"></div></div>
-<div class="boat b"><div class="hull"></div><div class="rim"></div><div class="mast"></div><div class="sail"></div><div class="flag"></div></div>
+<div class="boat a" aria-hidden="true">
+<svg viewBox="0 0 235 132">
+<defs><linearGradient id="bh1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dda25c"/><stop offset=".55" stop-color="#a65f33"/><stop offset="1" stop-color="#693520"/></linearGradient><linearGradient id="bs1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdf4"/><stop offset="1" stop-color="#f2e6cf"/></linearGradient></defs>
+<path d="M12 88 Q116 101 222 84 L196 115 Q118 131 35 117Z" fill="url(#bh1)" stroke="#5e321f" stroke-width="5"/>
+<path d="M25 87 Q116 96 211 82 L205 94 Q116 105 22 96Z" fill="#efb36a" stroke="#784323" stroke-width="3"/>
+<path d="M116 89V25" stroke="#5d331e" stroke-width="7" stroke-linecap="round"/>
+<path d="M118 29 L175 78 L118 74Z" fill="url(#bs1)" stroke="#d7c7aa" stroke-width="2"/>
+<path d="M118 27 L145 20 L118 18Z" fill="#d7332c"/>
+<path d="M67 87 Q116 73 165 87" fill="none" stroke="#744021" stroke-width="4" stroke-linecap="round"/>
+<circle cx="55" cy="95" r="3" fill="#f5cf92"/><circle cx="75" cy="99" r="3" fill="#f5cf92"/><circle cx="95" cy="101" r="3" fill="#f5cf92"/>
+</svg></div>
+<div class="boat b" aria-hidden="true">
+<svg viewBox="0 0 235 132">
+<defs><linearGradient id="bh2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#cf9654"/><stop offset="1" stop-color="#713821"/></linearGradient></defs>
+<path d="M12 88 Q116 101 222 84 L196 115 Q118 131 35 117Z" fill="url(#bh2)" stroke="#5e321f" stroke-width="5"/>
+<path d="M25 87 Q116 96 211 82 L205 94 Q116 105 22 96Z" fill="#dfa15e" stroke="#784323" stroke-width="3"/>
+<path d="M116 89V25" stroke="#5d331e" stroke-width="7" stroke-linecap="round"/>
+<path d="M118 29 L175 78 L118 74Z" fill="#fff8e7" stroke="#d7c7aa" stroke-width="2"/>
+<path d="M118 27 L145 20 L118 18Z" fill="#d7332c"/>
+</svg></div>
 
 <section id="home" class="screen">
 <div class="card">
@@ -573,7 +831,7 @@ body{background:#078fbe}
 <div class="score-summary" id="scoreSummary"></div>
 <div class="actions" style="margin:15px 0"><button id="scoreHomeBtn" class="btn gray" type="button">⌂ Kembali ke Beranda</button><button id="winnerBtn" class="btn gold" type="button">👑 Tampilkan Pemenang</button><button id="clearBtn" class="btn red" type="button">🗑 Hapus Nilai</button>
 <button id="scoreFullscreenBtn" class="btn gray" type="button">⛶ Fullscreen</button></div>
-<div class="tableWrap"><table class="table"><thead><tr><th>Peringkat</th><th>Kelompok</th><th>Benar</th><th>Waktu</th><th>Tanggal</th></tr></thead><tbody id="scoreBody"></tbody></table></div>
+<div class="tableWrap"><table class="table"><thead><tr><th>Peringkat</th><th>Kelompok</th><th>Benar</th><th>Waktu</th><th>Tanggal</th><th>Aksi</th></tr></thead><tbody id="scoreBody"></tbody></table></div>
 <div id="winnerBox" class="winnerBox hidden"><h3>👑 Kelompok Pemenang</h3><p id="winnerText"></p></div>
 </div>
 </section>
@@ -596,14 +854,30 @@ body{background:#078fbe}
       <button id="teacherClose" class="btn gray" type="button">Tutup</button>
     </div>
   </div>
+</div><div id="roundOverlay" class="modalBg hidden">
+<div class="round-card"><div class="round-icon">🌊</div><h2 id="roundTitle">Ronde 1</h2><p id="roundSub">Perjalanan dimulai!</p></div>
 </div><div id="finishModal" class="modalBg hidden">
-<div class="modal"><div class="modalIcon">🎉</div><h2>Permainan Berakhir!</h2><p id="finishMsg"></p><div class="stats"><div class="stat"><span>Jawaban Benar</span><strong id="finishScore">0/5</strong></div><div class="stat"><span>Total Waktu</span><strong id="finishTime">00:00</strong></div></div><div class="modalActions"><button id="finishScoreBtn" class="btn gold" type="button">🏆 Papan Skor</button><button id="finishHomeBtn" class="btn gray" type="button">⌂ Beranda</button></div></div>
+<div class="result-card">
+<div class="result-art">🎉🌊🎣</div>
+<h2>Perahu Kembali ke Pelabuhan!</h2>
+<div id="finishGroup" class="result-group"></div>
+<div class="result-stats">
+<div class="result-stat"><span>Jawaban Benar</span><strong id="finishScore">0/5</strong></div>
+<div class="result-stat"><span>Total Waktu</span><strong id="finishTime">00:00</strong></div>
 </div>
-
+<p id="finishMsg" class="result-note"></p>
+<div class="modalActions"><button id="finishScoreBtn" class="btn gold" type="button">🏆 Papan Skor</button><button id="finishHomeBtn" class="btn gray" type="button">⌂ Kelompok Berikutnya</button></div>
+</div>
+</div>
 <div id="clearModal" class="modalBg hidden">
 <div class="modal"><div class="modalIcon">🗑️</div><h2>Hapus Semua Nilai?</h2><p>Semua nilai yang tersimpan di browser ini akan dihapus.</p><div class="modalActions"><button id="confirmClear" class="btn red" type="button">Ya, Hapus</button><button id="cancelClear" class="btn gray" type="button">Batal</button></div></div>
 </div>
 
+
+<div id="deleteOneModal" class="modalBg hidden">
+<div class="modal"><div class="modal-icon">🗑️</div><h2>Hapus Nilai Ini?</h2><p id="deleteOneText"></p>
+<div class="modalActions"><button id="confirmDeleteOne" class="btn red" type="button">Ya, Hapus</button><button id="cancelDeleteOne" class="btn gray" type="button">Batal</button></div>
+</div></div>
 <div id="winnerModal" class="modalBg hidden">
 <div class="modal"><div class="modalIcon">👑</div><h2>Kelompok Pemenang</h2><p id="winnerModalText"></p><div class="modalActions"><button id="closeWinner" class="btn gold" type="button">Kembali ke Papan Skor</button></div></div>
 </div>
@@ -628,7 +902,7 @@ function proper(){var d=rint(2,6);return {n:rint(1,d-1),d:d}}
 function frac(n,d){return '<span class="fr"><span class="n">'+n+'</span><span class="d">'+d+'</span></span>'}
 function fmt(ms){var s=Math.max(0,Math.floor(ms/1000)),m=Math.floor(s/60);s=s%60;return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
 function showScreen(which){home.classList.add("hidden");play.classList.add("hidden");scores.classList.add("hidden");which.classList.remove("hidden")}
-function read(){try{var x=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(x)?x:[]}catch(e){return[]}}
+function read(){try{var x=JSON.parse(localStorage.getItem(KEY)||"[]");if(!Array.isArray(x))return[];return x.map(function(r){r=r||{};return {id:r.id||("legacy_"+String(r.group||"")+"_"+String(r.score||0)+"_"+String(r.time||0)+"_"+String(r.date||"")),group:r.group||r.name||"Kelompok",score:Number(r.score)||0,time:Number(r.time||r.timeMs)||0,date:r.date||new Date().toISOString()}})}catch(e){return[]}}
 function save(rec){var x=read();x.push(rec);localStorage.setItem(KEY,JSON.stringify(x))}
 function sorted(){return read().sort(function(a,b){return b.score-a.score||a.time-b.time})}
 function questionNew(){
@@ -644,9 +918,10 @@ function renderFish(){
  var arr=question.answers.slice();
  for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),tmp=arr[i];arr[i]=arr[j];arr[j]=tmp}
  arr.forEach(function(ans,i){
-  var f=document.createElement("div");f.className="fish f"+(i+1);f.dataset.ok=ans.ok?"1":"0";f.dataset.origin=JSON.stringify(pos[i]);
+  var f=document.createElement("div");f.className="fish f"+(i+1)+" float"+(i+1);f.dataset.ok=ans.ok?"1":"0";f.dataset.origin=JSON.stringify(pos[i]);
   f.style.left=pos[i].left||"auto";f.style.right=pos[i].right||"auto";f.style.top=pos[i].top;
-  f.innerHTML='<div class="femoji">🐟</div><div class="ans">'+frac(ans.n,ans.d)+'</div>';
+  f.innerHTML='<div class="fish-choice">Pilihan '+String.fromCharCode(65+i)+'</div>'+
+    '<div class="fish-body"><div class="fish-tail"></div><div class="fish-top-fin"></div><div class="fish-eye"></div><div class="fish-gill"></div><div class="fish-highlight"></div><div class="ans">'+frac(ans.n,ans.d)+'</div></div>';
   f.addEventListener("pointerdown",function(e){startDrag(f,e)});
   fishField.appendChild(f);
  });
@@ -659,7 +934,15 @@ function startDrag(f,e){
  f.classList.add("dragging");f.style.position="fixed";f.style.left=r.left+"px";f.style.top=r.top+"px";f.style.right="auto";f.style.width=r.width+"px";f.style.zIndex="1000";document.body.appendChild(f);
  try{f.setPointerCapture(e.pointerId)}catch(_){}
 }
-document.addEventListener("pointermove",function(e){if(!drag)return;e.preventDefault();drag.f.style.left=(e.clientX-drag.ox)+"px";drag.f.style.top=(e.clientY-drag.oy)+"px"},{passive:false});
+document.addEventListener("pointermove",function(e){
+ if(!drag)return;e.preventDefault();
+ drag.f.style.left=(e.clientX-drag.ox)+"px";drag.f.style.top=(e.clientY-drag.oy)+"px";
+ var rr=drag.f.getBoundingClientRect(),nr=document.querySelector(".net").getBoundingClientRect();
+ var cx=rr.left+rr.width/2,cy=rr.top+rr.height/2;
+ var near=Math.hypot(cx-(nr.left+nr.width/2),cy-(nr.top+nr.height*.42))<Math.max(nr.width*.54,190);
+ drag.f.classList.toggle("near-net",near);
+ document.querySelector(".net").classList.toggle("ready",near);
+},{passive:false});
 document.addEventListener("pointerup",function(e){if(!drag)return;finishDrag(e.clientX,e.clientY)});
 document.addEventListener("pointercancel",function(){if(drag){restore(drag.f);drag=null}});
 function restore(f){
@@ -667,24 +950,41 @@ function restore(f){
 }
 function finishDrag(x,y){
  var f=drag.f,rr=f.getBoundingClientRect(),nr=document.querySelector(".net").getBoundingClientRect();
- var inside=x>nr.left&&x<nr.right&&y>nr.top&&y<nr.bottom,ok=f.dataset.ok==="1";drag=null;
+ var inside=x>nr.left&&x<nr.right&&y>nr.top&&y<nr.bottom,ok=f.dataset.ok==="1";
+ f.classList.remove("near-net");document.querySelector(".net").classList.remove("ready");drag=null;
  if(!inside){restore(f);return}
- if(!ok){restore(f);shake();toastMsg("Coba lagi! Pilih ikan yang benar.","badToast");return}
- f.classList.remove("dragging");f.classList.add("success");f.style.left=(nr.left+nr.width/2-rr.width/2)+"px";f.style.top=(nr.top+nr.height/2-rr.height/2)+"px";
- current.score++;scoreEl.textContent=current.score;net.classList.add("hot");toastMsg("🎉 Tepat! Ikan masuk jaring!","goodToast");
- setTimeout(function(){net.classList.remove("hot");f.remove();if(current.round>=TOTAL){end()}else{questionNew()}},650)
+ if(!ok){restore(f);shake();toastMsg("Belum tepat. Ingat: pembilang × pembilang dan penyebut × penyebut.","badToast");return}
+ f.classList.remove("dragging");f.classList.add("success");
+ f.style.left=(nr.left+nr.width/2-rr.width/2)+"px";f.style.top=(nr.top+nr.height*.42-rr.height/2)+"px";
+ current.score++;scoreEl.textContent=current.score;document.querySelector(".net").classList.add("hot");toastMsg("🎉 Tepat! Ikan berhasil ditangkap!","goodToast");
+ setTimeout(function(){
+  document.querySelector(".net").classList.remove("hot");f.remove();
+  if(current.round>=TOTAL){end()}else{showRoundIntro(function(){questionNew()})}
+ },720);
 }
 function shake(){document.getElementById("app").classList.remove("shake");void document.getElementById("app").offsetWidth;document.getElementById("app").classList.add("shake");setTimeout(function(){document.getElementById("app").classList.remove("shake")},500)}
 function toastMsg(t,c){toast.textContent=t;toast.className="toast "+c+" show";clearTimeout(toast.t);toast.t=setTimeout(function(){toast.className="toast"},850)}
+function showRoundIntro(cb){
+ var overlay=document.getElementById("roundOverlay"),title=document.getElementById("roundTitle"),sub=document.getElementById("roundSub");
+ title.textContent="Ronde "+(current.round+1);
+ sub.textContent=current.round===0?"Perjalanan dimulai!":"Misi berikutnya menanti!";
+ overlay.classList.remove("hidden");
+ clearTimeout(window.__roundTimer);
+ window.__roundTimer=setTimeout(function(){overlay.classList.add("hidden");if(cb)cb()},650);
+}
 function startTimer(){clearInterval(timerId);current.start=Date.now();timerId=setInterval(function(){current.time=Date.now()-current.start;timerEl.textContent=fmt(current.time)},250)}
-function end(){current.finished=true;clearInterval(timerId);current.time=Date.now()-current.start;timerEl.textContent=fmt(current.time);save({group:current.group,score:current.score,time:current.time,date:new Date().toISOString()});document.getElementById("finishMsg").textContent=current.group+" telah menyelesaikan 5 ronde.";document.getElementById("finishScore").textContent=current.score+"/5";document.getElementById("finishTime").textContent=fmt(current.time);finishModal.classList.remove("hidden")}
-function begin(){var n=nameInput.value.trim();if(!n){errorEl.textContent="Silakan masukkan nama kelompok terlebih dahulu.";nameInput.focus();return}errorEl.textContent="";current={group:n,score:0,round:0,start:0,time:0,finished:false};scoreEl.textContent="0";timerEl.textContent="00:00";showScreen(play);startTimer();questionNew()}
+function end(){current.finished=true;clearInterval(timerId);current.time=Date.now()-current.start;timerEl.textContent=fmt(current.time);save({id:"r"+Date.now()+"_"+Math.random().toString(16).slice(2),group:current.group,score:current.score,time:current.time,date:new Date().toISOString()});document.getElementById("finishGroup").textContent=current.group;document.getElementById("finishMsg").textContent=current.score===5?"Sempurna! Semua ikan tertangkap.":current.score>=3?"Hebat! Hasil tangkapanmu sangat baik.":"Perjalanan selesai. Coba lagi untuk meningkatkan tangkapan.";document.getElementById("finishScore").textContent=current.score+"/5";document.getElementById("finishTime").textContent=fmt(current.time);finishModal.classList.remove("hidden")}
+function begin(){var n=nameInput.value.trim();if(!n){errorEl.textContent="Silakan masukkan nama kelompok terlebih dahulu.";nameInput.focus();return}errorEl.textContent="";current={group:n,score:0,round:0,start:0,time:0,finished:false};scoreEl.textContent="0";timerEl.textContent="00:00";showScreen(play);startTimer();showRoundIntro(function(){questionNew()})}
 function homeView(){clearInterval(timerId);finishModal.classList.add("hidden");clearModal.classList.add("hidden");winnerModal.classList.add("hidden");showScreen(home);fishField.innerHTML="";current.finished=true}
 function scoreView(){clearInterval(timerId);finishModal.classList.add("hidden");clearModal.classList.add("hidden");winnerModal.classList.add("hidden");showScreen(scores);renderScores();document.getElementById("winnerBox").classList.add("hidden")}
 function renderScores(){
  var body=document.getElementById("scoreBody"),list=sorted();body.innerHTML="";
- if(!list.length){body.innerHTML='<tr><td colspan="5" class="empty">Belum ada nilai.</td></tr>';return}
- list.forEach(function(x,i){var tr=document.createElement("tr");var d=new Date(x.date);tr.innerHTML="<td>"+(i+1)+"</td><td>"+escapeHtml(x.group)+"</td><td>"+x.score+"/5</td><td>"+fmt(x.time)+"</td><td>"+(isNaN(d)? "-":d.toLocaleDateString("id-ID"))+"</td>";body.appendChild(tr)})
+ if(!list.length){body.innerHTML='<tr><td colspan="6" class="empty">Belum ada nilai. Selesaikan permainan untuk mengisi papan skor.</td></tr>';return}
+ list.forEach(function(x,i){
+  var tr=document.createElement("tr"),d=new Date(x.date);
+  tr.innerHTML="<td>"+(i===0?"👑 ":"")+(i+1)+"</td><td class=\"group-name\">"+escapeHtml(x.group)+"</td><td>"+x.score+"/5</td><td>"+fmt(x.time)+"</td><td>"+(isNaN(d)?"-":d.toLocaleDateString("id-ID"))+"</td><td><button class=\"delete-row\" type=\"button\" data-score-id=\""+escapeHtml(x.id)+"\">🗑 Hapus</button></td>";
+  body.appendChild(tr);
+ });
 }
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]})}
 function winner(){
@@ -831,6 +1131,36 @@ showScreen(home);
 
   /* Saat kembali ke beranda, hentikan musik agar sesi kelompok baru bersih. */
   on("scoreHomeBtn",function(){stopMusic()});
+})();
+</script><script id="row-delete-and-polish-js">
+(function(){
+"use strict";
+var pending=null;
+function $(id){return document.getElementById(id)}
+function readRows(){
+ try{var x=JSON.parse(localStorage.getItem("nelayanSelatMaduraScoreboardV3")||"[]");return Array.isArray(x)?x:[]}
+ catch(e){return[]}
+}
+function rid(r){return r.id||("legacy_"+String(r.group||"")+"_"+String(r.score||0)+"_"+String(r.time||0)+"_"+String(r.date||""))}
+function renderAfter(){var b=$("scoreBody");if(b){var evt=new Event("refreshscores");b.dispatchEvent(evt)}}
+var body=$("scoreBody");
+if(body)body.addEventListener("click",function(e){
+ var btn=e.target.closest(".delete-row");if(!btn)return;
+ pending=btn.getAttribute("data-score-id");
+ var rows=readRows(),hit=rows.find(function(r){return rid(r)===pending});
+ if(!hit)return;
+ $("deleteOneText").textContent='Nilai "'+(hit.group||"Kelompok")+'" akan dihapus. Nilai kelompok lain tetap aman.';
+ $("deleteOneModal").classList.remove("hidden");
+});
+$("cancelDeleteOne").addEventListener("click",function(){$("deleteOneModal").classList.add("hidden");pending=null});
+$("confirmDeleteOne").addEventListener("click",function(){
+ if(!pending)return;
+ var rows=readRows().filter(function(r){return rid(r)!==pending});
+ localStorage.setItem("nelayanSelatMaduraScoreboardV3",JSON.stringify(rows));
+ pending=null;$("deleteOneModal").classList.add("hidden");
+ var homeScore=$("homeScoreBtn");if(homeScore)homeScore.click();
+ setTimeout(function(){var sb=$("scoreBody");if(sb){var rows2=JSON.parse(localStorage.getItem("nelayanSelatMaduraScoreboardV3")||"[]");/* redraw via native button flow */} },60);
+});
 })();
 </script></body>
 </html>
