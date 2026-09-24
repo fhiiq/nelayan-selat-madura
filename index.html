@@ -1,1177 +1,944 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Nelayan Selat Madura</title>
-<style>
-:root{--sky:#8edcff;--sea:#10a8dc;--deep:#08719f;--blue:#086a91;--wood:#a96532;--wood2:#d69b55;--green:#28b963;--yellow:#f3b52d;--red:#dd4b3d;--white:#fff;--ink:#17465c}
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:"Trebuchet MS","Arial Rounded MT Bold",Arial,sans-serif}
-body{background:var(--sky);touch-action:none}
-button,input{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
-#app{position:relative;width:100%;height:100%;min-height:620px;overflow:hidden;background:linear-gradient(#8edcff 0 46%,#47c6ee 46% 61%,var(--sea) 61% 100%)}
-.sun{position:absolute;width:110px;height:110px;right:7%;top:6%;border-radius:50%;background:#ffe36c;box-shadow:0 0 40px #fff2a2}
-.cloud{position:absolute;width:170px;height:52px;border-radius:50px;background:#fff;opacity:.8}
-.cloud:before,.cloud:after{content:"";position:absolute;background:#fff;border-radius:50%}
-.cloud:before{width:65px;height:65px;left:22px;bottom:7px}.cloud:after{width:80px;height:80px;right:18px;bottom:4px}
-.ca{left:5%;top:10%}.cb{left:27%;top:18%;transform:scale(.65);opacity:.55}.cc{right:20%;top:22%;transform:scale(.5);opacity:.5}
-.wave{position:absolute;left:-5%;width:110%;height:55px;border-top:4px solid rgba(255,255,255,.35);border-radius:50%;z-index:1}
-.w1{bottom:28%}.w2{bottom:16%;transform:rotate(1deg)}.w3{bottom:7%;transform:rotate(-1deg);opacity:.45}
-.boat{position:absolute;width:180px;height:90px;bottom:23%;z-index:2;opacity:.85}
-.boat.a{left:4%}.boat.b{right:5%;transform:scale(.75)}
-.hull{position:absolute;left:0;right:0;bottom:0;height:32px;background:#17475c;clip-path:polygon(4% 5%,96% 5%,80% 100%,22% 100%)}
-.rim{position:absolute;left:15px;right:15px;bottom:26px;height:9px;background:#25627a;border-radius:10px}
-.mast{position:absolute;left:87px;bottom:27px;width:6px;height:65px;background:#17475c}
-.sail{position:absolute;left:93px;bottom:42px;width:0;height:0;border-left:42px solid transparent;border-bottom:52px solid #fff7e1}
-.flag{position:absolute;left:93px;bottom:92px;width:21px;height:10px;background:var(--red);clip-path:polygon(0 0,100% 50%,0 100%)}
-.screen{position:absolute;inset:0;z-index:10}
-.card{position:absolute;left:50%;top:50%;transform:translate(-50%,-51%);width:min(920px,92vw);max-height:90vh;overflow:auto;padding:clamp(22px,4vw,42px);background:rgba(255,255,255,.95);border:6px solid #fff;border-radius:32px;box-shadow:0 24px 55px rgba(0,50,77,.28)}
-.home-title{text-align:center;margin:0;color:#075f85;font-size:clamp(34px,6vw,70px);font-weight:1000;line-height:1}
-.sub{text-align:center;margin:10px 0 22px;color:#507487;font-size:clamp(17px,2vw,25px);font-weight:900}
-.instructions{padding:18px 22px;border:4px solid #b4e8fa;border-radius:22px;background:#eefbff;color:var(--ink);margin-bottom:20px}
-.instructions h2{margin:0 0 8px;color:#0b688e;font-size:clamp(22px,2.6vw,31px)}
-.instructions p{margin:6px 0;font-size:clamp(16px,1.8vw,23px);font-weight:800;line-height:1.35}
-.label{display:block;max-width:620px;margin:0 auto 7px;color:var(--ink);font-size:clamp(17px,1.8vw,22px);font-weight:1000}
-#groupName{display:block;width:min(620px,100%);margin:0 auto 10px;padding:14px 17px;border:4px solid #66caee;border-radius:17px;text-align:center;color:var(--ink);font-size:clamp(19px,2.2vw,29px);font-weight:900;outline:none;background:#fff}
-#groupName:focus{border-color:#087ead;box-shadow:0 0 0 4px rgba(102,202,238,.2)}
-#error{min-height:25px;text-align:center;color:#c83227;font-weight:900;font-size:16px}
-.actions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
-.btn{border:4px solid #fff;border-radius:18px;padding:12px 20px;box-shadow:0 10px 22px rgba(0,60,86,.18);font-size:clamp(17px,1.9vw,25px);font-weight:1000}
-.green{background:linear-gradient(#49d97f,#20aa5a);color:#fff}.gold{background:linear-gradient(#ffdc63,#efad27);color:#5a3608}.gray{background:linear-gradient(#7899ab,#4b6b7e);color:#fff}.red{background:linear-gradient(#f06a5d,#cd4034);color:#fff}
-.top{width:min(1120px,93vw);margin:12px auto 0;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
-.badge{color:#fff;text-align:center;font-size:clamp(21px,3.2vw,42px);font-weight:1000;text-shadow:0 4px rgba(0,50,70,.18);white-space:nowrap}
-.metric{min-width:125px;padding:8px 13px;text-align:center;border:4px solid #fff;border-radius:19px;background:linear-gradient(#ffe173,#f3ae27);color:#5c390c;box-shadow:0 12px 24px rgba(0,55,80,.2)}
-.metric.timer{background:linear-gradient(#c4f3ff,#65caef);color:#12455b}
-.metric small{display:block;font-size:13px;font-weight:1000}.metric strong{display:block;font-size:clamp(27px,3.4vw,43px);line-height:1}
-.playRight{display:flex;align-items:center;gap:7px}
-.question{width:min(900px,84vw);margin:10px auto 0;padding:14px 22px;text-align:center;color:#fff8e7;border:8px solid #6f3b20;border-radius:23px;background:repeating-linear-gradient(7deg,rgba(255,255,255,.04) 0 7px,rgba(90,36,11,.06) 7px 13px),linear-gradient(#d79c57,#9e5d30);box-shadow:0 13px 28px rgba(0,45,70,.23)}
-.question .caption{font-size:clamp(15px,1.8vw,22px);font-weight:900}
-.q{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:5px;font-size:clamp(31px,4vw,52px);font-weight:1000}
-.fr{display:inline-flex;flex-direction:column;align-items:center;line-height:.92;min-width:1.1em}.fr .n{border-bottom:.075em solid;padding:0 .12em .06em}.fr .d{padding:.06em .12em 0}
-.tip{margin-top:5px;font-size:clamp(12px,1.3vw,17px);font-weight:700}
-.fishField{position:absolute;left:4vw;right:4vw;top:40%;bottom:25%;z-index:5}
-.fish{position:absolute;width:clamp(145px,18vw,220px);min-height:125px;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px 10px 10px;border:5px solid #fff;border-radius:50%;background:linear-gradient(145deg,#8be8ff,#3cbde8 65%,#179bd2);box-shadow:0 14px 25px rgba(0,70,105,.2);touch-action:none;user-select:none;cursor:grab}
-.fish:before{content:"";position:absolute;right:-28px;top:34px;width:48px;height:48px;background:#179bd2;clip-path:polygon(0 50%,100% 0,100% 100%)}
-.fish:after{content:"";position:absolute;left:23px;top:21px;width:11px;height:11px;background:#fff;border-radius:50%;box-shadow:inset -2px -2px #123a55}
-.fish.dragging{z-index:1000;transform:scale(1.07) rotate(-4deg);box-shadow:0 24px 40px rgba(0,45,75,.3)}
-.fish.return{animation:return .55s ease}.fish.success{animation:success .65s ease forwards}
-@keyframes return{0%{transform:translate(0) rotate(0)}25%{transform:translate(-15px) rotate(-8deg)}55%{transform:translate(14px) rotate(7deg)}100%{transform:translate(0) rotate(0)}}@keyframes success{to{opacity:0;transform:scale(.2) rotate(20deg)}}
-.femoji{font-size:clamp(43px,5vw,68px);position:relative;z-index:1}.ans{position:relative;z-index:2;background:#fff;border:3px solid rgba(0,60,90,.15);border-radius:13px;padding:7px 9px;font-size:clamp(23px,3vw,40px);font-weight:1000;color:#083955}
-.f1{left:4%;top:42%;transform:rotate(-3deg)}.f2{left:42%;top:8%;transform:rotate(2deg)}.f3{right:4%;top:46%;transform:rotate(3deg)}
-.net{position:absolute;left:50%;bottom:2%;transform:translateX(-50%);z-index:6;width:min(430px,44vw);height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.netIcon{font-size:clamp(90px,11vw,155px);line-height:.8;filter:drop-shadow(0 12px 8px rgba(0,45,73,.22))}
-.netLabel{padding:8px 15px;border:4px solid #fff;border-radius:17px;color:#fff;background:#225166;font-size:clamp(16px,1.8vw,24px);font-weight:1000}
-.net.hot{animation:net .7s ease}@keyframes net{20%{transform:translateX(-50%) rotate(-4deg) scale(1.08);filter:drop-shadow(0 0 20px #ffe75a)}40%{transform:translateX(-50%) rotate(4deg) scale(1.06)}60%{transform:translateX(-50%) rotate(-2deg) scale(1.04)}}
-.round{position:absolute;right:2vw;bottom:2vh;padding:7px 11px;border:3px solid #fff;border-radius:12px;background:rgba(13,65,85,.46);color:#fff;font-weight:900}
-.toast{position:absolute;left:50%;top:51%;transform:translate(-50%,-50%) scale(.8);z-index:40;opacity:0;pointer-events:none;min-width:min(75vw,620px);padding:17px 22px;text-align:center;border:5px solid #fff7c8;border-radius:22px;color:#fff;font-size:clamp(22px,3.2vw,42px);font-weight:1000}
-.toast.show{animation:toast .85s ease}.goodToast{background:#25ad5d}.badToast{background:#d74338}
-@keyframes toast{10%,82%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(.96)}}
-.shake{animation:shake .45s ease}@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(5px)}}
-.scorePanel{width:min(1050px,92vw);max-height:90vh;overflow:auto;padding:26px;border:6px solid #fff;border-radius:30px;background:rgba(255,255,255,.96);box-shadow:0 24px 55px rgba(0,50,77,.28);position:absolute;left:50%;top:50%;transform:translate(-50%,-51%)}
-.scoreTitle{text-align:center;margin:0;color:#0a5f84;font-size:clamp(30px,4.6vw,56px);font-weight:1000}
-.scoreSub{text-align:center;color:#557688;font-size:clamp(15px,1.7vw,21px);font-weight:800}
-.tableWrap{overflow:auto;border:4px solid #b7eafd;border-radius:20px}.table{width:100%;min-width:620px;border-collapse:collapse}.table th{background:#0d729a;color:#fff;padding:12px;font-size:18px}.table td{padding:11px;border-top:2px solid #d9f3fc;color:#174c65;font-weight:900;text-align:center}.table td:first-child,.table td:nth-child(2){text-align:left}.empty{text-align:center!important;padding:25px!important;color:#648493!important}
-.winnerBox{margin-top:18px;padding:16px;border:5px solid #ffd85c;border-radius:20px;text-align:center;background:#fff8ce;color:#62420d}.winnerBox h3{margin:0 0 6px;font-size:28px}.winnerBox p{margin:0;font-size:21px;font-weight:1000}
-.modalBg{position:absolute;inset:0;z-index:50;background:rgba(0,30,48,.45);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px}.modal{width:min(650px,92vw);padding:26px;border:6px solid #fff;border-radius:28px;background:#fff;text-align:center;box-shadow:0 28px 60px rgba(0,30,50,.35)}.modalIcon{font-size:70px}.modal h2{margin:8px 0;color:#0a5f84;font-size:clamp(28px,4vw,47px)}.modal p{color:#416b7c;font-size:20px;font-weight:900;line-height:1.35}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{padding:12px;border:3px solid #b7eafd;border-radius:16px;background:#f2fbfe}.stat span{display:block;color:#62808d;font-weight:900}.stat strong{display:block;color:#0b668b;font-size:37px}.modalActions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:17px}
-@media(max-width:900px){.top{grid-template-columns:auto 1fr auto}.badge{font-size:clamp(18px,2.8vw,31px)}.fishField{top:41%;bottom:26%}.f1{left:0}.f2{left:50%;top:0;transform:translateX(-50%) rotate(2deg)}.f3{right:0}.net{width:55vw}}
-@media(max-width:700px){.top{grid-template-columns:1fr auto}.badge{grid-column:1/-1;grid-row:1}.playRight{justify-self:end}.fish{width:128px;min-height:105px;border-width:4px;padding:7px 9px}.fish:before{width:35px;height:35px;right:-20px;top:28px}.femoji{font-size:41px}.ans{font-size:23px;min-width:57px}.fishField{top:42%;bottom:28%}.net{width:68vw;height:165px}.round{display:none}.scorePanel{padding:20px}}
-@media(max-width:520px){.card{padding:19px;border-width:5px}.instructions{padding:14px}.modal{padding:20px}.scorePanel{padding:16px}}
-</style>
-<style>
-/* ===== VISUAL POLISH 3.0 ===== */
-html,body{background:#8edcff}
-body{touch-action:auto;-ms-touch-action:manipulation}
-button{touch-action:manipulation;-ms-touch-action:manipulation;-webkit-user-select:none;user-select:none}
-button:focus-visible,input:focus-visible{outline:4px solid rgba(255,216,80,.85);outline-offset:3px}
-
-#app{
-  background:
-    radial-gradient(circle at 15% 72%,rgba(255,255,255,.12) 0 4px,transparent 5px) 0 0/180px 150px,
-    radial-gradient(circle at 72% 76%,rgba(255,255,255,.12) 0 3px,transparent 4px) 0 0/240px 170px,
-    linear-gradient(#8edcff 0 46%,#48c7ee 46% 61%,#10a8dc 61% 100%);
-}
-#app:before{content:"";position:absolute;left:0;right:0;top:46%;height:12px;z-index:2;pointer-events:none;background:linear-gradient(90deg,transparent,#fff8 25%,#fff 50%,#fff8 75%,transparent);filter:blur(3px);opacity:.34}
-.culture-strip{
-  position:absolute;left:50%;top:2%;transform:translateX(-50%);z-index:9;
-  width:min(680px,68vw);height:14px;border-radius:999px;
-  background:
-    linear-gradient(135deg,transparent 0 24%,#fff 25% 31%,transparent 32% 49%,#fff 50% 56%,transparent 57% 74%,#fff 75% 81%,transparent 82%),
-    linear-gradient(90deg,#c82e28,#f5eee3,#c82e28,#f5eee3,#c82e28);
-  box-shadow:0 4px 10px rgba(0,40,60,.16);opacity:.82;
-}
-.home-card{
-  background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(238,251,255,.96));
-  box-shadow:0 30px 70px rgba(0,45,70,.3),inset 0 0 0 2px rgba(65,190,231,.11);
-}
-.culture-badge{
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:7px 12px;margin:0 auto 9px;border-radius:999px;
-  background:#effbff;border:3px solid #b8eafd;color:#08668d;
-  font-size:clamp(13px,1.5vw,18px);font-weight:1000;
-}
-.home-extra{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 0 15px}
-.home-chip{padding:7px 11px;background:#fff;border:3px solid #d0f1fb;border-radius:999px;color:#4a7181;font-size:clamp(12px,1.4vw,17px);font-weight:900}
-.teacher-mini,.fullscreen-mini{
-  position:absolute;bottom:12px;padding:6px 9px;border:2px solid #9bd9eb;border-radius:12px;
-  background:rgba(255,255,255,.86);color:#2f6479;font-size:13px;font-weight:900;
-}
-.teacher-mini{right:14px}.fullscreen-mini{left:14px}
-
-.game-group{
-  position:absolute;left:50%;top:13.5%;transform:translateX(-50%);z-index:8;
-  padding:5px 13px;border:2px solid rgba(255,255,255,.95);border-radius:999px;
-  background:rgba(255,255,255,.72);color:#0b5d7f;font-size:clamp(13px,1.45vw,18px);font-weight:1000;
-  box-shadow:0 6px 14px rgba(0,45,65,.11);backdrop-filter:blur(5px)
-}
-.progress-wrap{
-  position:absolute;left:50%;top:18%;transform:translateX(-50%);z-index:8;
-  width:min(370px,38vw);display:flex;align-items:center;gap:8px
-}
-.progress-line{flex:1;height:7px;background:rgba(255,255,255,.42);border-radius:999px;overflow:hidden}
-.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#ffe36b,#fff);border-radius:999px;transition:width .35s ease}
-.progress-dots{display:flex;gap:5px}
-.progress-dot{width:13px;height:13px;border-radius:50%;border:2px solid #fff;background:rgba(5,85,112,.25)}
-.progress-dot.done{background:#ffe36b;transform:scale(1.12)}.progress-dot.current{background:#fff;box-shadow:0 0 10px rgba(255,255,255,.8)}
-
-.fish{animation:swimBob 2.7s ease-in-out infinite}
-.fish.f2{animation-delay:-.8s}.fish.f3{animation-delay:-1.5s}
-.fish.dragging{animation:none!important}
-@keyframes swimBob{0%,100%{margin-top:0}50%{margin-top:-9px}}
-.answer-tag{
-  position:absolute;left:50%;top:-21px;transform:translateX(-50%);
-  padding:4px 9px;border:2px solid #c9eef9;border-radius:999px;
-  background:#fff;color:#3b6f81;font-size:12px;font-weight:1000;box-shadow:0 5px 10px rgba(0,45,65,.12)
-}
-
-/* Redesain jaring menjadi target yang lebih jelas untuk IFP */
-.net{
-  width:min(430px,45vw);height:200px;position:absolute;z-index:7;
-}
-.net .netIcon{display:none}
-.net:before{
-  content:"";position:absolute;left:10%;right:10%;top:2%;bottom:22%;border-radius:50%;
-  border:5px solid rgba(255,255,255,.82);
-  background:
-    linear-gradient(45deg,transparent 46%,rgba(255,255,255,.37) 47% 49%,transparent 50%) 0 0/24px 24px,
-    linear-gradient(-45deg,transparent 46%,rgba(255,255,255,.34) 47% 49%,transparent 50%) 0 0/24px 24px,
-    rgba(13,91,116,.27);
-  box-shadow:0 20px 27px rgba(0,39,60,.18),inset 0 0 26px rgba(255,255,255,.12)
-}
-.net .netLabel{position:absolute;left:50%;bottom:0;transform:translateX(-50%);white-space:nowrap;z-index:2}
-.net.hot{animation:netHot .65s ease}
-@keyframes netHot{
-  20%{filter:drop-shadow(0 0 16px #ffe76a);transform:translateX(-50%) rotate(-3deg) scale(1.05)}
-  40%{transform:translateX(-50%) rotate(3deg) scale(1.08)}
-  60%{transform:translateX(-50%) rotate(-2deg) scale(1.04)}
-}
-
-.play-tools{position:absolute;left:2vw;bottom:2vh;z-index:9;display:flex;gap:7px}
-.mini-tool{border:3px solid rgba(255,255,255,.9);border-radius:13px;padding:7px 10px;background:rgba(14,71,93,.48);color:#fff;font-size:13px;font-weight:1000;backdrop-filter:blur(4px)}
-
-.score-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 16px}
-.summary-card{padding:12px;border:3px solid #c1eafa;border-radius:18px;background:#f4fcff;text-align:center}
-.summary-card small{display:block;color:#698794;font-size:13px;font-weight:900}
-.summary-card strong{display:block;margin-top:2px;color:#0b668b;font-size:clamp(24px,3vw,36px);font-weight:1000}
-.summary-card em{display:block;color:#5e7e8b;font-size:12px;font-style:normal;font-weight:800}
-.score-table tbody tr:first-child{background:linear-gradient(90deg,#fff7c7,#fffdf1)!important}
-.teacher-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}
-.teacher-stat{padding:14px;border:3px solid #c2ebfa;border-radius:18px;background:#f2fbfe;text-align:left}
-.teacher-stat span{display:block;color:#678594;font-size:13px;font-weight:900}
-.teacher-stat strong{display:block;color:#0b668b;font-size:27px}
-.teacher-note{font-size:14px!important;color:#668493!important;margin-bottom:13px!important}
-
-@media(max-width:700px){
-  .culture-strip{width:65vw;top:1.2%}.game-group{top:16%}.progress-wrap{top:21%;width:50vw}
-  .score-summary{grid-template-columns:1fr 1fr}.net{width:68vw}
-}
-@media(max-width:520px){
-  .progress-wrap{width:66vw}.score-summary{grid-template-columns:1fr}
-  .fullscreen-mini,.teacher-mini{font-size:11px;padding:5px 7px}
-  .net{width:75vw}
-}
-</style>
-
-<style id="final-layout-polish">
-/* =========================================================
-   FINAL LAYOUT POLISH — IFP 16:9 / LAPTOP
-   Fokus: hierarchy, spacing, touch target, readability
-   ========================================================= */
-html,body{width:100%;height:100%;overflow:hidden}
-body{background:#078fbe}
-
-#app{
-  min-height:100svh;
-  height:100svh;
-  overflow:hidden;
-  isolation:isolate;
-}
-#app::before{
-  content:"";
-  position:absolute;
-  inset:auto 0 0;
-  height:40%;
-  z-index:1;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 10% 30%,rgba(255,255,255,.10) 0 3px,transparent 4px) 0 0/180px 130px,
-    radial-gradient(circle at 80% 55%,rgba(255,255,255,.08) 0 4px,transparent 5px) 0 0/220px 150px;
-}
-
-/* ---------------- BERANDA ---------------- */
-.home-card{
-  top:50%;
-  width:min(1040px,88vw);
-  min-height:min(650px,86vh);
-  max-height:86vh;
-  padding:28px 42px 42px;
-  display:grid;
-  grid-template-columns:minmax(0,1.25fr) minmax(290px,.75fr);
-  grid-template-rows:auto auto auto 1fr auto auto;
-  column-gap:34px;
-  align-content:center;
-  border:7px solid rgba(255,255,255,.98);
-  border-radius:34px;
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.985),rgba(238,251,255,.97));
-  box-shadow:
-    0 34px 75px rgba(0,42,65,.30),
-    inset 0 0 0 2px rgba(75,192,229,.12);
-}
-.home-card::before{
-  content:"";
-  position:absolute;
-  left:28px;right:28px;top:11px;
-  height:8px;border-radius:999px;
-  background:linear-gradient(90deg,#c92f29,#f6e9db,#c92f29,#f6e9db,#c92f29);
-  opacity:.78;
-}
-.home-title{
-  grid-column:1 / -1;
-  margin:0;
-  font-size:clamp(38px,4.7vw,64px);
-  letter-spacing:-1.8px;
-  line-height:.98;
-  text-align:center;
-}
-.sub{
-  grid-column:1 / -1;
-  margin:7px 0 8px;
-  font-size:clamp(17px,1.8vw,24px);
-}
-.culture-badge{
-  grid-column:1 / -1;
-  justify-self:center;
-  margin-bottom:8px;
-}
-.home-extra{
-  grid-column:1 / -1;
-  margin:0 0 15px;
-}
-.instructions{
-  grid-column:1;
-  grid-row:5;
-  align-self:center;
-  margin:0;
-  padding:17px 19px;
-  border-radius:20px;
-}
-.instructions h2{margin-bottom:7px}
-.instructions p{
-  margin:5px 0;
-  line-height:1.28;
-  font-size:clamp(15px,1.55vw,20px);
-}
-.label{
-  grid-column:2;
-  grid-row:5;
-  align-self:end;
-  margin:0 0 6px;
-}
-#groupName{
-  grid-column:2;
-  grid-row:5;
-  align-self:center;
-  margin:0;
-  transform:translateY(24px);
-}
-#error{
-  grid-column:2;
-  grid-row:6;
-  align-self:start;
-  min-height:22px;
-  margin:5px 0 4px;
-}
-.home-actions{
-  grid-column:2;
-  grid-row:6;
-  align-self:end;
-  justify-content:center;
-  gap:9px;
-  transform:translateY(40px);
-}
-.home-actions .btn{
-  min-width:0;
-  padding:11px 18px;
-}
-.fullscreen-mini,.teacher-mini{
-  bottom:11px;
-  font-size:12px;
-  opacity:.92;
-}
-.fullscreen-mini{left:14px}.teacher-mini{right:14px}
-
-/* ---------------- GAME HUD ---------------- */
-.play-screen .top{
-  position:relative;
-  z-index:9;
-  height:76px;
-  margin-top:14px;
-  width:min(1180px,94vw);
-  grid-template-columns:150px 1fr auto;
-}
-.play-screen .metric{min-width:125px}
-.play-screen .badge{
-  font-size:clamp(23px,3vw,39px);
-  line-height:1;
-}
-.play-screen .game-group{
-  top:82px;
-  left:50%;
-  transform:translateX(-50%);
-  white-space:nowrap;
-}
-.play-screen .progress-wrap{
-  top:114px;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(330px,34vw);
-}
-.play-screen .question{
-  width:min(920px,82vw);
-  margin:62px auto 0;
-  min-height:126px;
-  padding:15px 28px 17px;
-  border-width:7px;
-  border-radius:23px;
-}
-.play-screen .question .caption{
-  font-size:clamp(16px,1.7vw,22px);
-}
-.play-screen .q{
-  min-height:52px;
-  font-size:clamp(31px,3.8vw,50px);
-}
-.play-screen .tip{
-  font-size:clamp(12px,1.25vw,16px);
-}
-.play-screen .fishField{
-  top:40.5%;
-  bottom:24%;
-  left:3.5vw;
-  right:3.5vw;
-}
-.play-screen .fish{
-  width:clamp(170px,18vw,225px);
-  min-height:136px;
-  padding:11px 17px 11px 10px;
-  border-width:5px;
-}
-.play-screen .femoji{font-size:clamp(48px,5vw,68px)}
-.play-screen .ans{
-  min-width:70px;
-  padding:8px 10px;
-  font-size:clamp(24px,2.8vw,39px);
-}
-.play-screen .f1{left:3%;top:41%}
-.play-screen .f2{left:50%;top:3%;transform:translateX(-50%) rotate(2deg)}
-.play-screen .f3{right:3%;top:41%}
-
-.play-screen .net{
-  width:min(460px,48vw);
-  height:205px;
-  bottom:1.8%;
-}
-.play-screen .net::before{
-  left:8%;right:8%;top:0;bottom:23%;
-  border-width:5px;
-}
-.play-screen .net .netLabel{
-  font-size:clamp(17px,1.8vw,23px);
-  padding:9px 16px;
-}
-.play-tools{bottom:2.1vh;left:1.7vw}
-.round{right:1.7vw;bottom:2.1vh}
-
-/* ---------------- SCOREBOARD ---------------- */
-.scorePanel{
-  width:min(1120px,92vw);
-  max-height:88vh;
-  padding:26px 34px 31px;
-}
-.scoreTitle{font-size:clamp(31px,4.3vw,53px);line-height:1}
-.scoreSub{margin:7px 0 15px}
-.score-summary{gap:12px;margin:13px 0 15px}
-.summary-card{padding:12px 10px}
-.table th{padding:13px 11px}
-.table td{padding:12px 11px}
-.scorePanel .actions{gap:9px}
-.scorePanel .actions .btn{padding:10px 15px}
-
-/* ---------------- MODALS ---------------- */
-.modal{
-  width:min(680px,90vw);
-  border-radius:28px;
-  padding:26px 28px;
-}
-.modal h2{line-height:1.05}
-.stats{gap:12px}
-.stat{padding:13px}
-
-/* ---------------- DESKTOP / IFP HEIGHT TUNING ---------------- */
-@media (min-width:901px) and (min-height:700px){
-  .home-card{min-height:610px;max-height:82vh}
-  .home-title{font-size:clamp(40px,4.3vw,60px)}
-  .instructions p{font-size:clamp(15px,1.42vw,19px)}
-  .play-screen .question{margin-top:67px}
-  .play-screen .fishField{top:41%}
-}
-@media (min-width:1200px) and (min-height:720px){
-  .play-screen .fishField{top:40.5%;bottom:24.5%}
-}
-
-/* ---------------- TABLET / NARROW ---------------- */
-@media(max-width:900px){
-  .home-card{
-    width:92vw;
-    min-height:auto;
-    max-height:90vh;
-    padding:25px 26px 36px;
-    display:block;
-  }
-  .home-title{font-size:clamp(34px,6vw,56px)}
-  .instructions{margin-bottom:17px}
-  .label{margin:0 auto 7px;text-align:left;max-width:620px}
-  #groupName{transform:none;margin:0 auto 7px}
-  #error{margin:0 auto 5px}
-  .home-actions{transform:none}
-  .play-screen .top{
-    height:72px;
-    width:94vw;
-  }
-  .play-screen .game-group{top:78px}
-  .play-screen .progress-wrap{top:108px;width:42vw}
-  .play-screen .question{margin-top:58px;width:89vw}
-}
-@media(max-width:700px){
-  .culture-strip{display:none}
-  .home-extra{gap:6px}
-  .home-chip{padding:6px 9px}
-  .play-screen .top{
-    grid-template-columns:90px 1fr auto;
-    gap:6px;
-  }
-  .play-screen .badge{font-size:clamp(18px,4vw,28px)}
-  .play-screen .playRight{gap:5px}
-  .play-screen .metric{min-width:95px}
-  .play-screen .metric strong{font-size:30px}
-  .play-screen .question{margin-top:54px}
-  .play-screen .fishField{top:43%;bottom:27%}
-  .play-screen .fish{width:128px;min-height:108px}
-  .play-screen .f1{left:-1%;top:42%}
-  .play-screen .f2{top:0}
-  .play-screen .f3{right:-1%;top:43%}
-  .play-screen .net{width:73vw;height:165px}
-  .play-screen .net .netLabel{font-size:16px}
-  .play-tools{bottom:1.6vh}
-}
-@media(max-width:520px){
-  .home-card{padding:20px 18px 32px}
-  .home-title{font-size:33px}
-  .instructions p{font-size:15px}
-  .instructions h2{font-size:22px}
-  .home-chip{font-size:12px}
-}
-
-/* ---------------- TOUCH / REDUCED MOTION ---------------- */
-.btn,.mini-tool,.fullscreen-mini,.teacher-mini{min-height:44px}
-@media(pointer:coarse){
-  .fish{cursor:grab}
-  .fish-answer{min-width:76px}
-  .btn{padding-top:13px;padding-bottom:13px}
-}
-@media(prefers-reduced-motion:reduce){
-  .fish,.net{animation:none!important}
-}
-</style><style id="visual-overhaul-25d">
-/* ===== 2.5D EDU GAME VISUAL OVERHAUL ===== */
-html,body{overflow:hidden}
-body{background:#0875a4}
-#app{
-  height:100svh;min-height:620px;
-  background:
-    radial-gradient(circle at 12% 70%,rgba(255,255,255,.10) 0 3px,transparent 4px) 0 0/180px 135px,
-    radial-gradient(circle at 76% 76%,rgba(255,255,255,.08) 0 4px,transparent 5px) 0 0/230px 160px,
-    linear-gradient(180deg,#8edcff 0 44%,#56caef 44% 57%,#14aada 57% 78%,#0875a4 78% 100%);
-}
-#app::after{
-  content:"";position:absolute;left:0;right:0;top:44%;height:28px;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,transparent,rgba(255,255,255,.33),transparent);filter:blur(6px)
-}
-.scene-label{
-  width:min(720px,58vw);height:11px;top:1.5%;
-  background:linear-gradient(90deg,#c9342d,#fff1e1,#c9342d,#fff1e1,#c9342d);
-  box-shadow:0 4px 12px rgba(0,44,61,.18)
-}
-
-/* More organic boats */
-.boat{
-  width:235px;height:132px;filter:drop-shadow(0 11px 6px rgba(0,40,58,.21));
-  transform-origin:center bottom
-}
-.boat.a{left:2.5%;bottom:27%}.boat.b{right:2.5%;bottom:25%;transform:scale(.76);animation-delay:-1.4s}
-.boat svg{display:block;width:100%;height:100%;overflow:visible}
-
-/* Home: compact, premium, less rectangular */
-.home-card{
-  width:min(1110px,91vw);height:min(690px,84vh);
-  padding:30px 38px 34px;border-radius:34px;
-  grid-template-columns:1.12fr .88fr;column-gap:32px;
-  background:
-    radial-gradient(circle at 15% 12%,rgba(255,255,255,.85),transparent 30%),
-    linear-gradient(180deg,rgba(255,255,255,.985),rgba(238,251,255,.97));
-  box-shadow:0 34px 75px rgba(0,40,64,.30),inset 0 0 0 2px rgba(68,187,226,.10)
-}
-.home-title{font-family:"Arial Rounded MT Bold","Trebuchet MS",sans-serif;font-size:clamp(40px,4.7vw,65px);text-shadow:0 5px 0 rgba(5,91,123,.08)}
-.home-sub{font-size:clamp(17px,1.8vw,24px)}
-.culture-badge{
-  background:linear-gradient(180deg,#f3fdff,#e5f8ff);border-color:#b5e8fa;
-  box-shadow:0 6px 14px rgba(0,62,85,.08)
-}
-.instructions{
-  background:linear-gradient(145deg,#f4fdff,#e9faff);
-  box-shadow:inset 0 -7px 0 rgba(38,170,211,.045),0 8px 16px rgba(0,60,84,.07)
-}
-.start-zone{
-  padding:25px 24px;border:3px solid #d5f2fb;border-radius:24px;
-  background:linear-gradient(145deg,#fff,#effbff);
-  box-shadow:0 11px 24px rgba(0,57,80,.08)
-}
-#groupName{box-shadow:inset 0 3px 7px rgba(0,60,82,.06)}
-#startBtn{box-shadow:0 13px 24px rgba(31,166,89,.23);font-size:clamp(18px,1.9vw,26px)}
-#homeScoreBtn{box-shadow:0 13px 24px rgba(224,166,37,.22)}
-
-/* Game HUD: dedicated vertical bands */
-.play-screen .top{
-  width:min(1220px,94vw);height:72px;margin-top:12px;
-  grid-template-columns:135px 1fr auto
-}
-.play-screen .game-title{font-family:"Arial Rounded MT Bold","Trebuchet MS",sans-serif;letter-spacing:.2px}
-.play-screen .group-pill{
-  top:78px;font-size:clamp(13px,1.45vw,18px);
-  background:rgba(255,255,255,.82);border-color:rgba(255,255,255,.98)
-}
-.play-screen .progress{top:108px;width:min(360px,33vw)}
-.play-screen .mission-board{
-  position:relative;width:min(925px,82vw);height:142px;margin:51px auto 0;
-  padding:13px 30px 16px;border-width:7px;border-radius:24px;
-  box-shadow:0 19px 35px rgba(0,43,61,.28),inset 0 4px 0 rgba(255,255,255,.16),inset 0 -7px 0 rgba(80,37,12,.22)
-}
-.mission-board::before,.mission-board::after{
-  box-shadow:inset 0 2px 2px rgba(255,255,255,.18),0 2px 3px rgba(50,22,7,.18)
-}
-.mission-kicker{font-size:clamp(14px,1.5vw,20px)}
-.problem{font-family:"Trebuchet MS","Arial Rounded MT Bold",sans-serif;font-size:clamp(35px,4vw,54px);text-shadow:0 3px rgba(71,34,14,.18)}
-.hint-line{opacity:.94}
-
-/* New 2.5D fish */
-.fishZone{top:40%;bottom:24%;left:2.8vw;right:2.8vw}
-.fish{
-  width:clamp(195px,19vw,245px);height:150px;
-  filter:drop-shadow(0 14px 14px rgba(0,45,67,.10))
-}
-.fish .fish-body{
-  position:absolute;inset:13px 14px 9px 2px;
-  border:5px solid rgba(255,255,255,.96);
-  border-radius:58% 48% 54% 45%/56% 60% 42% 46%;
-  background:
-    radial-gradient(circle at 26% 25%,rgba(255,255,255,.55) 0 7%,transparent 8%),
-    linear-gradient(150deg,#c7f7ff 0%,#66d4f0 42%,#25a7d8 78%,#1188bd 100%);
-  box-shadow:inset 0 -14px 0 rgba(0,72,107,.10),inset 13px 0 17px rgba(255,255,255,.11),0 18px 27px rgba(0,58,86,.22);
-}
-.fish .fish-tail{
-  position:absolute;right:-5px;top:39px;width:67px;height:67px;
-  background:linear-gradient(145deg,#28acd9,#087eb4);
-  clip-path:polygon(0 50%,100% 0,86% 50%,100% 100%);
-  filter:drop-shadow(0 5px 3px rgba(0,60,82,.18))
-}
-.fish .fish-top-fin{
-  position:absolute;left:84px;top:1px;width:51px;height:29px;
-  background:linear-gradient(#2bb3dc,#087aa9);
-  clip-path:polygon(0 100%,42% 0,100% 100%);transform:rotate(-8deg);
-  filter:drop-shadow(0 3px 2px rgba(0,55,76,.16))
-}
-.fish .fish-eye{
-  position:absolute;left:31px;top:31px;width:17px;height:17px;border-radius:50%;
-  background:#fff;box-shadow:inset -4px -4px 0 #0b3b53
-}
-.fish .fish-eye::after{content:"";position:absolute;right:3px;top:3px;width:4px;height:4px;border-radius:50%;background:#fff}
-.fish .fish-gill{
-  position:absolute;left:61px;top:58px;width:25px;height:27px;border-left:4px solid rgba(7,92,125,.38);border-radius:50%;
-  transform:rotate(-18deg)
-}
-.fish .fish-highlight{
-  position:absolute;left:87px;top:42px;width:34px;height:9px;border-radius:99px;background:rgba(255,255,255,.25);transform:rotate(-9deg)
-}
-.fish .ans{
-  position:relative;z-index:4;min-width:78px;padding:8px 11px;
-  border:3px solid rgba(11,73,96,.12);border-radius:15px;background:rgba(255,255,255,.97);
-  color:#123d54;box-shadow:0 6px 10px rgba(0,55,78,.15);
-  font-size:clamp(25px,2.9vw,40px);font-weight:1000
-}
-.fish .fish-choice{
-  position:absolute;z-index:6;left:50%;top:-3px;transform:translate(-50%,-50%);
-  padding:5px 10px;border:2px solid #bfeaf8;border-radius:999px;background:#fff;color:#3a6e7e;
-  font-size:12px;font-weight:1000;box-shadow:0 5px 10px rgba(0,50,70,.10)
-}
-.fish.f1{left:3%;top:42%}.fish.f2{left:50%;top:1%;transform:translateX(-50%)}.fish.f3{right:3%;top:43%}
-.fish.float1{animation:fishSwim1 3.5s ease-in-out infinite}.fish.float2{animation:fishSwim2 3.8s ease-in-out infinite -.9s}.fish.float3{animation:fishSwim3 3.6s ease-in-out infinite -1.3s}
-@keyframes fishSwim1{0%,100%{transform:rotate(-2deg) translateY(0)}50%{transform:rotate(1deg) translateY(-10px)}}
-@keyframes fishSwim2{0%,100%{transform:translateX(-50%) rotate(2deg) translateY(0)}50%{transform:translateX(-50%) rotate(-1deg) translateY(-9px)}}
-@keyframes fishSwim3{0%,100%{transform:rotate(2deg) translateY(0)}50%{transform:rotate(-1deg) translateY(-10px)}}
-.fish.dragging{animation:none!important;filter:drop-shadow(0 23px 22px rgba(0,40,61,.28))}
-.fish.near-net .fish-body{box-shadow:inset 0 -14px 0 rgba(0,72,107,.08),0 0 0 6px rgba(255,225,77,.25),0 20px 29px rgba(0,58,86,.24)}
-.fish.near-net .ans{transform:scale(1.06)}
-.fish.return{animation:fishReturn2 .62s cubic-bezier(.2,.85,.2,1)!important}
-@keyframes fishReturn2{0%{transform:translate(0,0) scale(1)}25%{transform:translate(-20px,0) rotate(-8deg) scale(1.04)}55%{transform:translate(15px,0) rotate(7deg) scale(.98)}100%{transform:translate(0,0) rotate(0) scale(1)}}
-.fish.success{animation:fishCatch2 .72s cubic-bezier(.15,.8,.2,1) forwards!important}
-@keyframes fishCatch2{0%{opacity:1;transform:scale(1)}38%{opacity:1;transform:scale(.86) translateY(9px) rotate(5deg)}100%{opacity:0;transform:scale(.18) translateY(30px) rotate(18deg)}}
-
-/* Jaring */
-.net{
-  width:min(480px,47vw);height:215px;bottom:1.4%;
-}
-.net .netIcon{display:none}
-.net::before{
-  content:"";position:absolute;left:7%;right:7%;top:0;bottom:23%;
-  border:6px solid rgba(255,255,255,.84);border-radius:50%;
-  background:
-    linear-gradient(45deg,transparent 46%,rgba(255,255,255,.40) 47% 49%,transparent 50%) 0 0/24px 24px,
-    linear-gradient(-45deg,transparent 46%,rgba(255,255,255,.34) 47% 49%,transparent 50%) 0 0/24px 24px,
-    linear-gradient(180deg,rgba(44,135,157,.15),rgba(12,73,96,.38));
-  box-shadow:0 24px 30px rgba(0,39,60,.19),inset 0 0 32px rgba(255,255,255,.13);
-  transition:.18s ease
-}
-.net .netLabel{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:3;white-space:nowrap}
-.net.ready::before{transform:scale(1.07);filter:drop-shadow(0 0 17px rgba(255,223,79,.92));border-color:#fff5b3}
-.net.hot{animation:netHot2 .68s ease}
-@keyframes netHot2{20%{transform:translateX(-50%) rotate(-4deg) scale(1.04)}38%{transform:translateX(-50%) rotate(4deg) scale(1.08)}58%{transform:translateX(-50%) rotate(-2deg) scale(1.05)}}
-
-.first-touch-note{
-  bottom:19.5%;padding:6px 11px;background:rgba(255,255,255,.72);color:#176079;border-radius:999px;
-  font-size:13px;font-weight:900;box-shadow:0 5px 12px rgba(0,50,67,.08)
-}
-
-/* Round intro */
-#roundOverlay .round-card{
-  width:min(560px,88vw);padding:30px;border:6px solid #fff;border-radius:29px;
-  background:linear-gradient(180deg,#f5fdff,#e4f8ff);box-shadow:0 30px 68px rgba(0,31,49,.35);
-  text-align:center;animation:roundCardIn .55s cubic-bezier(.17,.8,.2,1)
-}
-#roundOverlay .round-icon{font-size:64px;line-height:1}
-#roundOverlay h2{margin:8px 0 4px;color:#08658a;font-size:clamp(31px,4vw,48px)}
-#roundOverlay p{margin:0;color:#567988;font-size:19px;font-weight:900}
-@keyframes roundCardIn{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:none}}
-
-/* Result */
-#finishModal .result-card{
-  width:min(760px,92vw);padding:29px 30px;border:7px solid #fff;border-radius:31px;
-  background:linear-gradient(180deg,#fffdf3,#eefbff);box-shadow:0 32px 75px rgba(0,31,49,.37)
-}
-#finishModal .result-art{font-size:72px;line-height:1}
-#finishModal h2{margin:5px 0 0;color:#08658a;font-size:clamp(34px,4.7vw,56px)}
-#finishModal .result-group{margin-top:3px;color:#537888;font-size:clamp(18px,2vw,25px);font-weight:1000}
-#finishModal .result-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 13px}
-#finishModal .result-stat{padding:14px;border:3px solid #c0eafa;border-radius:18px;background:#f2fbfe}
-#finishModal .result-stat span{display:block;color:#678794;font-size:13px;font-weight:900}
-#finishModal .result-stat strong{display:block;color:#0a6588;font-size:clamp(29px,3.8vw,45px)}
-#finishModal .result-note{margin:0 0 17px;color:#4b7282;font-size:17px;font-weight:900}
-
-/* Scoreboard */
-.scorePanel{background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(239,251,255,.97))}
-.table{min-width:780px}
-.table th{font-size:16px}.table td{font-size:16px}
-.delete-row{
-  min-height:40px;padding:6px 10px;border:3px solid #fff;border-radius:12px;
-  background:linear-gradient(#ef7466,#d34a3d);color:#fff;font-size:13px;font-weight:1000;box-shadow:0 6px 12px rgba(0,52,75,.13)
-}
-.delete-row:hover{filter:brightness(1.05)}.delete-row:active{transform:scale(.96)}
-.score-table tbody tr:first-child{box-shadow:inset 5px 0 #ffd64e}
-
-/* Teacher and modals */
-.modalBg{background:rgba(0,30,48,.46);backdrop-filter:blur(5px)}
-.modal{border-radius:29px}
-.teacher-grid{grid-template-columns:1fr 1fr}
-.teacher-stat{border-color:#c3ebfa;background:#f3fbfe}
-
-/* Responsive */
-@media(max-width:900px){
-  .home-card{width:92vw;height:auto;max-height:89vh;padding:24px;display:block}
-  .instructions{max-height:270px;margin-bottom:14px}.start-zone{padding:21px}
-  .play-screen .top{width:95vw;grid-template-columns:105px 1fr auto}.play-screen .game-title{font-size:clamp(18px,3.5vw,31px)}
-  .play-screen .group-pill{top:77px}.play-screen .progress{top:106px;width:42vw}
-  .play-screen .mission-board{width:89vw;margin-top:54px}
-}
-@media(max-width:700px){
-  .boat{transform:scale(.72)!important}.boat.a{left:-4%;bottom:28%}.boat.b{right:-4%;bottom:26%}
-  .play-screen .top{grid-template-columns:82px 1fr auto;gap:5px}.play-screen .game-title{font-size:clamp(17px,4vw,27px)}
-  .play-screen .metric{min-width:82px}.play-screen .metric strong{font-size:29px}
-  .play-screen .progress{top:103px;width:52vw}.play-screen .group-pill{top:75px}
-  .play-screen .mission-board{margin-top:53px;height:125px;padding:12px 18px}
-  .fishZone{top:43%;bottom:27%}.fish{width:132px;height:112px}
-  .fish .fish-body{inset:6px 5px 5px 0;border-width:4px}.fish .fish-tail{right:-4px;top:27px;width:43px;height:43px}
-  .fish .fish-top-fin{left:57px;top:2px;width:32px;height:19px}.fish .fish-eye{left:20px;top:22px;width:11px;height:11px}.fish .fish-gill{left:40px;top:42px;width:18px;height:19px}
-  .fish .fish-value{min-width:58px;padding:6px 7px;font-size:23px}
-  .fish .fish-choice{font-size:10px;padding:4px 7px;top:-1px}
-  .fish.f1{left:-1%!important;top:43%!important}.fish.f2{left:50%!important;top:0!important}.fish.f3{right:-1%!important;top:44%!important}
-  .net{width:74vw;height:168px}.net .netLabel{font-size:16px}.first-touch-note{bottom:21.5%;font-size:12px}
-  .game-bottom{bottom:1.2vh}.summary{grid-template-columns:1fr 1fr}
-}
-@media(max-width:520px){
-  .home-card{padding:19px 17px 32px}.home-title{font-size:32px}.instructions p{font-size:14px}.start-zone{padding:17px}
-  .summary{grid-template-columns:1fr}.teacher-grid{grid-template-columns:1fr}
-  #finishModal .result-stats{grid-template-columns:1fr 1fr}
-}
-@media(prefers-reduced-motion:reduce){.boat,.fish{animation:none!important}}
-</style><style id="layout-fix-final">
-/* Final alignment fixes for the active DOM */
-.net .netIcon{display:none}
-.fishField{top:40%;bottom:24%;left:2.8vw;right:2.8vw}
-.net{pointer-events:none}
-.scorePanel .table{min-width:760px}
-.scorePanel .table td:last-child,.scorePanel .table th:last-child{text-align:center}
-@media(max-width:700px){
-  .fishField{top:43%;bottom:27%}
-  .net{width:74vw;height:168px}
-}
-</style></head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#137eb6">
+  <meta name="description" content="Game matematika interaktif pecahan untuk pembelajaran kelompok: Nelayan Selat Madura.">
+  <title>Nelayan Selat Madura</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#073b63; --deep:#032840; --sea:#137eb6; --blue:#1b9ccb;
+      --sky:#aee7ff; --foam:#fffaf0; --wood:#8a4e27; --red:#e84d3c;
+      --gold:#f6bd38; --ink:#285572; --sand:#f3cb82; --line:#d6eaf0;
+      --vh:1vh;
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html{background:#aee7ff}
+    body{margin:0;min-width:320px;color:var(--navy);font-family:"Nunito",sans-serif;overflow-x:hidden;background:#aee7ff}
+    button,input{font:inherit}
+    button{cursor:pointer;touch-action:manipulation}
+    button:focus-visible,input:focus-visible{outline:4px solid var(--gold);outline-offset:4px}
+    .app-shell{width:100%;min-height:calc(100 * var(--vh));position:relative;overflow:hidden;background:linear-gradient(180deg,#8edcff 0%,#dff7ff 42%,#4ebce0 43%,#0877ad 100%)}
+    .screen{width:100%;min-height:calc(100 * var(--vh));position:relative;display:none;isolation:isolate}
+    .screen.active{display:flex}
+    .sea-bg:before,.sea-bg:after{content:"";position:absolute;left:-5%;width:110%;border-radius:50%;pointer-events:none;z-index:-1}
+    .sea-bg:before{height:24%;bottom:13%;background:rgba(255,255,255,.22);transform:rotate(-2deg);animation:wave 8s ease-in-out infinite}
+    .sea-bg:after{height:28%;bottom:-12%;background:#0877ad;box-shadow:0 -18px 0 rgba(255,255,255,.2);animation:wave 10s ease-in-out infinite reverse}
+    .cloud{position:absolute;width:150px;height:35px;border-radius:999px;background:rgba(255,255,255,.84);filter:drop-shadow(0 8px 6px rgba(0,71,113,.08));pointer-events:none;animation:drift 38s linear infinite}
+    .cloud:before,.cloud:after{content:"";position:absolute;border-radius:50%;background:inherit}
+    .cloud:before{width:64px;height:64px;left:25px;bottom:0}.cloud:after{width:50px;height:50px;right:22px;bottom:0}
+    .cloud-one{top:14%;left:-8%}.cloud-two{top:30%;right:-8%;transform:scale(.72);animation-delay:-15s}
+    .sun{position:absolute;top:7%;right:8%;width:104px;height:104px;border-radius:50%;background:#ffe37c;box-shadow:0 0 0 12px rgba(255,227,124,.25),0 0 44px rgba(255,227,124,.75);pointer-events:none}
+    .pattern{position:absolute;width:250px;height:100px;opacity:.15;background-image:linear-gradient(45deg,#e84d3c 25%,transparent 25%,transparent 75%,#e84d3c 75%),linear-gradient(45deg,#e84d3c 25%,transparent 25%,transparent 75%,#e84d3c 75%);background-size:28px 28px;background-position:0 0,14px 14px;pointer-events:none}
+    .boat{position:absolute;left:7%;bottom:13%;width:190px;z-index:1;animation:boatRock 3.5s ease-in-out infinite;pointer-events:none}
+    .boat.horizon{left:auto;right:4%;bottom:11%;width:145px;opacity:.9;transform:scale(.82);animation-duration:4.2s}
+    .boat-hull{height:43px;border-radius:8px 8px 45px 45px;background:linear-gradient(#e95843,#b8322b);transform:skewX(-10deg);box-shadow:inset 0 8px rgba(255,255,255,.25),0 10px 0 rgba(0,52,84,.18)}
+    .mast{position:absolute;left:49%;bottom:35px;width:7px;height:95px;border-radius:99px;background:#75401e}
+    .sail{position:absolute;left:52%;bottom:57px;width:75px;height:70px;background:#fffaf0;clip-path:polygon(0 0,100% 50%,0 100%);filter:drop-shadow(5px 6px 2px rgba(0,44,72,.15))}
+    .sail:after{content:"";position:absolute;inset:14px 18px;background:#e84d3c;clip-path:polygon(0 0,100% 50%,0 100%)}
+    .home-screen{align-items:center;padding:36px 0}
+    .home-layout{width:min(1180px,92%);margin:auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(370px,.9fr);gap:clamp(28px,5vw,80px);align-items:center;position:relative;z-index:2}
+    .hero-copy{padding:28px 0;max-width:650px}
+    .title-mark{display:inline-flex;align-items:center;border-radius:999px;padding:9px 16px;box-shadow:0 5px 0 #ad302b;letter-spacing:.08em;background:var(--red);color:#fffdf1;font-weight:900}
+    .brand-title{font-family:"Fredoka",sans-serif;font-size:clamp(46px,6vw,78px);line-height:.93;margin:18px 0 12px;text-shadow:0 5px 0 rgba(7,59,99,.14)}
+    .subtitle{font-size:clamp(20px,2.4vw,30px);line-height:1.2;margin:0;max-width:480px;font-weight:800}
+    .wave-rule{width:150px;height:11px;border-radius:99px;margin:27px 0;background:repeating-linear-gradient(90deg,#e84d3c 0 18px,transparent 18px 27px);opacity:.85}
+    .hero-note{max-width:460px;font-weight:800;line-height:1.55;color:#28617d;margin:0;font-size:17px}
+    .instruction-card,.result-card,.score-board,.modal-card{background:#fffaf0;border:5px solid #fffdf5;box-shadow:0 15px 0 rgba(5,62,92,.2),inset 0 0 0 2px #d9ad64}
+    .instruction-card{border-radius:34px;padding:clamp(24px,3vw,34px);position:relative}
+    .instruction-card:before,.result-card:before{content:"";position:absolute;inset:13px;border:2px dashed rgba(143,83,39,.33);border-radius:23px;pointer-events:none}
+    .instruction-card>*,.result-card>*{position:relative}
+    .section-cap{font-family:"Fredoka",sans-serif;margin:0 0 12px;font-size:29px}
+    .instructions{padding-left:25px;margin:0 0 20px;color:var(--ink);font-weight:800;line-height:1.48}
+    .instructions li{padding-left:4px;margin:3px 0}.instructions li::marker{color:var(--red)}
+    .field-label{display:block;margin-bottom:7px;font-weight:900}
+    .name-input{width:100%;border:3px solid #b8dced;border-radius:17px;padding:15px 17px;background:#fff;color:var(--navy);font-size:18px;font-weight:800;box-shadow:inset 0 3px 0 rgba(0,0,0,.05)}
+    .name-input::placeholder{color:#88a7b6}
+    .button-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:12px;margin-top:14px}
+    .button-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .primary-btn,.secondary-btn,.small-btn{border:0;border-radius:17px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:transform .18s,filter .18s,box-shadow .18s}
+    .primary-btn:hover,.secondary-btn:hover,.small-btn:hover{transform:translateY(-3px);filter:brightness(1.05)}
+    .primary-btn{padding:16px 20px;box-shadow:0 7px 0 #ac332b;background:var(--red);color:#fffdf1;font-size:18px}.secondary-btn{padding:16px 18px;box-shadow:0 7px 0 #032840;background:#e7f7ff;color:var(--navy);font-size:17px}.small-btn{padding:10px 13px;box-shadow:0 4px 0 rgba(7,59,99,.18);background:#e7f7ff;color:var(--navy);font-size:14px}
+    .danger-btn{background:#ffe2db!important;color:#b9342d!important}.primary-btn:disabled,.secondary-btn:disabled,.small-btn:disabled,.delete-btn:disabled{opacity:.55;cursor:not-allowed;transform:none!important;filter:none!important}
+    .status-message{min-height:21px;margin:10px 0 0;text-align:center;color:#b5312a;font-weight:900}
+    .topbar{width:min(1320px,94%);margin:14px auto 0;display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;z-index:3}
+    .top-stat{display:flex;gap:10px;align-items:center}.top-stat.right{justify-content:flex-end}
+    .hud-card{min-width:101px;padding:8px 12px;text-align:center;border:3px solid #fff;border-radius:18px;background:#fff8e8;box-shadow:0 6px 0 rgba(0,61,95,.19);font-weight:900;color:var(--navy)}
+    .hud-card small{display:block;font-size:10px;letter-spacing:.1em;color:#46809e}.hud-card strong{display:block;font-size:22px;line-height:1.1}
+    .game-logo{font-family:"Fredoka",sans-serif;color:#fffdf0;font-size:27px;text-shadow:0 4px 0 #075077;text-align:center;white-space:nowrap}
+    .round-dots{display:flex;justify-content:center;gap:5px;margin-top:5px}.round-dot{width:12px;height:12px;border:2px solid #fff;border-radius:50%;background:#bbd9e6}.round-dot.done{background:var(--gold)}.round-dot.current{background:var(--red);transform:scale(1.15)}
+    .game-screen{flex-direction:column;padding-bottom:12px}
+    .game-stage{width:min(1160px,94%);margin:12px auto 0;display:grid;grid-template-rows:auto minmax(270px,1fr) 125px;flex:1;min-height:0;position:relative;z-index:2}
+    .mission-board{justify-self:center;width:min(720px,100%);padding:15px 28px 18px;border:7px solid #f3cb82;border-radius:27px;background:linear-gradient(145deg,#8a4e27,#69351e);box-shadow:0 11px 0 #5e2d18,inset 0 3px rgba(255,255,255,.32);text-align:center;color:#fffdf1;position:relative}
+    .mission-board:before,.mission-board:after{content:"";position:absolute;top:12px;width:16px;height:16px;border-radius:50%;background:#f6bd38;box-shadow:inset 0 -3px #bd7c1d}.mission-board:before{left:15px}.mission-board:after{right:15px}
+    .mission-label{margin:0;color:#ffdf8b;font-size:12px;letter-spacing:.16em;font-weight:900}.fraction-question{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(31px,4vw,51px);line-height:1.15;margin:4px 0}.hint{margin:0;color:#ffe8b5;font-weight:800;font-size:15px}
+    .fraction{display:inline-grid;grid-template-rows:auto 4px auto;vertical-align:middle;line-height:1;text-align:center;min-width:40px;margin:0 5px}.fraction span:nth-child(2){height:4px;border-radius:99px;background:currentColor;margin:5px 0}.fraction.small{min-width:27px;margin:0 2px;font-size:21px}.fraction.small span:nth-child(2){height:3px;margin:3px 0}
+    .fish-zone{width:100%;min-height:270px;position:relative;overflow:visible}
+    .fish{position:absolute;width:175px;height:98px;border:0;background:transparent;touch-action:none;user-select:none;-webkit-user-select:none;z-index:4;filter:drop-shadow(0 10px 7px rgba(0,46,78,.25));animation:fishFloat 3.1s ease-in-out infinite;will-change:transform,left,top}
+    .fish:nth-child(2){animation-delay:-1.1s}.fish:nth-child(3){animation-delay:-2.1s}.fish:active,.fish.dragging{filter:drop-shadow(0 19px 12px rgba(0,41,70,.42));transform:scale(1.08);animation-play-state:paused}
+    .fish:focus-visible{outline:4px solid var(--gold);outline-offset:5px;border-radius:18px}
+    .fish-body{position:absolute;left:12px;top:9px;width:129px;height:80px;border:4px solid #c85e29;border-radius:55% 46% 46% 55%;background:linear-gradient(145deg,#ffcd51,#ed8728);box-shadow:inset 10px 9px rgba(255,255,255,.28),inset -9px -9px rgba(177,69,27,.22)}
+    .blue .fish-body{border-color:#0871a2;background:linear-gradient(145deg,#7ce0ea,#198dc4)}.red .fish-body{border-color:#b3312b;background:linear-gradient(145deg,#ff9479,#df4036)}
+    .tail{position:absolute;right:0;top:21px;border-top:28px solid transparent;border-bottom:28px solid transparent;border-left:54px solid #ed8728;filter:drop-shadow(3px 4px 0 #c85e29)}.blue .tail{border-left-color:#198dc4;filter:drop-shadow(3px 4px 0 #0871a2)}.red .tail{border-left-color:#df4036;filter:drop-shadow(3px 4px 0 #b3312b)}
+    .fin{position:absolute;left:63px;bottom:4px;width:35px;height:26px;border:3px solid #c85e29;border-radius:5px 90% 5px 80%;background:#f5a633;transform:rotate(-17deg)}.blue .fin{border-color:#0871a2;background:#35a8d3}.red .fin{border-color:#b3312b;background:#ee6253}
+    .eye{position:absolute;left:31px;top:23px;z-index:2;width:22px;height:22px;border:3px solid var(--navy);border-radius:50%;background:#fff}.eye:after{content:"";position:absolute;right:2px;bottom:2px;width:8px;height:8px;border-radius:50%;background:var(--navy)}
+    .answer-bubble{position:absolute;left:87px;top:16px;z-index:3;min-width:53px;padding:7px 10px;border:3px solid rgba(7,59,99,.16);border-radius:14px;background:#fffdf5;color:var(--navy);box-shadow:0 4px 0 rgba(7,59,99,.12);font-family:"Fredoka",sans-serif;font-size:22px}
+    .net-wrap{justify-self:center;align-self:end;width:min(450px,85vw);height:118px;position:relative;transition:transform .2s,filter .2s}.net-wrap.near{transform:scale(1.06);filter:drop-shadow(0 0 18px #ffe37c)}.net-wrap.caught{animation:netShake .45s ease}
+    .net-ring{position:absolute;z-index:2;left:50%;bottom:43px;width:235px;height:62px;border:11px solid #f4c173;border-radius:50%;box-shadow:inset 0 -8px rgba(132,73,29,.17),0 6px 0 #925227;transform:translateX(-50%) rotate(-4deg)}
+    .net{position:absolute;left:50%;bottom:0;width:225px;height:91px;transform:translateX(-50%);clip-path:polygon(0 0,100% 0,81% 100%,19% 100%);border-radius:0 0 45% 45%;background:repeating-linear-gradient(55deg,transparent 0 12px,rgba(255,244,202,.84) 13px 16px),repeating-linear-gradient(-55deg,transparent 0 12px,rgba(255,244,202,.84) 13px 16px),rgba(8,86,117,.22)}
+    .net-label{position:absolute;left:0;right:0;bottom:65px;z-index:3;text-align:center;color:#fffdf1;font-size:13px;letter-spacing:.08em;font-weight:900;text-shadow:0 2px #75401e}
+    .drag-help{position:absolute;left:50%;bottom:107px;transform:translateX(-50%);z-index:3;white-space:nowrap;padding:8px 14px;border-radius:999px;background:rgba(255,253,241,.9);box-shadow:0 5px 0 rgba(7,59,99,.14);font-weight:900;color:var(--navy);font-size:13px}
+    .feedback{position:absolute;z-index:12;left:50%;top:50%;min-width:290px;padding:19px 28px;border:5px solid var(--gold);border-radius:25px;background:#fffdf1;text-align:center;box-shadow:0 10px 0 rgba(7,59,99,.22);transform:translate(-50%,-50%) scale(.8);opacity:0;pointer-events:none;transition:.25s}.feedback.show{opacity:1;transform:translate(-50%,-50%) scale(1)}.feedback h2{margin:0;font-family:"Fredoka",sans-serif;font-size:31px}.feedback p{margin:4px 0 0;color:#175878;font-weight:900}
+    .game-screen.shake{animation:screenShake .45s linear}.confetti{position:absolute;z-index:11;width:9px;height:14px;border-radius:3px;pointer-events:none;animation:confetti .9s ease-out forwards}
+    .result-screen,.score-screen{align-items:center;justify-content:center;padding:30px 16px;background:linear-gradient(180deg,#aee7ff,#219ac8)}
+    .result-card{width:min(820px,96%);padding:clamp(28px,5vw,48px);border-radius:39px;position:relative;text-align:center}.result-title{font-family:"Fredoka",sans-serif;margin:0;font-size:clamp(36px,6vw,58px)}.result-group{margin:15px 0 5px;font-size:clamp(23px,3vw,32px);font-weight:900}.stars{color:var(--gold);font-size:35px;letter-spacing:5px}.result-stats{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin:21px 0}.result-stat{min-width:175px;padding:13px 25px;border-radius:20px;background:#e5f8ff;color:var(--navy)}.result-stat strong{display:block;font-family:"Fredoka",sans-serif;font-size:33px}.result-stat span{font-size:12px;font-weight:900}.result-message{margin:0 0 23px;color:#1773a5;font-size:18px;font-weight:900}.result-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+    .score-board{width:min(1040px,96%);max-height:calc(90 * var(--vh));overflow:auto;border-radius:35px;padding:clamp(24px,4vw,42px)}.score-header{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.score-title{margin:0;font-family:"Fredoka",sans-serif;font-size:clamp(31px,4vw,46px)}.score-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}.summary-card{padding:15px;border-radius:18px;background:#ddf5ff;text-align:center;color:var(--navy);font-weight:900}.summary-card strong{display:block;font-family:"Fredoka",sans-serif;font-size:27px}.table-wrap{overflow-x:auto;border:2px solid #d6eaf0;border-radius:18px}.scores-table{width:100%;min-width:720px;border-collapse:collapse}.scores-table th{padding:13px;text-align:left;background:#e9f8ff;color:var(--navy);font-family:"Fredoka",sans-serif}.scores-table td{padding:12px;color:#174f6d;border-bottom:1px solid #d9e8e9;font-weight:800}.scores-table tr:nth-child(even){background:#effaff}.scores-table tr:hover{background:#e4f7ff}.rank-cell{font-family:"Fredoka",sans-serif;font-size:18px}.delete-btn{border:0;border-radius:10px;padding:8px 10px;background:#ffe2db;color:#b9342d;font-weight:900;touch-action:manipulation}.score-actions{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .winner-list{display:grid;gap:10px;margin:16px 0}.winner-card{padding:13px 15px;background:#e7f8ff;border:2px solid #c3e8f6;border-radius:16px;text-align:left;animation:winnerCardIn .45s cubic-bezier(.2,.9,.25,1.25) both}.winner-card strong{font-family:"Fredoka",sans-serif;font-size:22px;display:block}.winner-card span{font-weight:900;color:#28617d}
+    .modal{position:fixed;z-index:40;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(2,43,68,.65);backdrop-filter:blur(5px)}.modal-card{width:min(520px,100%);padding:29px;border-radius:30px;text-align:center}.modal-card h2{margin:0 0 8px;font-family:"Fredoka",sans-serif;font-size:32px}.modal-card p{margin:0 0 20px;color:#28617d;font-weight:800}.modal-actions{display:flex;justify-content:center;gap:11px;flex-wrap:wrap}.teacher-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:18px 0}.teacher-stat{padding:14px 8px;border-radius:17px;background:#e3f7ff;color:var(--navy);font-weight:900}.teacher-stat strong{display:block;font-family:"Fredoka",sans-serif;font-size:27px}
+    .winner-modal{overflow:hidden;background:radial-gradient(circle at 50% 20%,rgba(255,255,255,.24),rgba(2,43,68,.76) 58%),rgba(2,43,68,.68)}.winner-modal .modal-card{position:relative;z-index:2;width:min(610px,100%);padding:34px 30px 28px;border-width:6px;border-radius:34px;box-shadow:0 18px 0 rgba(5,62,92,.24),inset 0 0 0 2px #d9ad64,0 0 42px rgba(246,189,56,.24);animation:winnerPop .55s cubic-bezier(.17,.89,.32,1.28) both}.winner-celebration-badge{width:80px;height:80px;margin:-56px auto 10px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffe98e,#f6bd38);border:5px solid #fffdf1;box-shadow:0 9px 0 #c98b1e,0 0 0 9px rgba(246,189,56,.18);font-size:40px;animation:winnerBadge 1s ease-out both}.winner-kicker{margin:0 0 5px;font-size:13px;letter-spacing:.18em;font-weight:1000;color:#cf7711;animation:winnerTextIn .5s .08s both}.winner-modal #winner-title{font-size:clamp(34px,6vw,52px);line-height:.98;margin:0 0 10px;text-shadow:0 4px 0 rgba(232,77,60,.12);animation:winnerTextIn .5s .13s both}.winner-modal .winner-subtitle{margin:0 auto 19px;max-width:460px;font-weight:900;color:#28617d;animation:winnerTextIn .5s .18s both}.winner-modal .winner-list{position:relative;z-index:3;margin-top:20px}.celebration-layer{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}.celebration-piece{position:absolute;left:50%;top:43%;width:10px;height:16px;border-radius:3px;opacity:0;transform:translate3d(0,0,0) rotate(0deg);animation:celebrationPiece 2.15s cubic-bezier(.12,.72,.25,1) var(--delay) forwards}.celebration-piece.dot{width:12px;height:12px;border-radius:50%}.celebration-piece.ribbon{width:6px;height:24px;border-radius:999px}.winner-spark{position:absolute;width:8px;height:8px;border-radius:50%;background:#fff7c7;box-shadow:0 0 14px 4px rgba(255,247,199,.85);pointer-events:none;z-index:1;animation:sparklePop .9s ease-out both}
+    .toast{position:fixed;z-index:60;bottom:22px;left:50%;padding:13px 21px;border:3px solid #fff;border-radius:999px;background:var(--navy);color:#fffdf1;box-shadow:0 6px 0 rgba(0,0,0,.2);font-weight:900;transform:translateX(-50%) translateY(130px);transition:.28s}.toast.show{transform:translateX(-50%) translateY(0)}.hidden{display:none!important}
+    .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+    @keyframes wave{50%{transform:translateX(3%) rotate(2deg)}}
+    @keyframes drift{to{transform:translateX(125vw)}}
+    @keyframes boatRock{50%{transform:rotate(3deg) translateY(6px)}}
+    @keyframes fishFloat{50%{transform:translateY(-12px) rotate(1deg)}}
+    @keyframes netShake{25%{transform:rotate(-4deg) scale(1.07)}75%{transform:rotate(4deg) scale(1.07)}}
+    @keyframes screenShake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+    @keyframes confetti{to{transform:translate(var(--x),var(--y)) rotate(450deg);opacity:0}}
+    @keyframes celebrationPiece{0%{opacity:0;transform:translate3d(0,0,0) rotate(0deg) scale(.7)}12%{opacity:1}52%{opacity:1;transform:translate3d(var(--x),var(--y),0) rotate(var(--r)) scale(1)}100%{opacity:0;transform:translate3d(calc(var(--x) * .76),calc(var(--y) + 190px),0) rotate(calc(var(--r) * 1.8)) scale(.82)}}
+    @keyframes winnerPop{0%{opacity:0;transform:translateY(24px) scale(.82) rotate(-1deg)}70%{opacity:1;transform:translateY(-5px) scale(1.015) rotate(.3deg)}100%{opacity:1;transform:none}}
+    @keyframes winnerBadge{0%{opacity:0;transform:translateY(-12px) scale(.35) rotate(-24deg)}55%{opacity:1;transform:translateY(4px) scale(1.1) rotate(8deg)}100%{transform:none}}
+    @keyframes winnerTextIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    @keyframes winnerCardIn{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+    @keyframes sparklePop{0%{opacity:0;transform:scale(.2)}35%{opacity:1;transform:scale(1.35)}100%{opacity:0;transform:scale(.2) translateY(-18px)}}
+    @media (prefers-reduced-motion: reduce){.winner-modal .modal-card,.winner-celebration-badge,.winner-kicker,.winner-modal #winner-title,.winner-modal .winner-subtitle,.winner-card,.celebration-piece,.winner-spark{animation:none!important}.winner-modal .modal-card{opacity:1;transform:none}.celebration-piece,.winner-spark{display:none}}
+    @media(max-width:820px){
+      .home-screen{padding:60px 0 35px}.home-layout{grid-template-columns:1fr;gap:14px}.hero-copy{text-align:center;justify-self:center;padding:0}.hero-copy .wave-rule{margin:24px auto}.hero-note{margin:auto}.boat{left:auto;right:3%;bottom:1%;transform:scale(.65)}.boat.horizon{display:none}.sun{right:2%;top:3%;transform:scale(.7)}
+      .topbar{grid-template-columns:1fr 1fr;gap:9px}.game-logo{grid-column:1 / -1;grid-row:1;order:-1;font-size:23px}.top-stat.right{justify-content:flex-end}.hud-card{min-width:0;padding:7px 8px}.hud-card strong{font-size:19px}.game-stage{grid-template-rows:auto minmax(300px,1fr) 115px}.mission-board{padding:14px}.fish{transform:scale(.8);transform-origin:center}.score-summary,.teacher-grid{grid-template-columns:1fr}.score-board{max-height:none}.button-grid{grid-template-columns:1fr}.result-actions .primary-btn,.result-actions .secondary-btn{width:100%}.drag-help{bottom:100px}
+    }
+    @media(max-width:520px){
+      .home-layout{width:93%}.instruction-card{padding:23px 20px}.brand-title{font-size:44px}.top-stat{gap:6px}.hud-card small{font-size:9px}.game-logo{font-size:20px}.fish-zone{min-height:330px}.mission-board{border-width:5px}.fraction-question{font-size:28px}.fish{transform:scale(.7)}.net-wrap{transform:scale(.88);transform-origin:bottom center}.net-wrap.near{transform:scale(.94)}.drag-help{font-size:12px}.score-board{width:98%}.scores-table{min-width:680px}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}}
+  </style>
+</head>
 <body>
-<div id="app">
-<div class="culture-strip" aria-hidden="true"></div><div class="sun"></div><div class="cloud ca"></div><div class="cloud cb"></div><div class="cloud cc"></div>
-<div class="wave w1"></div><div class="wave w2"></div><div class="wave w3"></div>
-<div class="boat a" aria-hidden="true">
-<svg viewBox="0 0 235 132">
-<defs><linearGradient id="bh1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dda25c"/><stop offset=".55" stop-color="#a65f33"/><stop offset="1" stop-color="#693520"/></linearGradient><linearGradient id="bs1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdf4"/><stop offset="1" stop-color="#f2e6cf"/></linearGradient></defs>
-<path d="M12 88 Q116 101 222 84 L196 115 Q118 131 35 117Z" fill="url(#bh1)" stroke="#5e321f" stroke-width="5"/>
-<path d="M25 87 Q116 96 211 82 L205 94 Q116 105 22 96Z" fill="#efb36a" stroke="#784323" stroke-width="3"/>
-<path d="M116 89V25" stroke="#5d331e" stroke-width="7" stroke-linecap="round"/>
-<path d="M118 29 L175 78 L118 74Z" fill="url(#bs1)" stroke="#d7c7aa" stroke-width="2"/>
-<path d="M118 27 L145 20 L118 18Z" fill="#d7332c"/>
-<path d="M67 87 Q116 73 165 87" fill="none" stroke="#744021" stroke-width="4" stroke-linecap="round"/>
-<circle cx="55" cy="95" r="3" fill="#f5cf92"/><circle cx="75" cy="99" r="3" fill="#f5cf92"/><circle cx="95" cy="101" r="3" fill="#f5cf92"/>
-</svg></div>
-<div class="boat b" aria-hidden="true">
-<svg viewBox="0 0 235 132">
-<defs><linearGradient id="bh2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#cf9654"/><stop offset="1" stop-color="#713821"/></linearGradient></defs>
-<path d="M12 88 Q116 101 222 84 L196 115 Q118 131 35 117Z" fill="url(#bh2)" stroke="#5e321f" stroke-width="5"/>
-<path d="M25 87 Q116 96 211 82 L205 94 Q116 105 22 96Z" fill="#dfa15e" stroke="#784323" stroke-width="3"/>
-<path d="M116 89V25" stroke="#5d331e" stroke-width="7" stroke-linecap="round"/>
-<path d="M118 29 L175 78 L118 74Z" fill="#fff8e7" stroke="#d7c7aa" stroke-width="2"/>
-<path d="M118 27 L145 20 L118 18Z" fill="#d7332c"/>
-</svg></div>
+  <div class="app-shell">
+    <!-- HOME -->
+    <section id="home-screen" class="screen home-screen sea-bg active" aria-labelledby="home-title">
+      <div class="sun"></div>
+      <div class="cloud cloud-one"></div>
+      <div class="cloud cloud-two"></div>
+      <div class="pattern" style="left:-30px;bottom:8%;transform:rotate(-8deg)"></div>
+      <div class="pattern" style="right:-25px;top:11%;transform:rotate(12deg)"></div>
+      <div class="boat" aria-hidden="true"><div class="mast"></div><div class="sail"></div><div class="boat-hull"></div></div>
+      <main class="home-layout">
+        <header class="hero-copy">
+          <div class="title-mark">PETUALANGAN MATEMATIKA</div>
+          <h1 id="home-title" class="brand-title">NELAYAN<br>SELAT MADURA</h1>
+          <p class="subtitle">Tangkap ikan jawaban yang tepat dengan perkalian pecahan!</p>
+          <div class="wave-rule" aria-hidden="true"></div>
+          <p class="hero-note">Belajar bersama kelompok, berpikir cepat, dan buktikan ketepatanmu dalam 5 ronde pelayaran.</p>
+        </header>
+        <section class="instruction-card" aria-labelledby="instruction-title">
+          <h2 id="instruction-title" class="section-cap">Cara Bermain</h2>
+          <ol class="instructions">
+            <li>Bentuk kelompok dan masukkan nama kelompok.</li>
+            <li>Baca soal perkalian pecahan di <strong>papan misi</strong>.</li>
+            <li>Seret <strong>ikan jawaban</strong> yang tepat ke dalam jaring.</li>
+            <li>Jawaban benar menambah skor. Selesaikan semua <strong>5 ronde</strong>.</li>
+          </ol>
+          <form id="start-form" autocomplete="off">
+            <label for="group-name" class="field-label">Nama Kelompok</label>
+            <input id="group-name" class="name-input" type="text" maxlength="34" placeholder="Contoh: Kelompok Garuda" required>
+            <div class="button-grid">
+              <button type="submit" class="primary-btn"><span aria-hidden="true">▶</span> Mulai Petualangan</button>
+              <button type="button" id="open-scores-home" class="secondary-btn"><span aria-hidden="true">🏆</span> Papan Skor</button>
+            </div>
+          </form>
+          <p id="home-status" class="status-message" aria-live="polite"></p>
+          <div class="button-row">
+            <button id="fullscreen-home" type="button" class="small-btn"><span aria-hidden="true">⛶</span> Layar Penuh</button>
+            <button id="teacher-open" type="button" class="small-btn"><span aria-hidden="true">⚙</span> Mode Guru</button>
+          </div>
+        </section>
+      </main>
+    </section>
 
-<section id="home" class="screen">
-<div class="card">
-<h1 class="home-title">🐟 Nelayan Selat Madura 🐟</h1>
-<div class="sub">Petualangan Perkalian Pecahan</div>
-   <div class="culture-badge">🌊 PESISIR MADURA • MISI MENANGKAP IKAN</div>
-   <div class="home-extra">
-     <span class="home-chip">🎯 5 ronde</span>
-     <span class="home-chip">⏱️ Catat waktu</span>
-     <span class="home-chip">📱 Siap IFP</span>
-   </div>
-<div class="instructions">
-<h2>📋 Petunjuk Pengerjaan</h2>
-<p>1. Masukkan nama kelompok sebelum mulai bermain.</p>
-<p>2. Baca soal perkalian pecahan pada papan kayu.</p>
-<p>3. Pilih ikan yang berisi jawaban benar lalu seret ke jaring.</p>
-<p>4. Jawaban benar menambah skor; jawaban salah tidak menambah skor.</p>
-<p>5. Setiap kelompok bermain tepat <strong>5 ronde</strong>.</p>
-<p>6. Kelompok dengan jawaban benar terbanyak dan waktu tercepat menjadi hasil terbaik pada papan skor.</p>
-</div>
-<label class="label" for="groupName">Nama Kelompok</label>
-<input id="groupName" type="text" maxlength="30" autocomplete="off" placeholder="Contoh: Kelompok Matahari">
-<div id="error"></div>
-<div class="actions">
-<button id="startBtn" class="btn green" type="button">▶ Mulai Bermain</button>
-<button id="homeScoreBtn" class="btn gold" type="button">🏆 Papan Skor</button>
-</div>
-<button id="homeFullscreenBtn" class="fullscreen-mini" type="button">⛶ Layar Penuh</button>
-<button id="teacherBtn" class="teacher-mini" type="button">⚙ Mode Guru</button>
-</div>
-</section>
+    <!-- GAME -->
+    <section id="game-screen" class="screen game-screen sea-bg" aria-label="Permainan Nelayan Selat Madura">
+      <div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+      <div class="boat horizon" aria-hidden="true"><div class="mast"></div><div class="sail"></div><div class="boat-hull"></div></div>
+      <header class="topbar">
+        <div class="top-stat">
+          <button id="game-home" type="button" class="small-btn" aria-label="Kembali ke beranda">← Beranda</button>
+          <div class="hud-card"><small>SKOR</small><strong id="score-value">0</strong></div>
+          <div class="hud-card"><small>KELOMPOK</small><strong id="game-group" style="font-size:15px">—</strong></div>
+        </div>
+        <div class="game-logo">NELAYAN SELAT MADURA<div id="round-dots" class="round-dots" aria-label="Progres ronde"></div></div>
+        <div class="top-stat right">
+          <div class="hud-card"><small>RONDE</small><strong id="round-value">1 / 5</strong></div>
+          <div class="hud-card"><small>TIMER</small><strong id="timer-value">00:00</strong></div>
+          <button id="sound-toggle" type="button" class="small-btn" aria-pressed="true" aria-label="Nonaktifkan suara">🔊</button>
+        </div>
+      </header>
+      <main class="game-stage">
+        <section class="mission-board" aria-label="Papan misi matematika">
+          <p class="mission-label">MISI PERKALIAN PECAHAN</p>
+          <div id="question-text" class="fraction-question" aria-live="polite"></div>
+          <p class="hint">Petunjuk: pembilang × pembilang, penyebut × penyebut.</p>
+        </section>
+        <div id="fish-zone" class="fish-zone" aria-label="Pilih dan seret ikan jawaban ke jaring"></div>
+        <div id="net-target" class="net-wrap" aria-label="Jaring nelayan, area jawaban">
+          <div class="drag-help">Seret ikan ke sini!</div>
+          <div class="net-ring"></div><div class="net"></div><div class="net-label">JARING JAWABAN</div>
+        </div>
+      </main>
+      <div id="feedback" class="feedback" aria-live="assertive"><h2 id="feedback-title"></h2><p id="feedback-text"></p></div>
+    </section>
 
-<section id="play" class="screen hidden">
-<div class="top">
-<div class="metric"><small>SKOR</small><strong id="score">0</strong></div>
-<div class="badge">🐟 NELAYAN SELAT MADURA 🐟</div>
-<div class="game-group" id="gameGroup">👥 Kelompok</div>
-<div class="progress-wrap" aria-label="Progres 5 ronde">
-  <div class="progress-line"><div class="progress-fill" id="progressFill"></div></div>
-  <div class="progress-dots" id="progressDots"></div>
-</div>
-<div class="playRight"><div class="metric timer"><small>WAKTU</small><strong id="timer">00:00</strong></div><button id="playHomeBtn" class="btn gray" type="button">⌂ Beranda</button></div>
-</div>
-<div class="question"><div class="caption">Tarik ikan dengan jawaban yang benar ke jaring!</div><div id="q" class="q"></div><div class="tip">Pembilang × pembilang dan penyebut × penyebut.</div></div>
-<div id="fishField" class="fishField"></div>
-<div id="net" class="net"><div class="netIcon" aria-hidden="true">🕸️</div><div class="netLabel">🎣 JARING NELAYAN</div></div>
-<div id="round" class="round">Ronde 1 dari 5</div>
-<div id="toast" class="toast"></div>
-<div class="play-tools">
-  <button class="mini-tool" id="soundBtn" type="button">🔊 Suara</button>
-  <button class="mini-tool" id="playFullscreenBtn" type="button">⛶ Fullscreen</button>
-</div>
-</section>
+    <!-- RESULT -->
+    <section id="result-screen" class="screen result-screen" aria-labelledby="result-title">
+      <main class="result-card">
+        <h1 id="result-title" class="result-title">PELAYARAN SELESAI!</h1>
+        <p id="result-group" class="result-group"></p>
+        <div id="result-stars" class="stars" aria-label="Bintang hasil"></div>
+        <div class="result-stats">
+          <div class="result-stat"><strong id="result-correct">0 / 5</strong><span>JAWABAN BENAR</span></div>
+          <div class="result-stat"><strong id="result-time">00:00</strong><span>WAKTU BERMAIN</span></div>
+        </div>
+        <p id="result-message" class="result-message"></p>
+        <div class="result-actions">
+          <button id="result-scores" type="button" class="secondary-btn"><span aria-hidden="true">🏆</span> Lihat Papan Skor</button>
+          <button id="next-group" type="button" class="primary-btn"><span aria-hidden="true">⌂</span> Kelompok Berikutnya</button>
+        </div>
+      </main>
+    </section>
 
-<section id="scores" class="screen hidden">
-<div class="scorePanel">
-<h2 class="scoreTitle">🏆 Papan Skor Kelompok</h2>
-<div class="scoreSub">Urutan: jawaban benar terbanyak, lalu waktu tercepat.</div>
-<div class="score-summary" id="scoreSummary"></div>
-<div class="actions" style="margin:15px 0"><button id="scoreHomeBtn" class="btn gray" type="button">⌂ Kembali ke Beranda</button><button id="winnerBtn" class="btn gold" type="button">👑 Tampilkan Pemenang</button><button id="clearBtn" class="btn red" type="button">🗑 Hapus Nilai</button>
-<button id="scoreFullscreenBtn" class="btn gray" type="button">⛶ Fullscreen</button></div>
-<div class="tableWrap"><table class="table"><thead><tr><th>Peringkat</th><th>Kelompok</th><th>Benar</th><th>Waktu</th><th>Tanggal</th><th>Aksi</th></tr></thead><tbody id="scoreBody"></tbody></table></div>
-<div id="winnerBox" class="winnerBox hidden"><h3>👑 Kelompok Pemenang</h3><p id="winnerText"></p></div>
-</div>
-</section>
+    <!-- SCORES -->
+    <section id="scores-screen" class="screen score-screen" aria-labelledby="scores-title">
+      <main class="score-board">
+        <header class="score-header">
+          <h1 id="scores-title" class="score-title">PAPAN SKOR NELAYAN</h1>
+          <button id="scores-close" type="button" class="small-btn">← Kembali</button>
+        </header>
+        <div class="score-summary">
+          <div class="summary-card"><strong id="summary-groups">0</strong><span>HASIL TERSIMPAN</span></div>
+          <div class="summary-card"><strong id="summary-best">—</strong><span>SKOR TERATAS</span></div>
+          <div class="summary-card"><strong id="summary-time">—</strong><span>WAKTU TERCEPAT PADA SKOR TERATAS</span></div>
+        </div>
+        <div class="table-wrap">
+          <table class="scores-table">
+            <thead><tr><th>Posisi Tampilan</th><th>Kelompok</th><th>Benar</th><th>Waktu</th><th>Tanggal</th><th>Aksi</th></tr></thead>
+            <tbody id="scores-body"></tbody>
+          </table>
+        </div>
+        <p id="score-empty" style="text-align:center;padding:24px;font-weight:900">Belum ada hasil permainan.</p>
+        <footer class="score-actions">
+          <button id="clear-all" type="button" class="small-btn danger-btn"><span aria-hidden="true">🗑</span> Hapus Semua</button>
+          <button id="show-winners" type="button" class="primary-btn"><span aria-hidden="true">👑</span> Tampilkan Pemenang</button>
+        </footer>
+      </main>
+    </section>
 
-
-<div id="teacherModal" class="modalBg hidden">
-  <div class="modal">
-    <div class="modalIcon">⚙️</div>
-    <h2>Mode Guru</h2>
-    <p class="teacher-note">Ringkasan cepat untuk memantau permainan kelompok di kelas.</p>
-    <div class="teacher-grid">
-      <div class="teacher-stat"><span>Jumlah permainan</span><strong id="teacherGames">0</strong></div>
-      <div class="teacher-stat"><span>Jawaban tertinggi</span><strong id="teacherBest">0/5</strong></div>
-      <div class="teacher-stat"><span>Waktu pada skor tertinggi</span><strong id="teacherTime">00:00</strong></div>
-      <div class="teacher-stat"><span>Penyimpanan</span><strong>Browser</strong></div>
+    <!-- CONFIRM -->
+    <div id="confirm-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <div class="modal-card">
+        <h2 id="confirm-title">Konfirmasi</h2><p id="confirm-message"></p>
+        <div class="modal-actions"><button id="confirm-cancel" type="button" class="small-btn">Batal</button><button id="confirm-yes" type="button" class="primary-btn">Ya, lanjutkan</button></div>
+      </div>
     </div>
-    <div class="modalActions">
-      <button id="teacherGoScores" class="btn gold" type="button">🏆 Papan Skor</button>
-      <button id="teacherFull" class="btn gray" type="button">⛶ Fullscreen</button>
-      <button id="teacherClose" class="btn gray" type="button">Tutup</button>
+
+    <!-- TEACHER -->
+    <aside id="teacher-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="teacher-title">
+      <div class="modal-card">
+        <h2 id="teacher-title">Mode Guru</h2>
+        <p>Kontrol sederhana untuk menyiapkan permainan di depan kelas.</p>
+        <div class="teacher-grid">
+          <div class="teacher-stat"><strong id="teacher-groups">0</strong><span>HASIL</span></div>
+          <div class="teacher-stat"><strong id="teacher-best">—</strong><span>SKOR TERATAS</span></div>
+          <div class="teacher-stat"><strong id="teacher-time">—</strong><span>WAKTU</span></div>
+        </div>
+        <div class="modal-actions">
+          <button id="teacher-scores" type="button" class="secondary-btn">🏆 Papan Skor</button>
+          <button id="teacher-fullscreen" type="button" class="small-btn">⛶ Layar Penuh</button>
+          <button id="teacher-delete" type="button" class="small-btn danger-btn">🗑 Hapus Semua</button>
+          <button id="teacher-close" type="button" class="small-btn">Tutup</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- WINNER -->
+    <div id="winner-modal" class="modal winner-modal hidden" role="dialog" aria-modal="true" aria-labelledby="winner-title">
+      <div id="winner-celebration-layer" class="celebration-layer" aria-hidden="true"></div>
+      <div class="modal-card">
+        <div class="winner-celebration-badge" aria-hidden="true">👑</div>
+        <p class="winner-kicker">🎉 PERAYAAN PEMENANG 🎉</p>
+        <h2 id="winner-title">SELAMAT! PEMENANG HARI INI!</h2>
+        <p class="winner-subtitle">Hasil terbaik dari seluruh kelompok sudah tercatat di papan skor.</p>
+        <div id="winner-content" class="winner-list"></div>
+        <button id="winner-close" type="button" class="primary-btn">Tutup</button>
+      </div>
     </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
   </div>
-</div><div id="roundOverlay" class="modalBg hidden">
-<div class="round-card"><div class="round-icon">🌊</div><h2 id="roundTitle">Ronde 1</h2><p id="roundSub">Perjalanan dimulai!</p></div>
-</div><div id="finishModal" class="modalBg hidden">
-<div class="result-card">
-<div class="result-art">🎉🌊🎣</div>
-<h2>Perahu Kembali ke Pelabuhan!</h2>
-<div id="finishGroup" class="result-group"></div>
-<div class="result-stats">
-<div class="result-stat"><span>Jawaban Benar</span><strong id="finishScore">0/5</strong></div>
-<div class="result-stat"><span>Total Waktu</span><strong id="finishTime">00:00</strong></div>
-</div>
-<p id="finishMsg" class="result-note"></p>
-<div class="modalActions"><button id="finishScoreBtn" class="btn gold" type="button">🏆 Papan Skor</button><button id="finishHomeBtn" class="btn gray" type="button">⌂ Kelompok Berikutnya</button></div>
-</div>
-</div>
-<div id="clearModal" class="modalBg hidden">
-<div class="modal"><div class="modalIcon">🗑️</div><h2>Hapus Semua Nilai?</h2><p>Semua nilai yang tersimpan di browser ini akan dihapus.</p><div class="modalActions"><button id="confirmClear" class="btn red" type="button">Ya, Hapus</button><button id="cancelClear" class="btn gray" type="button">Batal</button></div></div>
-</div>
 
+  <script>
+    (() => {
+      'use strict';
 
-<div id="deleteOneModal" class="modalBg hidden">
-<div class="modal"><div class="modal-icon">🗑️</div><h2>Hapus Nilai Ini?</h2><p id="deleteOneText"></p>
-<div class="modalActions"><button id="confirmDeleteOne" class="btn red" type="button">Ya, Hapus</button><button id="cancelDeleteOne" class="btn gray" type="button">Batal</button></div>
-</div></div>
-<div id="winnerModal" class="modalBg hidden">
-<div class="modal"><div class="modalIcon">👑</div><h2>Kelompok Pemenang</h2><p id="winnerModalText"></p><div class="modalActions"><button id="closeWinner" class="btn gold" type="button">Kembali ke Papan Skor</button></div></div>
-</div>
-</div>
+      const TOTAL_ROUNDS = 5;
+      const SCORE_KEY = 'nelayanSelatMaduraScores.v2';
+      const MAX_SCORES = 999;
 
-<script>
-(function(){
-"use strict";
-var TOTAL=5, KEY="nelayanSelatMaduraScoreboardV3";
-var home=document.getElementById("home"), play=document.getElementById("play"), scores=document.getElementById("scores");
-var nameInput=document.getElementById("groupName"), errorEl=document.getElementById("error");
-var scoreEl=document.getElementById("score"), timerEl=document.getElementById("timer"), roundEl=document.getElementById("round");
-var fishField=document.getElementById("fishField"), qEl=document.getElementById("q"), toast=document.getElementById("toast"), net=document.getElementById("net");
-var finishModal=document.getElementById("finishModal"), clearModal=document.getElementById("clearModal"), winnerModal=document.getElementById("winnerModal");
-var current={group:"",score:0,round:0,start:0,time:0,finished:false}, timerId=null, question=null;
-var pos=[{left:"4%",top:"42%"},{left:"42%",top:"8%"},{right:"4%",top:"46%"}];
+      let scores = [];
+      let currentGroup = '';
+      let correct = 0;
+      let round = 1;
+      let startTime = 0;
+      let elapsedSeconds = 0;
+      let timerInterval = null;
+      let currentQuestion = null;
+      let gameLocked = false;
+      let confirmAction = null;
+      let feedbackTimer = null;
+      let toastTimer = null;
+      let audioContext = null;
+      let ambienceNodes = null;
+      let soundEnabled = true;
 
-function rint(a,b){return Math.floor(Math.random()*(b-a+1))+a}
-function gcd(a,b){while(b){var t=a%b;a=b;b=t}return a||1}
-function simp(n,d){var g=gcd(n,d);return {n:n/g,d:d/g}}
-function proper(){var d=rint(2,6);return {n:rint(1,d-1),d:d}}
-function frac(n,d){return '<span class="fr"><span class="n">'+n+'</span><span class="d">'+d+'</span></span>'}
-function fmt(ms){var s=Math.max(0,Math.floor(ms/1000)),m=Math.floor(s/60);s=s%60;return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
-function showScreen(which){home.classList.add("hidden");play.classList.add("hidden");scores.classList.add("hidden");which.classList.remove("hidden")}
-function read(){try{var x=JSON.parse(localStorage.getItem(KEY)||"[]");if(!Array.isArray(x))return[];return x.map(function(r){r=r||{};return {id:r.id||("legacy_"+String(r.group||"")+"_"+String(r.score||0)+"_"+String(r.time||0)+"_"+String(r.date||"")),group:r.group||r.name||"Kelompok",score:Number(r.score)||0,time:Number(r.time||r.timeMs)||0,date:r.date||new Date().toISOString()}})}catch(e){return[]}}
-function save(rec){var x=read();x.push(rec);localStorage.setItem(KEY,JSON.stringify(x))}
-function sorted(){return read().sort(function(a,b){return b.score-a.score||a.time-b.time})}
-function questionNew(){
- var a=proper(),b=proper(),c=simp(a.n*b.n,a.d*b.d),sum=simp(a.n*b.d+b.n*a.d,a.d*b.d),other={n:rint(1,18),d:rint(2,18)};
- var key=c.n+"/"+c.d;
- while(other.n+"/"+other.d===key || other.n+"/"+other.d===sum.n+"/"+sum.d) other={n:rint(1,18),d:rint(2,18)};
- question={a:a,b:b,answers:[{n:c.n,d:c.d,ok:true},{n:sum.n,d:sum.d,ok:false},{n:other.n,d:other.d,ok:false}]};
- current.round++; qEl.innerHTML=frac(a.n,a.d)+"<span>×</span>"+frac(b.n,b.d)+"<span>?</span>"; roundEl.textContent="Ronde "+current.round+" dari "+TOTAL;
- renderFish();
-}
-function renderFish(){
- fishField.innerHTML="";
- var arr=question.answers.slice();
- for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),tmp=arr[i];arr[i]=arr[j];arr[j]=tmp}
- arr.forEach(function(ans,i){
-  var f=document.createElement("div");f.className="fish f"+(i+1)+" float"+(i+1);f.dataset.ok=ans.ok?"1":"0";f.dataset.origin=JSON.stringify(pos[i]);
-  f.style.left=pos[i].left||"auto";f.style.right=pos[i].right||"auto";f.style.top=pos[i].top;
-  f.innerHTML='<div class="fish-choice">Pilihan '+String.fromCharCode(65+i)+'</div>'+
-    '<div class="fish-body"><div class="fish-tail"></div><div class="fish-top-fin"></div><div class="fish-eye"></div><div class="fish-gill"></div><div class="fish-highlight"></div><div class="ans">'+frac(ans.n,ans.d)+'</div></div>';
-  f.addEventListener("pointerdown",function(e){startDrag(f,e)});
-  fishField.appendChild(f);
- });
-}
-var drag=null;
-function startDrag(f,e){
- if(current.finished||drag)return;
- e.preventDefault();
- var r=f.getBoundingClientRect();drag={f:f,ox:e.clientX-r.left,oy:e.clientY-r.top};
- f.classList.add("dragging");f.style.position="fixed";f.style.left=r.left+"px";f.style.top=r.top+"px";f.style.right="auto";f.style.width=r.width+"px";f.style.zIndex="1000";document.body.appendChild(f);
- try{f.setPointerCapture(e.pointerId)}catch(_){}
-}
-document.addEventListener("pointermove",function(e){
- if(!drag)return;e.preventDefault();
- drag.f.style.left=(e.clientX-drag.ox)+"px";drag.f.style.top=(e.clientY-drag.oy)+"px";
- var rr=drag.f.getBoundingClientRect(),nr=document.querySelector(".net").getBoundingClientRect();
- var cx=rr.left+rr.width/2,cy=rr.top+rr.height/2;
- var near=Math.hypot(cx-(nr.left+nr.width/2),cy-(nr.top+nr.height*.42))<Math.max(nr.width*.54,190);
- drag.f.classList.toggle("near-net",near);
- document.querySelector(".net").classList.toggle("ready",near);
-},{passive:false});
-document.addEventListener("pointerup",function(e){if(!drag)return;finishDrag(e.clientX,e.clientY)});
-document.addEventListener("pointercancel",function(){if(drag){restore(drag.f);drag=null}});
-function restore(f){
- var o=JSON.parse(f.dataset.origin||"{}");f.classList.remove("dragging");f.classList.add("return");fishField.appendChild(f);f.style.position="absolute";f.style.left=o.left||"auto";f.style.right=o.right||"auto";f.style.top=o.top||"0";f.style.width="";f.style.zIndex="";setTimeout(function(){f.classList.remove("return")},560);
-}
-function finishDrag(x,y){
- var f=drag.f,rr=f.getBoundingClientRect(),nr=document.querySelector(".net").getBoundingClientRect();
- var inside=x>nr.left&&x<nr.right&&y>nr.top&&y<nr.bottom,ok=f.dataset.ok==="1";
- f.classList.remove("near-net");document.querySelector(".net").classList.remove("ready");drag=null;
- if(!inside){restore(f);return}
- if(!ok){restore(f);shake();toastMsg("Belum tepat. Ingat: pembilang × pembilang dan penyebut × penyebut.","badToast");return}
- f.classList.remove("dragging");f.classList.add("success");
- f.style.left=(nr.left+nr.width/2-rr.width/2)+"px";f.style.top=(nr.top+nr.height*.42-rr.height/2)+"px";
- current.score++;scoreEl.textContent=current.score;document.querySelector(".net").classList.add("hot");toastMsg("🎉 Tepat! Ikan berhasil ditangkap!","goodToast");
- setTimeout(function(){
-  document.querySelector(".net").classList.remove("hot");f.remove();
-  if(current.round>=TOTAL){end()}else{showRoundIntro(function(){questionNew()})}
- },720);
-}
-function shake(){document.getElementById("app").classList.remove("shake");void document.getElementById("app").offsetWidth;document.getElementById("app").classList.add("shake");setTimeout(function(){document.getElementById("app").classList.remove("shake")},500)}
-function toastMsg(t,c){toast.textContent=t;toast.className="toast "+c+" show";clearTimeout(toast.t);toast.t=setTimeout(function(){toast.className="toast"},850)}
-function showRoundIntro(cb){
- var overlay=document.getElementById("roundOverlay"),title=document.getElementById("roundTitle"),sub=document.getElementById("roundSub");
- title.textContent="Ronde "+(current.round+1);
- sub.textContent=current.round===0?"Perjalanan dimulai!":"Misi berikutnya menanti!";
- overlay.classList.remove("hidden");
- clearTimeout(window.__roundTimer);
- window.__roundTimer=setTimeout(function(){overlay.classList.add("hidden");if(cb)cb()},650);
-}
-function startTimer(){clearInterval(timerId);current.start=Date.now();timerId=setInterval(function(){current.time=Date.now()-current.start;timerEl.textContent=fmt(current.time)},250)}
-function end(){current.finished=true;clearInterval(timerId);current.time=Date.now()-current.start;timerEl.textContent=fmt(current.time);save({id:"r"+Date.now()+"_"+Math.random().toString(16).slice(2),group:current.group,score:current.score,time:current.time,date:new Date().toISOString()});document.getElementById("finishGroup").textContent=current.group;document.getElementById("finishMsg").textContent=current.score===5?"Sempurna! Semua ikan tertangkap.":current.score>=3?"Hebat! Hasil tangkapanmu sangat baik.":"Perjalanan selesai. Coba lagi untuk meningkatkan tangkapan.";document.getElementById("finishScore").textContent=current.score+"/5";document.getElementById("finishTime").textContent=fmt(current.time);finishModal.classList.remove("hidden")}
-function begin(){var n=nameInput.value.trim();if(!n){errorEl.textContent="Silakan masukkan nama kelompok terlebih dahulu.";nameInput.focus();return}errorEl.textContent="";current={group:n,score:0,round:0,start:0,time:0,finished:false};scoreEl.textContent="0";timerEl.textContent="00:00";showScreen(play);startTimer();showRoundIntro(function(){questionNew()})}
-function homeView(){clearInterval(timerId);finishModal.classList.add("hidden");clearModal.classList.add("hidden");winnerModal.classList.add("hidden");document.getElementById("deleteOneModal").classList.add("hidden");document.getElementById("roundOverlay").classList.add("hidden");showScreen(home);fishField.innerHTML="";current.finished=true}
-function scoreView(){clearInterval(timerId);finishModal.classList.add("hidden");clearModal.classList.add("hidden");winnerModal.classList.add("hidden");document.getElementById("deleteOneModal").classList.add("hidden");document.getElementById("roundOverlay").classList.add("hidden");showScreen(scores);renderScores();document.getElementById("winnerBox").classList.add("hidden")}
-function renderScores(){
- var body=document.getElementById("scoreBody"),list=sorted();body.innerHTML="";
- if(!list.length){body.innerHTML='<tr><td colspan="6" class="empty">Belum ada nilai. Selesaikan permainan untuk mengisi papan skor.</td></tr>';return}
- list.forEach(function(x,i){
-  var tr=document.createElement("tr"),d=new Date(x.date);
-  tr.innerHTML="<td>"+(i===0?"👑 ":"")+(i+1)+"</td><td class=\"group-name\">"+escapeHtml(x.group)+"</td><td>"+x.score+"/5</td><td>"+fmt(x.time)+"</td><td>"+(isNaN(d)?"-":d.toLocaleDateString("id-ID"))+"</td><td><button class=\"delete-row\" type=\"button\" data-score-id=\""+escapeHtml(x.id)+"\">🗑 Hapus</button></td>";
-  body.appendChild(tr);
- });
-}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]})}
-function winner(){
- var list=sorted();if(!list.length){document.getElementById("winnerModalText").textContent="Belum ada data permainan.";winnerModal.classList.remove("hidden");return}
- var w=list[0],same=list.filter(function(x){return x.score===w.score&&x.time===w.time});var names=same.map(function(x){return escapeHtml(x.group)}).join(", ");
- document.getElementById("winnerText").innerHTML="<strong>"+names+"</strong> — "+w.score+"/5 benar, waktu "+fmt(w.time)+".";
- document.getElementById("winnerModalText").innerHTML=(same.length>1?"Hasil terbaik sama:<br>":"")+"<strong>"+names+"</strong><br>"+w.score+"/5 benar | "+fmt(w.time);
- document.getElementById("winnerBox").classList.remove("hidden");winnerModal.classList.remove("hidden")
-}
-function bindButton(id,fn){
- var el=document.getElementById(id);
- if(!el)return;
- var last=0;
- function run(e){
-  var now=Date.now();
-  if(now-last<250)return;
-  last=now;
-  if(e && (e.type==="touchend" || e.type==="pointerup")) e.preventDefault();
-  fn();
- }
- el.addEventListener("click",run);
- if(window.PointerEvent) el.addEventListener("pointerup",run,{passive:false});
- else el.addEventListener("touchend",run,{passive:false});
-}
-bindButton("startBtn",begin);
-bindButton("homeScoreBtn",scoreView);
-bindButton("playHomeBtn",homeView);
-bindButton("scoreHomeBtn",homeView);
-bindButton("finishHomeBtn",homeView);
-bindButton("finishScoreBtn",scoreView);
-bindButton("winnerBtn",winner);
-bindButton("closeWinner",function(){winnerModal.classList.add("hidden")});
-bindButton("clearBtn",function(){clearModal.classList.remove("hidden")});
-bindButton("cancelClear",function(){clearModal.classList.add("hidden")});
-bindButton("confirmClear",function(){localStorage.removeItem(KEY);clearModal.classList.add("hidden");renderScores()});
-nameInput.addEventListener("keydown",function(e){if(e.key==="Enter")begin()});
-showScreen(home);
-})();
-</script>
+      const $ = id => document.getElementById(id);
+      const screens = { home:$('home-screen'), game:$('game-screen'), result:$('result-screen'), scores:$('scores-screen') };
 
-<script>
-(function(){
-  "use strict";
-  const app=document.getElementById("app"), home=document.getElementById("home"), play=document.getElementById("play"), scores=document.getElementById("scores");
-  const teacherModal=document.getElementById("teacherModal"), finishModal=document.getElementById("finishModal");
-  const groupInput=document.getElementById("groupName"), groupLabel=document.getElementById("gameGroup");
-  const progressDots=document.getElementById("progressDots"), progressFill=document.getElementById("progressFill");
-  const STORAGE="nelayanSelatMaduraScoreboardV3";
+      function setViewportHeight(){ document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); }
+      window.addEventListener('resize', setViewportHeight, {passive:true});
+      window.addEventListener('orientationchange', () => setTimeout(setViewportHeight, 80), {passive:true});
+      setViewportHeight();
 
-  function on(id,fn){const e=document.getElementById(id);if(e)e.addEventListener("click",fn)}
-  function fullscreen(){
-    if(!document.fullscreenElement){if(app.requestFullscreen)app.requestFullscreen().catch(()=>{})}
-    else if(document.exitFullscreen)document.exitFullscreen().catch(()=>{})
-  }
-  on("homeFullscreenBtn",fullscreen);on("playFullscreenBtn",fullscreen);on("scoreFullscreenBtn",fullscreen);on("teacherFull",fullscreen);
-
-  function updateGroup(){if(groupLabel)groupLabel.textContent="👥 "+((groupInput&&groupInput.value.trim())||"Kelompok")}
-  if(groupInput)groupInput.addEventListener("input",updateGroup);
-  updateGroup();
-
-  function buildProgress(){
-    if(!progressDots)return;
-    progressDots.innerHTML="";
-    for(let i=0;i<5;i++){const d=document.createElement("span");d.className="progress-dot";progressDots.appendChild(d)}
-  }
-  function updateProgress(){
-    const rEl=document.getElementById("round"),txt=rEl?rEl.textContent:"Ronde 1 dari 5",m=txt.match(/(\d+)\s+dari\s+5/),r=m?Number(m[1]):1;
-    Array.from(document.querySelectorAll(".progress-dot")).forEach((d,i)=>{d.classList.toggle("done",i<r-1);d.classList.toggle("current",i===r-1)});
-    if(progressFill)progressFill.style.width=(r<=1?0:Math.min(100,((r-1)/4)*100))+"%";
-  }
-  buildProgress();setInterval(updateProgress,220);
-
-  /* Audio sintetis: tidak membutuhkan file eksternal. */
-  let ctx=null,musicTimer=null,musicEnabled=true,step=0;
-  const notes=[261.63,329.63,392,329.63,293.66,349.23,440,349.23];
-  function audio(){if(!ctx)ctx=new(window.AudioContext||window.webkitAudioContext)();if(ctx.state==="suspended")ctx.resume().catch(()=>{})}
-  function tone(f,d=.15,v=.025,type="sine",delay=0){
-    if(!ctx||!musicEnabled)return;
-    const o=ctx.createOscillator(),g=ctx.createGain(),t=ctx.currentTime+delay;
-    o.type=type;o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);
-    o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+d+.03)
-  }
-  function startMusic(){audio();if(musicTimer||!musicEnabled)return;musicTimer=setInterval(()=>{tone(notes[step++%notes.length],.30,.016,"triangle")},540)}
-  function stopMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null}}
-  function successSound(){audio();tone(523.25,.10,.04);tone(659.25,.11,.035,"sine",.07);tone(783.99,.18,.04,"sine",.14)}
-  function wrongSound(){audio();tone(196,.15,.014,"sawtooth");tone(164.81,.17,.012,"sawtooth",.08)}
-  function finishSound(){audio();[523.25,659.25,783.99,1046.5].forEach((f,i)=>tone(f,.22,.035,"triangle",i*.10))}
-  const sound=document.getElementById("soundBtn");
-  function refreshSound(){if(sound)sound.textContent=musicEnabled?"🔊 Suara":"🔇 Suara"}
-  on("soundBtn",function(){musicEnabled=!musicEnabled;refreshSound();if(musicEnabled)startMusic();else stopMusic()});refreshSound();
-  on("startBtn",function(){audio();startMusic();updateGroup()});
-  on("playHomeBtn",stopMusic);on("finishHomeBtn",stopMusic);on("finishScoreBtn",stopMusic);
-
-  const toast=document.getElementById("toast");
-  if(toast){
-    new MutationObserver(()=>{
-      if(toast.classList.contains("show")){
-        if(toast.classList.contains("goodToast"))successSound();
-        if(toast.classList.contains("badToast"))wrongSound();
+      function showScreen(name){
+        Object.values(screens).forEach(screen => screen.classList.remove('active'));
+        screens[name].classList.add('active');
       }
-    }).observe(toast,{attributes:true,attributeFilter:["class"]});
-  }
-  if(finishModal){
-    new MutationObserver(()=>{if(!finishModal.classList.contains("hidden"))finishSound()}).observe(finishModal,{attributes:true,attributeFilter:["class"]});
-  }
 
-  function read(){
-    try{const x=JSON.parse(localStorage.getItem(STORAGE)||"[]");return Array.isArray(x)?x:[]}catch(e){return[]}
-  }
-  function fmt(ms){const s=Math.max(0,Math.floor(ms/1000)),m=Math.floor(s/60),sec=s%60;return String(m).padStart(2,"0")+":"+String(sec).padStart(2,"0")}
-  function ranked(){return read().slice().sort((a,b)=>b.score-a.score||a.timeMs-b.timeMs)}
-  function renderSummary(){
-    const box=document.getElementById("scoreSummary");if(!box)return;
-    const list=ranked(),best=list[0];
-    box.innerHTML=[
-      ["Kelompok bermain",list.length,"total"],
-      ["Jawaban tertinggi",best?best.score+"/5":"0/5","prioritas utama"],
-      ["Waktu pada skor tertinggi",best?fmt(best.timeMs):"00:00","penentu kedua"]
-    ].map(x=>'<div class="summary-card"><small>'+x[0]+'</small><strong>'+x[1]+'</strong><em>'+x[2]+'</em></div>').join("");
-  }
-  function teacherStats(){
-    const list=ranked(),best=list[0];
-    const g=document.getElementById("teacherGames"),b=document.getElementById("teacherBest"),t=document.getElementById("teacherTime");
-    if(g)g.textContent=list.length;if(b)b.textContent=best?best.score+"/5":"0/5";if(t)t.textContent=best?fmt(best.timeMs):"00:00";
-  }
-  on("teacherBtn",function(){teacherStats();teacherModal.classList.remove("hidden")});
-  on("teacherClose",function(){teacherModal.classList.add("hidden")});
-  on("teacherGoScores",function(){teacherModal.classList.add("hidden");const b=document.getElementById("homeScoreBtn");if(b)b.click();setTimeout(renderSummary,50)});
-  on("homeScoreBtn",function(){setTimeout(renderSummary,80)});
-  on("finishScoreBtn",function(){setTimeout(renderSummary,80)});
-  on("winnerBtn",function(){setTimeout(renderSummary,80)});
-  on("clearBtn",function(){setTimeout(renderSummary,80)});
-  setInterval(()=>{if(scores&&!scores.classList.contains("hidden"))renderSummary()},800);
-
-  /* Tambahkan label pilihan A/B/C ke setiap ikan setelah dibuat. */
-  const mo=new MutationObserver(()=>{
-    document.querySelectorAll("#fishField .fish").forEach((f,i)=>{
-      if(!f.querySelector(".answer-tag")){
-        const tag=document.createElement("span");tag.className="answer-tag";tag.textContent="Pilihan "+String.fromCharCode(65+i);f.appendChild(tag)
+      function formatTime(seconds){
+        const safe = Math.max(0, Math.floor(Number(seconds) || 0));
+        return String(Math.floor(safe / 60)).padStart(2,'0') + ':' + String(safe % 60).padStart(2,'0');
       }
-    })
-  });
-  const ff=document.getElementById("fishField");if(ff)mo.observe(ff,{childList:true});
 
-  /* Saat kembali ke beranda, hentikan musik agar sesi kelompok baru bersih. */
-  on("scoreHomeBtn",function(){stopMusic()});
-})();
-</script><script id="row-delete-and-polish-js">
-(function(){
-"use strict";
-var pending=null;
-function $(id){return document.getElementById(id)}
-function readRows(){
- try{var x=JSON.parse(localStorage.getItem("nelayanSelatMaduraScoreboardV3")||"[]");return Array.isArray(x)?x:[]}
- catch(e){return[]}
-}
-function rid(r){return r.id||("legacy_"+String(r.group||"")+"_"+String(r.score||0)+"_"+String(r.time||0)+"_"+String(r.date||""))}
-function renderAfter(){var b=$("scoreBody");if(b){var evt=new Event("refreshscores");b.dispatchEvent(evt)}}
-var body=$("scoreBody");
-if(body)body.addEventListener("click",function(e){
- var btn=e.target.closest(".delete-row");if(!btn)return;
- pending=btn.getAttribute("data-score-id");
- var rows=readRows(),hit=rows.find(function(r){return rid(r)===pending});
- if(!hit)return;
- $("deleteOneText").textContent='Nilai "'+(hit.group||"Kelompok")+'" akan dihapus. Nilai kelompok lain tetap aman.';
- $("deleteOneModal").classList.remove("hidden");
-});
-$("cancelDeleteOne").addEventListener("click",function(){$("deleteOneModal").classList.add("hidden");pending=null});
-$("confirmDeleteOne").addEventListener("click",function(){
- if(!pending)return;
- var rows=readRows().filter(function(r){return rid(r)!==pending});
- localStorage.setItem("nelayanSelatMaduraScoreboardV3",JSON.stringify(rows));
- pending=null;$("deleteOneModal").classList.add("hidden");
- var homeScore=$("homeScoreBtn");if(homeScore)homeScore.click();
- setTimeout(function(){var sb=$("scoreBody");if(sb){var rows2=JSON.parse(localStorage.getItem("nelayanSelatMaduraScoreboardV3")||"[]");/* redraw via native button flow */} },60);
-});
-})();
-</script></body>
+      function gcd(a,b){ while(b){ [a,b] = [b,a % b]; } return a || 1; }
+      function simplify(n,d){ const g = gcd(Math.abs(n),Math.abs(d)); return {n:n/g,d:d/g}; }
+      function sameFraction(a,b){ return a.n === b.n && a.d === b.d; }
+      function fracText(f){ return `${f.n}/${f.d}`; }
+      function fracHTML(f, small=false){ return `<span class="fraction${small?' small':''}"><span>${f.n}</span><span></span><span>${f.d}</span></span>`; }
+
+      function randomFraction(){
+        const d = 2 + Math.floor(Math.random() * 5); // 2..6
+        return { n:1 + Math.floor(Math.random() * (d - 1)), d };
+      }
+
+      function createQuestion(){
+        const a = randomFraction();
+        const b = randomFraction();
+        const correctAnswer = simplify(a.n * b.n, a.d * b.d);
+
+        const candidatePool = [
+          simplify(a.n * b.d + b.n * a.d, a.d * b.d),
+          simplify(a.n + b.n, a.d + b.d),
+          randomFraction(),
+          {n:1,d:2}, {n:1,d:3}, {n:1,d:4}, {n:1,d:5}, {n:1,d:6},
+          {n:2,d:3}, {n:2,d:5}, {n:3,d:4}, {n:3,d:5}, {n:4,d:5}
+        ];
+
+        const unique = [];
+        for (const c of candidatePool) {
+          const s = simplify(c.n,c.d);
+          if (!sameFraction(s,correctAnswer) && !unique.some(x => sameFraction(x,s))) unique.push(s);
+          if (unique.length >= 2) break;
+        }
+        while(unique.length < 2){
+          const random = randomFraction();
+          if(!sameFraction(random,correctAnswer) && !unique.some(x => sameFraction(x,random))) unique.push(random);
+        }
+
+        const answers = [correctAnswer, unique[0], unique[1]];
+        for(let i=answers.length-1;i>0;i--){
+          const j = Math.floor(Math.random() * (i+1));
+          [answers[i],answers[j]] = [answers[j],answers[i]];
+        }
+
+        currentQuestion = {a,b,correct:correctAnswer,answers};
+      }
+
+      // ---------- AUDIO: local Web Audio only, no external assets ----------
+      function getAudioContext(){
+        if(!soundEnabled) return null;
+        try{
+          if(!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          if(audioContext.state === 'suspended') audioContext.resume().catch(()=>{});
+          return audioContext;
+        }catch(error){ return null; }
+      }
+
+      function tone(type){
+        const audio = getAudioContext();
+        if(!audio) return;
+        const osc = audio.createOscillator();
+        const gain = audio.createGain();
+        const now = audio.currentTime;
+        osc.connect(gain); gain.connect(audio.destination);
+        const settings = {
+          good:{from:520,to:880,duration:.22,volume:.055},
+          bad:{from:200,to:125,duration:.22,volume:.045},
+          new:{from:340,to:470,duration:.12,volume:.035},
+          click:{from:420,to:520,duration:.07,volume:.022}
+        }[type] || {from:340,to:340,duration:.1,volume:.02};
+        osc.type = type === 'bad' ? 'sine' : 'triangle';
+        osc.frequency.setValueAtTime(settings.from,now);
+        osc.frequency.exponentialRampToValueAtTime(settings.to,now + settings.duration);
+        gain.gain.setValueAtTime(settings.volume,now);
+        gain.gain.exponentialRampToValueAtTime(.001,now + settings.duration);
+        osc.start(now); osc.stop(now + settings.duration + .02);
+      }
+
+      function winnerSuccess(){
+        const audio = getAudioContext();
+        if(!audio) return;
+        try{
+          const now = audio.currentTime;
+          const notes = [523.25,659.25,783.99,1046.5];
+          notes.forEach((frequency,index)=>{
+            const osc = audio.createOscillator();
+            const gain = audio.createGain();
+            osc.type = index === 3 ? 'sine' : 'triangle';
+            osc.frequency.setValueAtTime(frequency, now + index * 0.095);
+            gain.gain.setValueAtTime(0.0001, now + index * 0.095);
+            gain.gain.exponentialRampToValueAtTime(index === 3 ? 0.052 : 0.038, now + index * 0.095 + 0.025);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + index * 0.095 + 0.34);
+            osc.connect(gain); gain.connect(audio.destination);
+            osc.start(now + index * 0.095);
+            osc.stop(now + index * 0.095 + 0.37);
+          });
+          const shimmer = audio.createOscillator();
+          const shimmerGain = audio.createGain();
+          shimmer.type='sine';
+          shimmer.frequency.setValueAtTime(1318.51, now + 0.28);
+          shimmer.frequency.exponentialRampToValueAtTime(1760, now + 0.62);
+          shimmerGain.gain.setValueAtTime(0.0001, now + 0.28);
+          shimmerGain.gain.exponentialRampToValueAtTime(0.022, now + 0.34);
+          shimmerGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.72);
+          shimmer.connect(shimmerGain); shimmerGain.connect(audio.destination);
+          shimmer.start(now + 0.28);
+          shimmer.stop(now + 0.75);
+        }catch(error){}
+      }
+
+      function launchWinnerCelebration(){
+        const layer = $('winner-celebration-layer');
+        if(!layer) return;
+        layer.innerHTML='';
+        const palette=['#f6bd38','#e84d3c','#1ba7cd','#fffdf1','#8a4e27','#7bd6ee'];
+        const pieces=76;
+        for(let i=0;i<pieces;i++){
+          const piece=document.createElement('i');
+          piece.className='celebration-piece ' + (i%5===0?'dot':i%7===0?'ribbon':'');
+          const origin=(i%3)-1;
+          const x=origin*190 + (Math.random()*280-140);
+          const y=-(70 + Math.random()*250) + (Math.random()*90-45);
+          piece.style.left=`${50 + origin*18 + (Math.random()*10-5)}%`;
+          piece.style.top=`${38 + Math.random()*9}%`;
+          piece.style.background=palette[i%palette.length];
+          piece.style.setProperty('--x',`${x}px`);
+          piece.style.setProperty('--y',`${y}px`);
+          piece.style.setProperty('--r',`${Math.random()*720-360}deg`);
+          piece.style.setProperty('--delay',`${Math.random()*0.38}s`);
+          layer.appendChild(piece);
+        }
+        for(let i=0;i<14;i++){
+          const spark=document.createElement('i');
+          spark.className='winner-spark';
+          spark.style.left=`${12+Math.random()*76}%`;
+          spark.style.top=`${10+Math.random()*67}%`;
+          spark.style.animationDelay=`${Math.random()*0.65}s`;
+          layer.appendChild(spark);
+        }
+        setTimeout(()=>{ layer.innerHTML=''; },3100);
+      }
+
+      function startAmbience(){
+        if(!soundEnabled || ambienceNodes) return;
+        const audio = getAudioContext();
+        if(!audio) return;
+        try{
+          const master = audio.createGain();
+          master.gain.setValueAtTime(0.0001,audio.currentTime);
+          master.gain.exponentialRampToValueAtTime(0.014,audio.currentTime + 1.6);
+          master.connect(audio.destination);
+
+          const osc1 = audio.createOscillator();
+          const osc2 = audio.createOscillator();
+          const lfo = audio.createOscillator();
+          const lfoGain = audio.createGain();
+          osc1.type='sine'; osc2.type='sine'; lfo.type='sine';
+          osc1.frequency.value = 196;
+          osc2.frequency.value = 246.94;
+          lfo.frequency.value = 0.085;
+          lfoGain.gain.value = 7;
+          lfo.connect(lfoGain); lfoGain.connect(osc2.frequency);
+          osc1.connect(master); osc2.connect(master);
+          osc1.start(); osc2.start(); lfo.start();
+          ambienceNodes = {master,osc1,osc2,lfo,lfoGain};
+        }catch(error){ ambienceNodes = null; }
+      }
+
+      function stopAmbience(){
+        if(!ambienceNodes || !audioContext) return;
+        try{
+          const now = audioContext.currentTime;
+          ambienceNodes.master.gain.cancelScheduledValues(now);
+          ambienceNodes.master.gain.setValueAtTime(Math.max(0.0001, ambienceNodes.master.gain.value),now);
+          ambienceNodes.master.gain.exponentialRampToValueAtTime(0.0001,now + .5);
+          setTimeout(() => {
+            try{ ambienceNodes.osc1.stop(); ambienceNodes.osc2.stop(); ambienceNodes.lfo.stop(); }catch(e){}
+            ambienceNodes = null;
+          },600);
+        }catch(error){ ambienceNodes = null; }
+      }
+
+      function updateSoundButton(){
+        const btn = $('sound-toggle');
+        btn.textContent = soundEnabled ? '🔊' : '🔇';
+        btn.setAttribute('aria-pressed', String(soundEnabled));
+        btn.setAttribute('aria-label', soundEnabled ? 'Nonaktifkan suara' : 'Aktifkan suara');
+      }
+
+      function toggleSound(){
+        soundEnabled = !soundEnabled;
+        updateSoundButton();
+        if(soundEnabled){ getAudioContext(); startAmbience(); tone('click'); }
+        else stopAmbience();
+      }
+
+      // ---------- GAME ----------
+      function renderQuestion(){
+        createQuestion();
+        $('question-text').innerHTML = `Berapa hasil dari ${fracHTML(currentQuestion.a)} × ${fracHTML(currentQuestion.b)}?`;
+        const zone = $('fish-zone');
+        zone.innerHTML = '';
+        const colors = ['', 'blue', 'red'];
+        const positions = [
+          {left:'5%',top:'15%'},
+          {left:'39%',top:'50%'},
+          {right:'5%',top:'12%'}
+        ];
+        currentQuestion.answers.forEach((answer,index) => {
+          const fish = document.createElement('button');
+          fish.type = 'button';
+          fish.className = `fish ${colors[index]}`;
+          fish.dataset.correct = String(sameFraction(answer,currentQuestion.correct));
+          fish.dataset.answer = fracText(answer);
+          Object.assign(fish.style,positions[index]);
+          fish.setAttribute('aria-label', `Pilihan jawaban ${fracText(answer)}. Seret ikan ke jaring.`);
+          fish.innerHTML = `<span class="tail"></span><span class="fish-body"><span class="eye"></span></span><span class="fin"></span><span class="answer-bubble">${fracHTML(answer,true)}</span>`;
+          setupDrag(fish);
+          zone.appendChild(fish);
+        });
+      }
+
+      function renderDots(){
+        const dots = $('round-dots');
+        dots.innerHTML = '';
+        for(let i=1;i<=TOTAL_ROUNDS;i++){
+          const dot=document.createElement('span');
+          dot.className='round-dot ' + (i<round?'done':i===round?'current':'');
+          dot.setAttribute('aria-label',`Ronde ${i}${i<round?' selesai':i===round?' sedang dimainkan':' belum dimainkan'}`);
+          dots.appendChild(dot);
+        }
+        $('round-value').textContent=`${round} / ${TOTAL_ROUNDS}`;
+      }
+
+      function startGame(name){
+        currentGroup = name.trim();
+        correct = 0;
+        round = 1;
+        gameLocked = false;
+        elapsedSeconds = 0;
+        $('score-value').textContent='0';
+        $('game-group').textContent=currentGroup;
+        $('timer-value').textContent='00:00';
+        startTime=Date.now();
+        clearInterval(timerInterval);
+        timerInterval=setInterval(() => {
+          elapsedSeconds=Math.floor((Date.now()-startTime)/1000);
+          $('timer-value').textContent=formatTime(elapsedSeconds);
+        },250);
+        showScreen('game');
+        renderDots();
+        renderQuestion();
+        getAudioContext();
+        startAmbience();
+        tone('new');
+      }
+
+      function setupDrag(element){
+        let dragging = false;
+        let pointerId = null;
+        let startX = 0, startY = 0, baseLeft = 0, baseTop = 0;
+        let originalTransform = '';
+
+        element.addEventListener('pointerdown', event => {
+          if(gameLocked || event.button > 0) return;
+          event.preventDefault();
+          dragging=true;
+          pointerId=event.pointerId;
+          try{ element.setPointerCapture(pointerId); }catch(error){}
+          const rect=element.getBoundingClientRect();
+          startX=event.clientX; startY=event.clientY;
+          baseLeft=rect.left; baseTop=rect.top;
+          originalTransform = element.style.transform;
+          element.classList.add('dragging');
+          element.style.animation='none';
+          element.style.position='fixed';
+          element.style.left=`${baseLeft}px`;
+          element.style.top=`${baseTop}px`;
+          element.style.margin='0';
+          element.style.zIndex='20';
+          tone('click');
+        });
+
+        element.addEventListener('pointermove', event => {
+          if(!dragging || event.pointerId !== pointerId) return;
+          event.preventDefault();
+          const dx=event.clientX-startX, dy=event.clientY-startY;
+          const left=baseLeft+dx, top=baseTop+dy;
+          element.style.left=`${left}px`;
+          element.style.top=`${top}px`;
+          const net=$('net-target').getBoundingClientRect();
+          const centerX=left+element.offsetWidth/2;
+          const centerY=top+element.offsetHeight/2;
+          const near=centerX>net.left-90 && centerX<net.right+90 && centerY>net.top-105 && centerY<net.bottom+60;
+          $('net-target').classList.toggle('near',near);
+        });
+
+        const finish = event => {
+          if(!dragging || (event.pointerId != null && event.pointerId !== pointerId)) return;
+          event.preventDefault();
+          dragging=false;
+          try{ element.releasePointerCapture(pointerId); }catch(error){}
+          pointerId=null;
+          element.classList.remove('dragging');
+          $('net-target').classList.remove('near');
+          const net=$('net-target').getBoundingClientRect();
+          const rect=element.getBoundingClientRect();
+          const centerX=rect.left+rect.width/2;
+          const centerY=rect.top+rect.height/2;
+          const hit=centerX>net.left-10 && centerX<net.right+10 && centerY>net.top-70 && centerY<net.bottom+15;
+          if(hit) handleDrop(element);
+          else resetFish(element);
+        };
+
+        element.addEventListener('pointerup',finish);
+        element.addEventListener('pointercancel',finish);
+      }
+
+      function resetFish(element){
+        if(!element || !element.isConnected) return;
+        const children=[...$('fish-zone').children];
+        const index=children.indexOf(element);
+        const positions=[{left:'5%',top:'15%'},{left:'39%',top:'50%'},{right:'5%',top:'12%'}];
+        element.style.position='absolute';
+        element.style.left='';element.style.right='';element.style.top='';
+        element.style.margin='';element.style.zIndex='4';element.style.animation='';element.style.transform='';
+        if(positions[index]) Object.assign(element.style,positions[index]);
+      }
+
+      function feedback(title,text,good){
+        clearTimeout(feedbackTimer);
+        $('feedback-title').textContent=title;
+        $('feedback-text').textContent=text;
+        $('feedback-title').style.color=good?'#d47d14':'#e84d3c';
+        $('feedback').classList.add('show');
+        feedbackTimer=setTimeout(()=>$('feedback').classList.remove('show'),1150);
+      }
+
+      function confetti(){
+        const stage=$('game-screen');
+        for(let i=0;i<22;i++){
+          const piece=document.createElement('i');
+          piece.className='confetti';
+          piece.style.left='50%';piece.style.top='45%';
+          piece.style.background=['#f6bd38','#e84d3c','#fffdf1','#1ba7cd'][i%4];
+          piece.style.setProperty('--x',(Math.random()*420-210)+'px');
+          piece.style.setProperty('--y',(Math.random()*280-170)+'px');
+          stage.appendChild(piece);
+          setTimeout(()=>piece.remove(),950);
+        }
+      }
+
+      function handleDrop(element){
+        if(gameLocked) return;
+        if(element.dataset.correct==='true'){
+          gameLocked=true;
+          correct++;
+          $('score-value').textContent=correct;
+          const net=$('net-target').getBoundingClientRect();
+          element.style.transition='left .35s ease, top .35s ease, transform .35s ease, opacity .35s ease';
+          element.style.left=`${net.left + net.width/2 - element.offsetWidth/2}px`;
+          element.style.top=`${net.top + 18}px`;
+          element.style.transform='scale(.82)';
+          element.style.opacity='1';
+          $('net-target').classList.add('caught');
+          feedback('HEBAT!','Ikan berhasil ditangkap!',true);
+          confetti();
+          tone('good');
+          setTimeout(() => {
+            $('net-target').classList.remove('caught');
+            if(round===TOTAL_ROUNDS){ finishGame(); }
+            else{
+              round++;
+              renderDots();
+              renderQuestion();
+              gameLocked=false;
+              feedback(`RONDE ${round}`,'Misi berikutnya menanti!',true);
+              tone('new');
+            }
+          },1050);
+        }else{
+          gameLocked=true;
+          $('game-screen').classList.add('shake');
+          feedback('BELUM TEPAT','Coba lagi. Ingat: pembilang × pembilang, penyebut × penyebut.',false);
+          tone('bad');
+          setTimeout(()=>{
+            $('game-screen').classList.remove('shake');
+            resetFish(element);
+            gameLocked=false;
+          },780);
+        }
+      }
+
+      function finishGame(){
+        clearInterval(timerInterval);
+        elapsedSeconds=Math.floor((Date.now()-startTime)/1000);
+        $('result-group').textContent=currentGroup.toUpperCase();
+        $('result-correct').textContent=`${correct} / ${TOTAL_ROUNDS}`;
+        $('result-time').textContent=formatTime(elapsedSeconds);
+        $('result-stars').textContent='★'.repeat(correct)+'☆'.repeat(TOTAL_ROUNDS-correct);
+        $('result-stars').setAttribute('aria-label',`${correct} dari ${TOTAL_ROUNDS} bintang`);
+        $('result-message').textContent=correct===5?'Sempurna! Semua ikan berhasil ditangkap!':correct>=3?'Kerja hebat! Terus berlayar dan berlatih!':'Tetap semangat, nelayan tangguh belajar dari setiap ombak!';
+        saveScore({group_name:currentGroup,correct_count:correct,total_rounds:TOTAL_ROUNDS,time_seconds:elapsedSeconds,played_at:new Date().toISOString()});
+        stopAmbience();
+        showScreen('result');
+        tone('good');
+      }
+
+      function saveScore(record){
+        if(scores.length >= MAX_SCORES) scores=scores.slice(0,MAX_SCORES-1);
+        const item={
+          id:`${Date.now()}-${Math.random().toString(36).slice(2,10)}`,
+          group_name:String(record.group_name||'').trim().slice(0,34),
+          correct_count:Number(record.correct_count)||0,
+          total_rounds:Number(record.total_rounds)||TOTAL_ROUNDS,
+          time_seconds:Number(record.time_seconds)||0,
+          played_at:record.played_at || new Date().toISOString()
+        };
+        scores.push(item);
+        persistScores();
+      }
+
+      function loadScores(){
+        try{
+          const raw=localStorage.getItem(SCORE_KEY);
+          const parsed=raw?JSON.parse(raw):[];
+          scores=Array.isArray(parsed)?parsed.filter(isValidScore):[];
+        }catch(error){ scores=[]; toast('Papan skor lokal belum dapat dibaca pada perangkat ini.'); }
+      }
+
+      function isValidScore(record){
+        return record && typeof record==='object' && typeof record.group_name==='string' && Number.isFinite(Number(record.correct_count)) && Number.isFinite(Number(record.time_seconds));
+      }
+
+      function persistScores(){
+        try{ localStorage.setItem(SCORE_KEY,JSON.stringify(scores)); }
+        catch(error){ toast('Nilai ditampilkan untuk sesi ini, tetapi penyimpanan browser gagal.'); }
+      }
+
+      function sortedRecords(){
+        return [...scores].sort((a,b) =>
+          Number(b.correct_count)-Number(a.correct_count) ||
+          Number(a.time_seconds)-Number(b.time_seconds) ||
+          new Date(a.played_at)-new Date(b.played_at)
+        );
+      }
+
+      function escapeHtml(value){
+        const div=document.createElement('div');
+        div.textContent=String(value ?? '');
+        return div.innerHTML;
+      }
+
+      function renderScores(){
+        const rows=sortedRecords();
+        const body=$('scores-body');
+        body.innerHTML='';
+        $('summary-groups').textContent=rows.length;
+        $('score-empty').classList.toggle('hidden',rows.length>0);
+        if(rows.length){
+          $('summary-best').textContent=`${rows[0].correct_count}/${rows[0].total_rounds}`;
+          $('summary-time').textContent=formatTime(rows[0].time_seconds);
+        }else{
+          $('summary-best').textContent='—';
+          $('summary-time').textContent='—';
+        }
+
+        rows.forEach((record,index)=>{
+          const tr=document.createElement('tr');
+          tr.innerHTML=`
+            <td class="rank-cell">${index+1}</td>
+            <td>${escapeHtml(record.group_name)}</td>
+            <td>${record.correct_count}/${record.total_rounds}</td>
+            <td>${formatTime(record.time_seconds)}</td>
+            <td>${formatDate(record.played_at)}</td>
+            <td><button class="delete-btn" type="button">🗑 Hapus</button></td>`;
+          tr.querySelector('.delete-btn').addEventListener('click',()=>openDelete(record.id));
+          body.appendChild(tr);
+        });
+        updateTeacherStats();
+      }
+
+      function formatDate(dateValue){
+        const date=new Date(dateValue);
+        if(Number.isNaN(date.getTime())) return '—';
+        return new Intl.DateTimeFormat('id-ID',{day:'2-digit',month:'2-digit',year:'numeric'}).format(date);
+      }
+
+      function updateTeacherStats(){
+        const rows=sortedRecords();
+        const best=rows[0];
+        $('teacher-groups').textContent=rows.length;
+        $('teacher-best').textContent=best?`${best.correct_count}/${best.total_rounds}`:'—';
+        $('teacher-time').textContent=best?formatTime(best.time_seconds):'—';
+      }
+
+      // ---------- CONFIRMATION / SCORE MANAGEMENT ----------
+      function openConfirm(title,message,action){
+        $('confirm-title').textContent=title;
+        $('confirm-message').textContent=message;
+        confirmAction=action;
+        $('confirm-modal').classList.remove('hidden');
+      }
+
+      function openDelete(id){
+        const record=scores.find(item=>item.id===id);
+        if(!record) return;
+        openConfirm(`Hapus nilai ${record.group_name}?`,'Nilai kelompok lain tidak akan terhapus.',()=>{
+          scores=scores.filter(item=>item.id!==id);
+          persistScores();
+          renderScores();
+          toast(`Nilai ${record.group_name} dihapus.`);
+        });
+      }
+
+      function clearAllScores(){
+        if(!scores.length){ toast('Belum ada nilai untuk dihapus.'); return; }
+        scores=[];
+        persistScores();
+        renderScores();
+        toast('Semua nilai telah dihapus.');
+      }
+
+      function showWinners(){
+        const rows=sortedRecords();
+        if(!rows.length){ toast('Belum ada kelompok yang bermain.'); return; }
+        const top=rows[0];
+        const winners=rows.filter(record => record.correct_count===top.correct_count && record.time_seconds===top.time_seconds);
+        $('winner-content').innerHTML=winners.map((record,index)=>
+          `<div class="winner-card" style="animation-delay:${0.22 + index*0.08}s"><strong>${winners.length>1?'Pemenang bersama':'Pemenang'} ${index+1}: ${escapeHtml(record.group_name)}</strong><span>${record.correct_count}/${record.total_rounds} benar · ${formatTime(record.time_seconds)}</span></div>`
+        ).join('');
+        $('winner-modal').classList.remove('hidden');
+        launchWinnerCelebration();
+        winnerSuccess();
+      }
+
+      // ---------- NAVIGATION ----------
+      function goHome(){
+        clearInterval(timerInterval);
+        stopAmbience();
+        showScreen('home');
+        $('home-status').textContent='';
+        $('group-name').focus({preventScroll:true});
+      }
+
+      function askLeaveGame(){
+        if(!screens.game.classList.contains('active')){ goHome(); return; }
+        openConfirm('Kembali ke beranda?','Permainan kelompok ini akan dihentikan dan hasilnya tidak dicatat.',()=>{ goHome(); });
+      }
+
+      async function toggleFullscreen(){
+        try{
+          if(!document.fullscreenElement) await document.documentElement.requestFullscreen();
+          else await document.exitFullscreen();
+        }catch(error){ toast('Mode layar penuh tidak tersedia pada perangkat ini.'); }
+      }
+
+      function toast(text){
+        clearTimeout(toastTimer);
+        $('toast').textContent=text;
+        $('toast').classList.add('show');
+        toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2600);
+      }
+
+      // ---------- EVENTS ----------
+      $('start-form').addEventListener('submit',event=>{
+        event.preventDefault();
+        const input=$('group-name');
+        const name=input.value.trim();
+        if(!name){ $('home-status').textContent='Masukkan nama kelompok terlebih dahulu.'; input.focus(); return; }
+        $('home-status').textContent='';
+        startGame(name);
+      });
+
+      $('open-scores-home').addEventListener('click',()=>{ tone('click'); renderScores(); showScreen('scores'); });
+      $('result-scores').addEventListener('click',()=>{ tone('click'); renderScores(); showScreen('scores'); });
+      $('next-group').addEventListener('click',()=>{ tone('click'); $('group-name').value=''; $('home-status').textContent=''; showScreen('home'); $('group-name').focus({preventScroll:true}); });
+      $('scores-close').addEventListener('click',()=>{ tone('click'); showScreen('home'); });
+      $('game-home').addEventListener('click',()=>{ tone('click'); askLeaveGame(); });
+      $('fullscreen-home').addEventListener('click',()=>{ getAudioContext(); tone('click'); toggleFullscreen(); });
+      $('teacher-fullscreen').addEventListener('click',()=>{ getAudioContext(); tone('click'); toggleFullscreen(); });
+      $('sound-toggle').addEventListener('click',toggleSound);
+
+      $('teacher-open').addEventListener('click',()=>{ tone('click'); updateTeacherStats(); $('teacher-modal').classList.remove('hidden'); });
+      $('teacher-close').addEventListener('click',()=>{ tone('click'); $('teacher-modal').classList.add('hidden'); });
+      $('teacher-scores').addEventListener('click',()=>{ tone('click'); $('teacher-modal').classList.add('hidden'); renderScores(); showScreen('scores'); });
+      $('clear-all').addEventListener('click',()=>openConfirm('Hapus semua nilai?','Semua nilai kelompok akan dihapus dan tindakan ini tidak dapat dibatalkan.',clearAllScores));
+      $('teacher-delete').addEventListener('click',()=>openConfirm('Hapus semua nilai?','Semua nilai kelompok akan dihapus dan tindakan ini tidak dapat dibatalkan.',clearAllScores));
+      $('show-winners').addEventListener('click',()=>{ tone('click'); showWinners(); });
+
+      $('confirm-cancel').addEventListener('click',()=>{ $('confirm-modal').classList.add('hidden'); confirmAction=null; });
+      $('confirm-yes').addEventListener('click',async()=>{
+        const action=confirmAction;
+        $('confirm-modal').classList.add('hidden');
+        confirmAction=null;
+        if(typeof action==='function') await action();
+      });
+      $('winner-close').addEventListener('click',()=>{ tone('click'); $('winner-modal').classList.add('hidden'); });
+
+      document.addEventListener('keydown',event=>{
+        if(event.key==='Escape'){
+          if(!$('confirm-modal').classList.contains('hidden')){ $('confirm-modal').classList.add('hidden'); confirmAction=null; return; }
+          if(!$('winner-modal').classList.contains('hidden')){ $('winner-modal').classList.add('hidden'); return; }
+          if(!$('teacher-modal').classList.contains('hidden')){ $('teacher-modal').classList.add('hidden'); return; }
+        }
+      });
+
+      // Prevent accidental browser navigation/scroll during fish dragging on touch devices.
+      document.addEventListener('gesturestart',event=>event.preventDefault(),{passive:false});
+
+      loadScores();
+      updateSoundButton();
+      renderScores();
+    })();
+  </script>
+</body>
 </html>
