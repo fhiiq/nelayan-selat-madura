@@ -80,10 +80,123 @@ button{cursor:pointer}
 @media(max-width:700px){.top{grid-template-columns:1fr auto}.badge{grid-column:1/-1;grid-row:1}.playRight{justify-self:end}.fish{width:128px;min-height:105px;border-width:4px;padding:7px 9px}.fish:before{width:35px;height:35px;right:-20px;top:28px}.femoji{font-size:41px}.ans{font-size:23px;min-width:57px}.fishField{top:42%;bottom:28%}.net{width:68vw;height:165px}.round{display:none}.scorePanel{padding:20px}}
 @media(max-width:520px){.card{padding:19px;border-width:5px}.instructions{padding:14px}.modal{padding:20px}.scorePanel{padding:16px}}
 </style>
+<style>
+/* ===== VISUAL POLISH 3.0 ===== */
+html,body{background:#8edcff}
+body{touch-action:auto;-ms-touch-action:manipulation}
+button{touch-action:manipulation;-ms-touch-action:manipulation;-webkit-user-select:none;user-select:none}
+button:focus-visible,input:focus-visible{outline:4px solid rgba(255,216,80,.85);outline-offset:3px}
+
+#app{
+  background:
+    radial-gradient(circle at 15% 72%,rgba(255,255,255,.12) 0 4px,transparent 5px) 0 0/180px 150px,
+    radial-gradient(circle at 72% 76%,rgba(255,255,255,.12) 0 3px,transparent 4px) 0 0/240px 170px,
+    linear-gradient(#8edcff 0 46%,#48c7ee 46% 61%,#10a8dc 61% 100%);
+}
+#app:before{content:"";position:absolute;left:0;right:0;top:46%;height:12px;z-index:2;pointer-events:none;background:linear-gradient(90deg,transparent,#fff8 25%,#fff 50%,#fff8 75%,transparent);filter:blur(3px);opacity:.34}
+.culture-strip{
+  position:absolute;left:50%;top:2%;transform:translateX(-50%);z-index:9;
+  width:min(680px,68vw);height:14px;border-radius:999px;
+  background:
+    linear-gradient(135deg,transparent 0 24%,#fff 25% 31%,transparent 32% 49%,#fff 50% 56%,transparent 57% 74%,#fff 75% 81%,transparent 82%),
+    linear-gradient(90deg,#c82e28,#f5eee3,#c82e28,#f5eee3,#c82e28);
+  box-shadow:0 4px 10px rgba(0,40,60,.16);opacity:.82;
+}
+.home-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(238,251,255,.96));
+  box-shadow:0 30px 70px rgba(0,45,70,.3),inset 0 0 0 2px rgba(65,190,231,.11);
+}
+.culture-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:7px 12px;margin:0 auto 9px;border-radius:999px;
+  background:#effbff;border:3px solid #b8eafd;color:#08668d;
+  font-size:clamp(13px,1.5vw,18px);font-weight:1000;
+}
+.home-extra{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 0 15px}
+.home-chip{padding:7px 11px;background:#fff;border:3px solid #d0f1fb;border-radius:999px;color:#4a7181;font-size:clamp(12px,1.4vw,17px);font-weight:900}
+.teacher-mini,.fullscreen-mini{
+  position:absolute;bottom:12px;padding:6px 9px;border:2px solid #9bd9eb;border-radius:12px;
+  background:rgba(255,255,255,.86);color:#2f6479;font-size:13px;font-weight:900;
+}
+.teacher-mini{right:14px}.fullscreen-mini{left:14px}
+
+.game-group{
+  position:absolute;left:50%;top:13.5%;transform:translateX(-50%);z-index:8;
+  padding:5px 13px;border:2px solid rgba(255,255,255,.95);border-radius:999px;
+  background:rgba(255,255,255,.72);color:#0b5d7f;font-size:clamp(13px,1.45vw,18px);font-weight:1000;
+  box-shadow:0 6px 14px rgba(0,45,65,.11);backdrop-filter:blur(5px)
+}
+.progress-wrap{
+  position:absolute;left:50%;top:18%;transform:translateX(-50%);z-index:8;
+  width:min(370px,38vw);display:flex;align-items:center;gap:8px
+}
+.progress-line{flex:1;height:7px;background:rgba(255,255,255,.42);border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#ffe36b,#fff);border-radius:999px;transition:width .35s ease}
+.progress-dots{display:flex;gap:5px}
+.progress-dot{width:13px;height:13px;border-radius:50%;border:2px solid #fff;background:rgba(5,85,112,.25)}
+.progress-dot.done{background:#ffe36b;transform:scale(1.12)}.progress-dot.current{background:#fff;box-shadow:0 0 10px rgba(255,255,255,.8)}
+
+.fish{animation:swimBob 2.7s ease-in-out infinite}
+.fish.f2{animation-delay:-.8s}.fish.f3{animation-delay:-1.5s}
+.fish.dragging{animation:none!important}
+@keyframes swimBob{0%,100%{margin-top:0}50%{margin-top:-9px}}
+.answer-tag{
+  position:absolute;left:50%;top:-21px;transform:translateX(-50%);
+  padding:4px 9px;border:2px solid #c9eef9;border-radius:999px;
+  background:#fff;color:#3b6f81;font-size:12px;font-weight:1000;box-shadow:0 5px 10px rgba(0,45,65,.12)
+}
+
+/* Redesain jaring menjadi target yang lebih jelas untuk IFP */
+.net{
+  width:min(430px,45vw);height:200px;position:absolute;z-index:7;
+}
+.net .netIcon{display:none}
+.net:before{
+  content:"";position:absolute;left:10%;right:10%;top:2%;bottom:22%;border-radius:50%;
+  border:5px solid rgba(255,255,255,.82);
+  background:
+    linear-gradient(45deg,transparent 46%,rgba(255,255,255,.37) 47% 49%,transparent 50%) 0 0/24px 24px,
+    linear-gradient(-45deg,transparent 46%,rgba(255,255,255,.34) 47% 49%,transparent 50%) 0 0/24px 24px,
+    rgba(13,91,116,.27);
+  box-shadow:0 20px 27px rgba(0,39,60,.18),inset 0 0 26px rgba(255,255,255,.12)
+}
+.net .netLabel{position:absolute;left:50%;bottom:0;transform:translateX(-50%);white-space:nowrap;z-index:2}
+.net.hot{animation:netHot .65s ease}
+@keyframes netHot{
+  20%{filter:drop-shadow(0 0 16px #ffe76a);transform:translateX(-50%) rotate(-3deg) scale(1.05)}
+  40%{transform:translateX(-50%) rotate(3deg) scale(1.08)}
+  60%{transform:translateX(-50%) rotate(-2deg) scale(1.04)}
+}
+
+.play-tools{position:absolute;left:2vw;bottom:2vh;z-index:9;display:flex;gap:7px}
+.mini-tool{border:3px solid rgba(255,255,255,.9);border-radius:13px;padding:7px 10px;background:rgba(14,71,93,.48);color:#fff;font-size:13px;font-weight:1000;backdrop-filter:blur(4px)}
+
+.score-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 16px}
+.summary-card{padding:12px;border:3px solid #c1eafa;border-radius:18px;background:#f4fcff;text-align:center}
+.summary-card small{display:block;color:#698794;font-size:13px;font-weight:900}
+.summary-card strong{display:block;margin-top:2px;color:#0b668b;font-size:clamp(24px,3vw,36px);font-weight:1000}
+.summary-card em{display:block;color:#5e7e8b;font-size:12px;font-style:normal;font-weight:800}
+.score-table tbody tr:first-child{background:linear-gradient(90deg,#fff7c7,#fffdf1)!important}
+.teacher-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}
+.teacher-stat{padding:14px;border:3px solid #c2ebfa;border-radius:18px;background:#f2fbfe;text-align:left}
+.teacher-stat span{display:block;color:#678594;font-size:13px;font-weight:900}
+.teacher-stat strong{display:block;color:#0b668b;font-size:27px}
+.teacher-note{font-size:14px!important;color:#668493!important;margin-bottom:13px!important}
+
+@media(max-width:700px){
+  .culture-strip{width:65vw;top:1.2%}.game-group{top:16%}.progress-wrap{top:21%;width:50vw}
+  .score-summary{grid-template-columns:1fr 1fr}.net{width:68vw}
+}
+@media(max-width:520px){
+  .progress-wrap{width:66vw}.score-summary{grid-template-columns:1fr}
+  .fullscreen-mini,.teacher-mini{font-size:11px;padding:5px 7px}
+  .net{width:75vw}
+}
+</style>
 </head>
 <body>
 <div id="app">
-<div class="sun"></div><div class="cloud ca"></div><div class="cloud cb"></div><div class="cloud cc"></div>
+<div class="culture-strip" aria-hidden="true"></div><div class="sun"></div><div class="cloud ca"></div><div class="cloud cb"></div><div class="cloud cc"></div>
 <div class="wave w1"></div><div class="wave w2"></div><div class="wave w3"></div>
 <div class="boat a"><div class="hull"></div><div class="rim"></div><div class="mast"></div><div class="sail"></div><div class="flag"></div></div>
 <div class="boat b"><div class="hull"></div><div class="rim"></div><div class="mast"></div><div class="sail"></div><div class="flag"></div></div>
@@ -92,6 +205,12 @@ button{cursor:pointer}
 <div class="card">
 <h1 class="home-title">🐟 Nelayan Selat Madura 🐟</h1>
 <div class="sub">Petualangan Perkalian Pecahan</div>
+   <div class="culture-badge">🌊 PESISIR MADURA • MISI MENANGKAP IKAN</div>
+   <div class="home-extra">
+     <span class="home-chip">🎯 5 ronde</span>
+     <span class="home-chip">⏱️ Catat waktu</span>
+     <span class="home-chip">📱 Siap IFP</span>
+   </div>
 <div class="instructions">
 <h2>📋 Petunjuk Pengerjaan</h2>
 <p>1. Masukkan nama kelompok sebelum mulai bermain.</p>
@@ -108,6 +227,8 @@ button{cursor:pointer}
 <button id="startBtn" class="btn green" type="button">▶ Mulai Bermain</button>
 <button id="homeScoreBtn" class="btn gold" type="button">🏆 Papan Skor</button>
 </div>
+<button id="homeFullscreenBtn" class="fullscreen-mini" type="button">⛶ Layar Penuh</button>
+<button id="teacherBtn" class="teacher-mini" type="button">⚙ Mode Guru</button>
 </div>
 </section>
 
@@ -115,6 +236,11 @@ button{cursor:pointer}
 <div class="top">
 <div class="metric"><small>SKOR</small><strong id="score">0</strong></div>
 <div class="badge">🐟 NELAYAN SELAT MADURA 🐟</div>
+<div class="game-group" id="gameGroup">👥 Kelompok</div>
+<div class="progress-wrap" aria-label="Progres 5 ronde">
+  <div class="progress-line"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-dots" id="progressDots"></div>
+</div>
 <div class="playRight"><div class="metric timer"><small>WAKTU</small><strong id="timer">00:00</strong></div><button id="playHomeBtn" class="btn gray" type="button">⌂ Beranda</button></div>
 </div>
 <div class="question"><div class="caption">Tarik ikan dengan jawaban yang benar ke jaring!</div><div id="q" class="q"></div><div class="tip">Pembilang × pembilang dan penyebut × penyebut.</div></div>
@@ -122,19 +248,42 @@ button{cursor:pointer}
 <div class="net"><div id="net" class="netIcon">🕸️</div><div class="netLabel">LETAKKAN IKAN DI SINI</div></div>
 <div id="round" class="round">Ronde 1 dari 5</div>
 <div id="toast" class="toast"></div>
+<div class="play-tools">
+  <button class="mini-tool" id="soundBtn" type="button">🔊 Suara</button>
+  <button class="mini-tool" id="playFullscreenBtn" type="button">⛶ Fullscreen</button>
+</div>
 </section>
 
 <section id="scores" class="screen hidden">
 <div class="scorePanel">
 <h2 class="scoreTitle">🏆 Papan Skor Kelompok</h2>
 <div class="scoreSub">Urutan: jawaban benar terbanyak, lalu waktu tercepat.</div>
-<div class="actions" style="margin:15px 0"><button id="scoreHomeBtn" class="btn gray" type="button">⌂ Kembali ke Beranda</button><button id="winnerBtn" class="btn gold" type="button">👑 Tampilkan Pemenang</button><button id="clearBtn" class="btn red" type="button">🗑 Hapus Nilai</button></div>
+<div class="actions" style="margin:15px 0"><button id="scoreHomeBtn" class="btn gray" type="button">⌂ Kembali ke Beranda</button><button id="winnerBtn" class="btn gold" type="button">👑 Tampilkan Pemenang</button><button id="clearBtn" class="btn red" type="button">🗑 Hapus Nilai</button>
+<button id="scoreFullscreenBtn" class="btn gray" type="button">⛶ Fullscreen</button></div>
 <div class="tableWrap"><table class="table"><thead><tr><th>Peringkat</th><th>Kelompok</th><th>Benar</th><th>Waktu</th><th>Tanggal</th></tr></thead><tbody id="scoreBody"></tbody></table></div>
 <div id="winnerBox" class="winnerBox hidden"><h3>👑 Kelompok Pemenang</h3><p id="winnerText"></p></div>
 </div>
 </section>
 
-<div id="finishModal" class="modalBg hidden">
+
+<div id="teacherModal" class="modalBg hidden">
+  <div class="modal">
+    <div class="modalIcon">⚙️</div>
+    <h2>Mode Guru</h2>
+    <p class="teacher-note">Ringkasan cepat untuk memantau permainan kelompok di kelas.</p>
+    <div class="teacher-grid">
+      <div class="teacher-stat"><span>Jumlah permainan</span><strong id="teacherGames">0</strong></div>
+      <div class="teacher-stat"><span>Jawaban tertinggi</span><strong id="teacherBest">0/5</strong></div>
+      <div class="teacher-stat"><span>Waktu pada skor tertinggi</span><strong id="teacherTime">00:00</strong></div>
+      <div class="teacher-stat"><span>Penyimpanan</span><strong>Browser</strong></div>
+    </div>
+    <div class="modalActions">
+      <button id="teacherGoScores" class="btn gold" type="button">🏆 Papan Skor</button>
+      <button id="teacherFull" class="btn gray" type="button">⛶ Fullscreen</button>
+      <button id="teacherClose" class="btn gray" type="button">Tutup</button>
+    </div>
+  </div>
+</div><div id="finishModal" class="modalBg hidden">
 <div class="modal"><div class="modalIcon">🎉</div><h2>Permainan Berakhir!</h2><p id="finishMsg"></p><div class="stats"><div class="stat"><span>Jawaban Benar</span><strong id="finishScore">0/5</strong></div><div class="stat"><span>Total Waktu</span><strong id="finishTime">00:00</strong></div></div><div class="modalActions"><button id="finishScoreBtn" class="btn gold" type="button">🏆 Papan Skor</button><button id="finishHomeBtn" class="btn gray" type="button">⌂ Beranda</button></div></div>
 </div>
 
@@ -262,5 +411,113 @@ nameInput.addEventListener("keydown",function(e){if(e.key==="Enter")begin()});
 showScreen(home);
 })();
 </script>
-</body>
+
+<script>
+(function(){
+  "use strict";
+  const app=document.getElementById("app"), home=document.getElementById("home"), play=document.getElementById("play"), scores=document.getElementById("scores");
+  const teacherModal=document.getElementById("teacherModal"), finishModal=document.getElementById("finishModal");
+  const groupInput=document.getElementById("groupName"), groupLabel=document.getElementById("gameGroup");
+  const progressDots=document.getElementById("progressDots"), progressFill=document.getElementById("progressFill");
+  const STORAGE="nelayanSelatMaduraScoreboardV3";
+
+  function on(id,fn){const e=document.getElementById(id);if(e)e.addEventListener("click",fn)}
+  function fullscreen(){
+    if(!document.fullscreenElement){if(app.requestFullscreen)app.requestFullscreen().catch(()=>{})}
+    else if(document.exitFullscreen)document.exitFullscreen().catch(()=>{})
+  }
+  on("homeFullscreenBtn",fullscreen);on("playFullscreenBtn",fullscreen);on("scoreFullscreenBtn",fullscreen);on("teacherFull",fullscreen);
+
+  function updateGroup(){if(groupLabel)groupLabel.textContent="👥 "+((groupInput&&groupInput.value.trim())||"Kelompok")}
+  if(groupInput)groupInput.addEventListener("input",updateGroup);
+  updateGroup();
+
+  function buildProgress(){
+    if(!progressDots)return;
+    progressDots.innerHTML="";
+    for(let i=0;i<5;i++){const d=document.createElement("span");d.className="progress-dot";progressDots.appendChild(d)}
+  }
+  function updateProgress(){
+    const rEl=document.getElementById("round"),txt=rEl?rEl.textContent:"Ronde 1 dari 5",m=txt.match(/(\d+)\s+dari\s+5/),r=m?Number(m[1]):1;
+    Array.from(document.querySelectorAll(".progress-dot")).forEach((d,i)=>{d.classList.toggle("done",i<r-1);d.classList.toggle("current",i===r-1)});
+    if(progressFill)progressFill.style.width=(r<=1?0:Math.min(100,((r-1)/4)*100))+"%";
+  }
+  buildProgress();setInterval(updateProgress,220);
+
+  /* Audio sintetis: tidak membutuhkan file eksternal. */
+  let ctx=null,musicTimer=null,musicEnabled=true,step=0;
+  const notes=[261.63,329.63,392,329.63,293.66,349.23,440,349.23];
+  function audio(){if(!ctx)ctx=new(window.AudioContext||window.webkitAudioContext)();if(ctx.state==="suspended")ctx.resume().catch(()=>{})}
+  function tone(f,d=.15,v=.025,type="sine",delay=0){
+    if(!ctx||!musicEnabled)return;
+    const o=ctx.createOscillator(),g=ctx.createGain(),t=ctx.currentTime+delay;
+    o.type=type;o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+    o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+d+.03)
+  }
+  function startMusic(){audio();if(musicTimer||!musicEnabled)return;musicTimer=setInterval(()=>{tone(notes[step++%notes.length],.30,.016,"triangle")},540)}
+  function stopMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null}}
+  function successSound(){audio();tone(523.25,.10,.04);tone(659.25,.11,.035,"sine",.07);tone(783.99,.18,.04,"sine",.14)}
+  function wrongSound(){audio();tone(196,.15,.014,"sawtooth");tone(164.81,.17,.012,"sawtooth",.08)}
+  function finishSound(){audio();[523.25,659.25,783.99,1046.5].forEach((f,i)=>tone(f,.22,.035,"triangle",i*.10))}
+  const sound=document.getElementById("soundBtn");
+  function refreshSound(){if(sound)sound.textContent=musicEnabled?"🔊 Suara":"🔇 Suara"}
+  on("soundBtn",function(){musicEnabled=!musicEnabled;refreshSound();if(musicEnabled)startMusic();else stopMusic()});refreshSound();
+  on("startBtn",function(){audio();startMusic();updateGroup()});
+  on("playHomeBtn",stopMusic);on("finishHomeBtn",stopMusic);on("finishScoreBtn",stopMusic);
+
+  const toast=document.getElementById("toast");
+  if(toast){
+    new MutationObserver(()=>{
+      if(toast.classList.contains("show")){
+        if(toast.classList.contains("goodToast"))successSound();
+        if(toast.classList.contains("badToast"))wrongSound();
+      }
+    }).observe(toast,{attributes:true,attributeFilter:["class"]});
+  }
+  if(finishModal){
+    new MutationObserver(()=>{if(!finishModal.classList.contains("hidden"))finishSound()}).observe(finishModal,{attributes:true,attributeFilter:["class"]});
+  }
+
+  function read(){
+    try{const x=JSON.parse(localStorage.getItem(STORAGE)||"[]");return Array.isArray(x)?x:[]}catch(e){return[]}
+  }
+  function fmt(ms){const s=Math.max(0,Math.floor(ms/1000)),m=Math.floor(s/60),sec=s%60;return String(m).padStart(2,"0")+":"+String(sec).padStart(2,"0")}
+  function ranked(){return read().slice().sort((a,b)=>b.score-a.score||a.timeMs-b.timeMs)}
+  function renderSummary(){
+    const box=document.getElementById("scoreSummary");if(!box)return;
+    const list=ranked(),best=list[0];
+    box.innerHTML=[
+      ["Kelompok bermain",list.length,"total"],
+      ["Jawaban tertinggi",best?best.score+"/5":"0/5","prioritas utama"],
+      ["Waktu pada skor tertinggi",best?fmt(best.timeMs):"00:00","penentu kedua"]
+    ].map(x=>'<div class="summary-card"><small>'+x[0]+'</small><strong>'+x[1]+'</strong><em>'+x[2]+'</em></div>').join("");
+  }
+  function teacherStats(){
+    const list=ranked(),best=list[0];
+    const g=document.getElementById("teacherGames"),b=document.getElementById("teacherBest"),t=document.getElementById("teacherTime");
+    if(g)g.textContent=list.length;if(b)b.textContent=best?best.score+"/5":"0/5";if(t)t.textContent=best?fmt(best.timeMs):"00:00";
+  }
+  on("teacherBtn",function(){teacherStats();teacherModal.classList.remove("hidden")});
+  on("teacherClose",function(){teacherModal.classList.add("hidden")});
+  on("teacherGoScores",function(){teacherModal.classList.add("hidden");const b=document.getElementById("homeScoreBtn");if(b)b.click();setTimeout(renderSummary,50)});
+  on("homeScoreBtn",function(){setTimeout(renderSummary,80)});
+  on("finishScoreBtn",function(){setTimeout(renderSummary,80)});
+  on("winnerBtn",function(){setTimeout(renderSummary,80)});
+  on("clearBtn",function(){setTimeout(renderSummary,80)});
+  setInterval(()=>{if(scores&&!scores.classList.contains("hidden"))renderSummary()},800);
+
+  /* Tambahkan label pilihan A/B/C ke setiap ikan setelah dibuat. */
+  const mo=new MutationObserver(()=>{
+    document.querySelectorAll("#fishField .fish").forEach((f,i)=>{
+      if(!f.querySelector(".answer-tag")){
+        const tag=document.createElement("span");tag.className="answer-tag";tag.textContent="Pilihan "+String.fromCharCode(65+i);f.appendChild(tag)
+      }
+    })
+  });
+  const ff=document.getElementById("fishField");if(ff)mo.observe(ff,{childList:true});
+
+  /* Saat kembali ke beranda, hentikan musik agar sesi kelompok baru bersih. */
+  on("scoreHomeBtn",function(){stopMusic()});
+})();
+</script></body>
 </html>
