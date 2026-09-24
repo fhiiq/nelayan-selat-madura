@@ -232,17 +232,32 @@ function winner(){
  document.getElementById("winnerModalText").innerHTML=(same.length>1?"Hasil terbaik sama:<br>":"")+"<strong>"+names+"</strong><br>"+w.score+"/5 benar | "+fmt(w.time);
  document.getElementById("winnerBox").classList.remove("hidden");winnerModal.classList.remove("hidden")
 }
-document.getElementById("startBtn").onclick=begin;
-document.getElementById("homeScoreBtn").onclick=scoreView;
-document.getElementById("playHomeBtn").onclick=homeView;
-document.getElementById("scoreHomeBtn").onclick=homeView;
-document.getElementById("finishHomeBtn").onclick=homeView;
-document.getElementById("finishScoreBtn").onclick=scoreView;
-document.getElementById("winnerBtn").onclick=winner;
-document.getElementById("closeWinner").onclick=function(){winnerModal.classList.add("hidden")};
-document.getElementById("clearBtn").onclick=function(){clearModal.classList.remove("hidden")};
-document.getElementById("cancelClear").onclick=function(){clearModal.classList.add("hidden")};
-document.getElementById("confirmClear").onclick=function(){localStorage.removeItem(KEY);clearModal.classList.add("hidden");renderScores()};
+function bindButton(id,fn){
+ var el=document.getElementById(id);
+ if(!el)return;
+ var last=0;
+ function run(e){
+  var now=Date.now();
+  if(now-last<250)return;
+  last=now;
+  if(e && (e.type==="touchend" || e.type==="pointerup")) e.preventDefault();
+  fn();
+ }
+ el.addEventListener("click",run);
+ if(window.PointerEvent) el.addEventListener("pointerup",run,{passive:false});
+ else el.addEventListener("touchend",run,{passive:false});
+}
+bindButton("startBtn",begin);
+bindButton("homeScoreBtn",scoreView);
+bindButton("playHomeBtn",homeView);
+bindButton("scoreHomeBtn",homeView);
+bindButton("finishHomeBtn",homeView);
+bindButton("finishScoreBtn",scoreView);
+bindButton("winnerBtn",winner);
+bindButton("closeWinner",function(){winnerModal.classList.add("hidden")});
+bindButton("clearBtn",function(){clearModal.classList.remove("hidden")});
+bindButton("cancelClear",function(){clearModal.classList.add("hidden")});
+bindButton("confirmClear",function(){localStorage.removeItem(KEY);clearModal.classList.add("hidden");renderScores()});
 nameInput.addEventListener("keydown",function(e){if(e.key==="Enter")begin()});
 showScreen(home);
 })();
