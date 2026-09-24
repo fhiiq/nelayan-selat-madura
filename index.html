@@ -193,7 +193,319 @@ button:focus-visible,input:focus-visible{outline:4px solid rgba(255,216,80,.85);
   .net{width:75vw}
 }
 </style>
-</head>
+
+<style id="final-layout-polish">
+/* =========================================================
+   FINAL LAYOUT POLISH — IFP 16:9 / LAPTOP
+   Fokus: hierarchy, spacing, touch target, readability
+   ========================================================= */
+html,body{width:100%;height:100%;overflow:hidden}
+body{background:#078fbe}
+
+#app{
+  min-height:100svh;
+  height:100svh;
+  overflow:hidden;
+  isolation:isolate;
+}
+#app::before{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:40%;
+  z-index:1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 10% 30%,rgba(255,255,255,.10) 0 3px,transparent 4px) 0 0/180px 130px,
+    radial-gradient(circle at 80% 55%,rgba(255,255,255,.08) 0 4px,transparent 5px) 0 0/220px 150px;
+}
+
+/* ---------------- BERANDA ---------------- */
+.home-card{
+  top:50%;
+  width:min(1040px,88vw);
+  min-height:min(650px,86vh);
+  max-height:86vh;
+  padding:28px 42px 42px;
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(290px,.75fr);
+  grid-template-rows:auto auto auto 1fr auto auto;
+  column-gap:34px;
+  align-content:center;
+  border:7px solid rgba(255,255,255,.98);
+  border-radius:34px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.985),rgba(238,251,255,.97));
+  box-shadow:
+    0 34px 75px rgba(0,42,65,.30),
+    inset 0 0 0 2px rgba(75,192,229,.12);
+}
+.home-card::before{
+  content:"";
+  position:absolute;
+  left:28px;right:28px;top:11px;
+  height:8px;border-radius:999px;
+  background:linear-gradient(90deg,#c92f29,#f6e9db,#c92f29,#f6e9db,#c92f29);
+  opacity:.78;
+}
+.home-title{
+  grid-column:1 / -1;
+  margin:0;
+  font-size:clamp(38px,4.7vw,64px);
+  letter-spacing:-1.8px;
+  line-height:.98;
+  text-align:center;
+}
+.sub{
+  grid-column:1 / -1;
+  margin:7px 0 8px;
+  font-size:clamp(17px,1.8vw,24px);
+}
+.culture-badge{
+  grid-column:1 / -1;
+  justify-self:center;
+  margin-bottom:8px;
+}
+.home-extra{
+  grid-column:1 / -1;
+  margin:0 0 15px;
+}
+.instructions{
+  grid-column:1;
+  grid-row:5;
+  align-self:center;
+  margin:0;
+  padding:17px 19px;
+  border-radius:20px;
+}
+.instructions h2{margin-bottom:7px}
+.instructions p{
+  margin:5px 0;
+  line-height:1.28;
+  font-size:clamp(15px,1.55vw,20px);
+}
+.label{
+  grid-column:2;
+  grid-row:5;
+  align-self:end;
+  margin:0 0 6px;
+}
+#groupName{
+  grid-column:2;
+  grid-row:5;
+  align-self:center;
+  margin:0;
+  transform:translateY(24px);
+}
+#error{
+  grid-column:2;
+  grid-row:6;
+  align-self:start;
+  min-height:22px;
+  margin:5px 0 4px;
+}
+.home-actions{
+  grid-column:2;
+  grid-row:6;
+  align-self:end;
+  justify-content:center;
+  gap:9px;
+  transform:translateY(40px);
+}
+.home-actions .btn{
+  min-width:0;
+  padding:11px 18px;
+}
+.fullscreen-mini,.teacher-mini{
+  bottom:11px;
+  font-size:12px;
+  opacity:.92;
+}
+.fullscreen-mini{left:14px}.teacher-mini{right:14px}
+
+/* ---------------- GAME HUD ---------------- */
+.play-screen .top{
+  position:relative;
+  z-index:9;
+  height:76px;
+  margin-top:14px;
+  width:min(1180px,94vw);
+  grid-template-columns:150px 1fr auto;
+}
+.play-screen .metric{min-width:125px}
+.play-screen .badge{
+  font-size:clamp(23px,3vw,39px);
+  line-height:1;
+}
+.play-screen .game-group{
+  top:82px;
+  left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap;
+}
+.play-screen .progress-wrap{
+  top:114px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(330px,34vw);
+}
+.play-screen .question{
+  width:min(920px,82vw);
+  margin:62px auto 0;
+  min-height:126px;
+  padding:15px 28px 17px;
+  border-width:7px;
+  border-radius:23px;
+}
+.play-screen .question .caption{
+  font-size:clamp(16px,1.7vw,22px);
+}
+.play-screen .q{
+  min-height:52px;
+  font-size:clamp(31px,3.8vw,50px);
+}
+.play-screen .tip{
+  font-size:clamp(12px,1.25vw,16px);
+}
+.play-screen .fishField{
+  top:40.5%;
+  bottom:24%;
+  left:3.5vw;
+  right:3.5vw;
+}
+.play-screen .fish{
+  width:clamp(170px,18vw,225px);
+  min-height:136px;
+  padding:11px 17px 11px 10px;
+  border-width:5px;
+}
+.play-screen .femoji{font-size:clamp(48px,5vw,68px)}
+.play-screen .ans{
+  min-width:70px;
+  padding:8px 10px;
+  font-size:clamp(24px,2.8vw,39px);
+}
+.play-screen .f1{left:3%;top:41%}
+.play-screen .f2{left:50%;top:3%;transform:translateX(-50%) rotate(2deg)}
+.play-screen .f3{right:3%;top:41%}
+
+.play-screen .net{
+  width:min(460px,48vw);
+  height:205px;
+  bottom:1.8%;
+}
+.play-screen .net::before{
+  left:8%;right:8%;top:0;bottom:23%;
+  border-width:5px;
+}
+.play-screen .net .netLabel{
+  font-size:clamp(17px,1.8vw,23px);
+  padding:9px 16px;
+}
+.play-tools{bottom:2.1vh;left:1.7vw}
+.round{right:1.7vw;bottom:2.1vh}
+
+/* ---------------- SCOREBOARD ---------------- */
+.scorePanel{
+  width:min(1120px,92vw);
+  max-height:88vh;
+  padding:26px 34px 31px;
+}
+.scoreTitle{font-size:clamp(31px,4.3vw,53px);line-height:1}
+.scoreSub{margin:7px 0 15px}
+.score-summary{gap:12px;margin:13px 0 15px}
+.summary-card{padding:12px 10px}
+.table th{padding:13px 11px}
+.table td{padding:12px 11px}
+.scorePanel .actions{gap:9px}
+.scorePanel .actions .btn{padding:10px 15px}
+
+/* ---------------- MODALS ---------------- */
+.modal{
+  width:min(680px,90vw);
+  border-radius:28px;
+  padding:26px 28px;
+}
+.modal h2{line-height:1.05}
+.stats{gap:12px}
+.stat{padding:13px}
+
+/* ---------------- DESKTOP / IFP HEIGHT TUNING ---------------- */
+@media (min-width:901px) and (min-height:700px){
+  .home-card{min-height:610px;max-height:82vh}
+  .home-title{font-size:clamp(40px,4.3vw,60px)}
+  .instructions p{font-size:clamp(15px,1.42vw,19px)}
+  .play-screen .question{margin-top:67px}
+  .play-screen .fishField{top:41%}
+}
+@media (min-width:1200px) and (min-height:720px){
+  .play-screen .fishField{top:40.5%;bottom:24.5%}
+}
+
+/* ---------------- TABLET / NARROW ---------------- */
+@media(max-width:900px){
+  .home-card{
+    width:92vw;
+    min-height:auto;
+    max-height:90vh;
+    padding:25px 26px 36px;
+    display:block;
+  }
+  .home-title{font-size:clamp(34px,6vw,56px)}
+  .instructions{margin-bottom:17px}
+  .label{margin:0 auto 7px;text-align:left;max-width:620px}
+  #groupName{transform:none;margin:0 auto 7px}
+  #error{margin:0 auto 5px}
+  .home-actions{transform:none}
+  .play-screen .top{
+    height:72px;
+    width:94vw;
+  }
+  .play-screen .game-group{top:78px}
+  .play-screen .progress-wrap{top:108px;width:42vw}
+  .play-screen .question{margin-top:58px;width:89vw}
+}
+@media(max-width:700px){
+  .culture-strip{display:none}
+  .home-extra{gap:6px}
+  .home-chip{padding:6px 9px}
+  .play-screen .top{
+    grid-template-columns:90px 1fr auto;
+    gap:6px;
+  }
+  .play-screen .badge{font-size:clamp(18px,4vw,28px)}
+  .play-screen .playRight{gap:5px}
+  .play-screen .metric{min-width:95px}
+  .play-screen .metric strong{font-size:30px}
+  .play-screen .question{margin-top:54px}
+  .play-screen .fishField{top:43%;bottom:27%}
+  .play-screen .fish{width:128px;min-height:108px}
+  .play-screen .f1{left:-1%;top:42%}
+  .play-screen .f2{top:0}
+  .play-screen .f3{right:-1%;top:43%}
+  .play-screen .net{width:73vw;height:165px}
+  .play-screen .net .netLabel{font-size:16px}
+  .play-tools{bottom:1.6vh}
+}
+@media(max-width:520px){
+  .home-card{padding:20px 18px 32px}
+  .home-title{font-size:33px}
+  .instructions p{font-size:15px}
+  .instructions h2{font-size:22px}
+  .home-chip{font-size:12px}
+}
+
+/* ---------------- TOUCH / REDUCED MOTION ---------------- */
+.btn,.mini-tool,.fullscreen-mini,.teacher-mini{min-height:44px}
+@media(pointer:coarse){
+  .fish{cursor:grab}
+  .fish-answer{min-width:76px}
+  .btn{padding-top:13px;padding-bottom:13px}
+}
+@media(prefers-reduced-motion:reduce){
+  .fish,.net{animation:none!important}
+}
+</style></head>
 <body>
 <div id="app">
 <div class="culture-strip" aria-hidden="true"></div><div class="sun"></div><div class="cloud ca"></div><div class="cloud cb"></div><div class="cloud cc"></div>
@@ -245,7 +557,7 @@ button:focus-visible,input:focus-visible{outline:4px solid rgba(255,216,80,.85);
 </div>
 <div class="question"><div class="caption">Tarik ikan dengan jawaban yang benar ke jaring!</div><div id="q" class="q"></div><div class="tip">Pembilang × pembilang dan penyebut × penyebut.</div></div>
 <div id="fishField" class="fishField"></div>
-<div class="net"><div id="net" class="netIcon">🕸️</div><div class="netLabel">LETAKKAN IKAN DI SINI</div></div>
+<div class="net"><div id="net" class="netIcon">🕸️</div><div class="netLabel">🎣 JARING NELAYAN</div></div>
 <div id="round" class="round">Ronde 1 dari 5</div>
 <div id="toast" class="toast"></div>
 <div class="play-tools">
