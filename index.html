@@ -745,6 +745,17 @@ body{background:#0875a4}
   #finishModal .result-stats{grid-template-columns:1fr 1fr}
 }
 @media(prefers-reduced-motion:reduce){.boat,.fish{animation:none!important}}
+</style><style id="layout-fix-final">
+/* Final alignment fixes for the active DOM */
+.net .netIcon{display:none}
+.fishField{top:40%;bottom:24%;left:2.8vw;right:2.8vw}
+.net{pointer-events:none}
+.scorePanel .table{min-width:760px}
+.scorePanel .table td:last-child,.scorePanel .table th:last-child{text-align:center}
+@media(max-width:700px){
+  .fishField{top:43%;bottom:27%}
+  .net{width:74vw;height:168px}
+}
 </style></head>
 <body>
 <div id="app">
@@ -815,7 +826,7 @@ body{background:#0875a4}
 </div>
 <div class="question"><div class="caption">Tarik ikan dengan jawaban yang benar ke jaring!</div><div id="q" class="q"></div><div class="tip">Pembilang × pembilang dan penyebut × penyebut.</div></div>
 <div id="fishField" class="fishField"></div>
-<div class="net"><div id="net" class="netIcon">🕸️</div><div class="netLabel">🎣 JARING NELAYAN</div></div>
+<div id="net" class="net"><div class="netIcon" aria-hidden="true">🕸️</div><div class="netLabel">🎣 JARING NELAYAN</div></div>
 <div id="round" class="round">Ronde 1 dari 5</div>
 <div id="toast" class="toast"></div>
 <div class="play-tools">
@@ -975,8 +986,8 @@ function showRoundIntro(cb){
 function startTimer(){clearInterval(timerId);current.start=Date.now();timerId=setInterval(function(){current.time=Date.now()-current.start;timerEl.textContent=fmt(current.time)},250)}
 function end(){current.finished=true;clearInterval(timerId);current.time=Date.now()-current.start;timerEl.textContent=fmt(current.time);save({id:"r"+Date.now()+"_"+Math.random().toString(16).slice(2),group:current.group,score:current.score,time:current.time,date:new Date().toISOString()});document.getElementById("finishGroup").textContent=current.group;document.getElementById("finishMsg").textContent=current.score===5?"Sempurna! Semua ikan tertangkap.":current.score>=3?"Hebat! Hasil tangkapanmu sangat baik.":"Perjalanan selesai. Coba lagi untuk meningkatkan tangkapan.";document.getElementById("finishScore").textContent=current.score+"/5";document.getElementById("finishTime").textContent=fmt(current.time);finishModal.classList.remove("hidden")}
 function begin(){var n=nameInput.value.trim();if(!n){errorEl.textContent="Silakan masukkan nama kelompok terlebih dahulu.";nameInput.focus();return}errorEl.textContent="";current={group:n,score:0,round:0,start:0,time:0,finished:false};scoreEl.textContent="0";timerEl.textContent="00:00";showScreen(play);startTimer();showRoundIntro(function(){questionNew()})}
-function homeView(){clearInterval(timerId);finishModal.classList.add("hidden");clearModal.classList.add("hidden");winnerModal.classList.add("hidden");showScreen(home);fishField.innerHTML="";current.finished=true}
-function scoreView(){clearInterval(timerId);finishModal.classList.add("hidden");clearModal.classList.add("hidden");winnerModal.classList.add("hidden");showScreen(scores);renderScores();document.getElementById("winnerBox").classList.add("hidden")}
+function homeView(){clearInterval(timerId);finishModal.classList.add("hidden");clearModal.classList.add("hidden");winnerModal.classList.add("hidden");document.getElementById("deleteOneModal").classList.add("hidden");document.getElementById("roundOverlay").classList.add("hidden");showScreen(home);fishField.innerHTML="";current.finished=true}
+function scoreView(){clearInterval(timerId);finishModal.classList.add("hidden");clearModal.classList.add("hidden");winnerModal.classList.add("hidden");document.getElementById("deleteOneModal").classList.add("hidden");document.getElementById("roundOverlay").classList.add("hidden");showScreen(scores);renderScores();document.getElementById("winnerBox").classList.add("hidden")}
 function renderScores(){
  var body=document.getElementById("scoreBody"),list=sorted();body.innerHTML="";
  if(!list.length){body.innerHTML='<tr><td colspan="6" class="empty">Belum ada nilai. Selesaikan permainan untuk mengisi papan skor.</td></tr>';return}
